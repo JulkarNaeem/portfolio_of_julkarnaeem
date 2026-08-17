@@ -30,11 +30,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       {/* ─── HERO ─── */}
-      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
-        {/* Subtle Engineering Blueprint Grid Background Accent */}
-        <div className="absolute inset-0 bg-[radial-gradient(#1a1a2e_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-32 lg:py-0 relative z-10">
+      <section className="relative min-h-screen flex items-center bg-[#0a0e17] text-white overflow-hidden pt-20">
+        {/* Cool Blueprint Grid Background Accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(#00f0ff_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.07] pointer-events-none" />
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-24 lg:py-0 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left */}
             <div className="order-2 lg:order-1">
@@ -43,52 +45,39 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-bold font-mono">
                   {content.hero.badge || 'TEKLA STRUCTURAL STEEL DETAILER'}
                 </span>
-                <span className="px-2 py-0.5 bg-charcoal/5 border border-charcoal/10 text-[9px] font-mono text-charcoal uppercase tracking-wider font-semibold">
+                <span className="px-2.5 py-1 bg-white/5 border border-white/10 text-[9px] font-mono text-steel-lighter uppercase tracking-wider font-semibold">
                   AISC & NISD Standard
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold text-charcoal leading-[1.12] tracking-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-white leading-[1.12] tracking-tight mb-6">
                 {content.hero.headlineLine1}
                 <br />
-                <span className="text-steel font-normal">
+                <span className="text-steel-light font-normal">
                   {content.hero.headlineLine2}
                 </span>
                 <br />
-                <span className="relative inline-block">
+                <span className="relative inline-block text-accent">
                   {content.hero.headlineLine3}
                   <span className="absolute bottom-1 left-0 w-full h-[3px] bg-accent/40" />
                 </span>
               </h1>
 
-              <p className="text-base md:text-lg text-steel leading-relaxed max-w-lg mb-6">
+              <p className="text-base md:text-lg text-steel-light leading-relaxed max-w-lg mb-8">
                 {content.hero.subtitle}
               </p>
-
-              {/* Technical Badges Pills */}
-              <div className="flex flex-wrap items-center gap-2 mb-8">
-                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
-                  <CheckCircle size={12} className="text-accent" /> LOD 400 BIM Coordinated
-                </span>
-                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
-                  <CheckCircle size={12} className="text-accent" /> NC & DSTV CNC Output
-                </span>
-                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
-                  <CheckCircle size={12} className="text-accent" /> Zero Field Clash Guarantee
-                </span>
-              </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => handleNav('projects')}
-                  className="btn-clicky group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-accent hover:text-charcoal transition-all duration-300 shadow-md"
+                  className="btn-clicky group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-charcoal font-extrabold text-[12px] uppercase tracking-[0.15em] hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
                 >
                   View Steel Projects
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => handleNav('contact')}
-                  className="btn-clicky inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-charcoal/20 text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:border-accent hover:text-accent transition-all duration-300"
+                  className="btn-clicky inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/20 text-white font-semibold text-[12px] uppercase tracking-[0.15em] hover:border-accent hover:text-accent bg-white/5 backdrop-blur-sm transition-all duration-300"
                 >
                   Request Detailing Quote
                 </button>
@@ -145,18 +134,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── FEATURED PROJECTS ─── */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-[#0a0e17] text-white py-24 lg:py-32 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-14">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Portfolio</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">Portfolio Showcase</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">
                 Featured Steel Projects
               </h2>
             </div>
             <button
               onClick={() => handleNav('projects')}
-              className="group flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-steel font-medium hover:text-charcoal transition-colors"
+              className="group flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-steel-light font-semibold hover:text-accent transition-colors"
             >
               View All Projects
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -204,27 +193,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             ].map((project, i) => (
               <div 
                 key={i} 
-                className="group cursor-pointer" 
+                className="group cursor-pointer bg-[#121824] border border-white/10 p-4 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,240,255,0.12)]" 
                 onClick={() => setSelectedProject(project as ProjectItem)}
               >
-                <div className="overflow-hidden mb-5">
+                <div className="overflow-hidden mb-4 relative bg-black/40 border border-white/5">
                   <img
                     src={project.img}
                     alt={project.title}
                     className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-3 left-3 bg-charcoal/90 border border-accent/30 text-accent font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5">
+                    {project.category}
+                  </div>
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
-                  {project.category}
-                </span>
-                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
+                <h3 className="text-base font-bold text-white mt-1 mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-steel leading-relaxed mb-4">
+                <p className="text-xs text-steel-light leading-relaxed mb-4 line-clamp-2">
                   {project.desc}
                 </p>
-                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-charcoal font-medium group-hover:text-accent transition-colors">
-                  View Project <ArrowRight size={12} />
+                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-accent font-bold group-hover:translate-x-1 transition-transform">
+                  View Specs & Photos <ArrowRight size={12} />
                 </span>
               </div>
             ))}
@@ -233,11 +222,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── WHAT I DELIVER ─── */}
-      <section className="bg-surface py-24 lg:py-32 border-y border-border">
+      <section className="bg-[#0f172a] text-white py-24 lg:py-32 border-y border-white/10 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Deliverables</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">Deliverables Package</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">
               Fabrication-Ready Steel Detailing
             </h2>
           </div>
@@ -245,27 +234,27 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Box size={28} />,
+                icon: <Box size={28} className="text-accent" />,
                 title: 'Tekla BIM Models',
                 desc: 'Accurate, coordinated 3D models built in Tekla Structures with proper material grades, profiles, bolt assemblies, and weld preparations — ready for fabrication extraction.',
               },
               {
-                icon: <FileText size={28} />,
+                icon: <FileText size={28} className="text-accent" />,
                 title: 'Shop Drawings & GA Drawings',
                 desc: 'Clean, organized general arrangement drawings and detailed shop drawings with dimensions, sections, material lists, and fabrication notes — clear enough for any workshop.',
               },
               {
-                icon: <Link2 size={28} />,
+                icon: <Link2 size={28} className="text-accent" />,
                 title: 'Connection Detailing & Construction Clarity',
                 desc: 'Every joint, splice, base plate, and gusset is modeled and detailed with full bolt patterns, weld symbols, and erection marks for seamless fabrication and erection.',
               },
             ].map((item, i) => (
-              <div key={i} className="bg-white p-8 lg:p-10 border border-border hover:border-accent/30 transition-colors group">
-                <div className="w-14 h-14 bg-surface flex items-center justify-center text-charcoal mb-6 group-hover:bg-accent/10 group-hover:text-accent transition-all">
+              <div key={i} className="bg-[#161e2e] p-8 lg:p-10 border border-white/10 hover:border-accent/60 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(0,240,255,0.1)]">
+                <div className="w-14 h-14 bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:bg-accent/10 group-hover:border-accent/40 transition-all">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-charcoal mb-3">{item.title}</h3>
-                <p className="text-sm text-steel leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
+                <p className="text-sm text-steel-light leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -273,18 +262,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── SERVICES SNAPSHOT ─── */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-[#0a0e17] text-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-14">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">What I Do</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
-                Services
+              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">What I Do</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">
+                Specialized Detailing Services
               </h2>
             </div>
             <button
               onClick={() => handleNav('services')}
-              className="group flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-steel font-medium hover:text-charcoal transition-colors"
+              className="group flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-steel-light font-semibold hover:text-accent transition-colors"
             >
               All Services
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -293,23 +282,23 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: <Wrench size={24} />, title: 'Structural Steel Detailing', desc: 'Complete detailing of structural steel members, assemblies, and connections using Tekla Structures.' },
-              { icon: <Building2 size={24} />, title: 'PEB & Industrial Modeling', desc: 'Pre-engineered building frames, portal structures, and industrial steel modeling for fabrication.' },
-              { icon: <ClipboardList size={24} />, title: 'Shop Drawing Production', desc: 'Fabrication-ready shop drawings with dimensions, bolt details, weld symbols, and material lists.' },
-              { icon: <Link2 size={24} />, title: 'Steel Connection Detailing', desc: 'Moment connections, shear connections, base plates, splices, and bracing connections — fully detailed.' },
-              { icon: <BarChart3 size={24} />, title: 'Material Take-Off / Reports', desc: 'Accurate material quantity reports, bolt lists, and assembly summaries extracted from the Tekla model.' },
-              { icon: <Footprints size={24} />, title: 'Stairs, Platforms & Access', desc: 'Steel staircases, walkway platforms, handrails, ladders, and access structures — detailed for fabrication.' },
+              { icon: <Wrench size={24} className="text-accent" />, title: 'Structural Steel Detailing', desc: 'Complete detailing of structural steel members, assemblies, and connections using Tekla Structures.' },
+              { icon: <Building2 size={24} className="text-accent" />, title: 'PEB & Industrial Modeling', desc: 'Pre-engineered building frames, portal structures, and industrial steel modeling for fabrication.' },
+              { icon: <ClipboardList size={24} className="text-accent" />, title: 'Shop Drawing Production', desc: 'Fabrication-ready shop drawings with dimensions, bolt details, weld symbols, and material lists.' },
+              { icon: <Link2 size={24} className="text-accent" />, title: 'Steel Connection Detailing', desc: 'Moment connections, shear connections, base plates, splices, and bracing connections — fully detailed.' },
+              { icon: <BarChart3 size={24} className="text-accent" />, title: 'Material Take-Off / Reports', desc: 'Accurate material quantity reports, bolt lists, and assembly summaries extracted from the Tekla model.' },
+              { icon: <Footprints size={24} className="text-accent" />, title: 'Stairs, Platforms & Access', desc: 'Steel staircases, walkway platforms, handrails, ladders, and access structures — detailed for fabrication.' },
             ].map((svc, i) => (
               <div
                 key={i}
-                className="p-6 lg:p-8 border border-border hover:border-accent/30 bg-white group cursor-pointer transition-all"
+                className="p-6 lg:p-8 border border-white/10 hover:border-accent/60 bg-[#121824] group cursor-pointer transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.1)]"
                 onClick={() => handleNav('services')}
               >
-                <div className="text-steel group-hover:text-accent transition-colors mb-4">
+                <div className="mb-4">
                   {svc.icon}
                 </div>
-                <h3 className="text-base font-semibold text-charcoal mb-2">{svc.title}</h3>
-                <p className="text-sm text-steel leading-relaxed">{svc.desc}</p>
+                <h3 className="text-base font-bold text-white mb-2 group-hover:text-accent transition-colors">{svc.title}</h3>
+                <p className="text-xs text-steel-light leading-relaxed">{svc.desc}</p>
               </div>
             ))}
           </div>
@@ -317,9 +306,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── PROCESS ─── */}
-      <section className="bg-charcoal py-24 lg:py-32 relative overflow-hidden">
+      <section className="bg-[#0f172a] text-white py-24 lg:py-32 relative overflow-hidden border-y border-white/10">
         {/* Subtle grid background */}
-        <div className="absolute inset-0 bg-[radial-gradient(#e8b100_1px,transparent_1px)] [background-size:28px_28px] opacity-[0.05] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#00f0ff_1px,transparent_1px)] [background-size:28px_28px] opacity-[0.05] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
@@ -338,7 +327,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { step: '05', title: 'Fabrication & Erection Support', desc: 'Provide immediate technical support for shop floor and field erection teams' },
             ].map((item, i) => (
               <div key={i} className="text-center group">
-                <div className="text-3xl font-extrabold text-accent/40 font-mono mb-3 group-hover:text-accent transition-colors">
+                <div className="text-3xl font-extrabold text-accent font-mono mb-3 group-hover:scale-110 transition-transform">
                   {item.step}
                 </div>
                 <div className="w-full h-[1px] bg-white/10 mb-4 relative">
@@ -353,25 +342,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── ABOUT SNAPSHOT ─── */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-[#0a0e17] text-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
+            <div className="relative group">
+              <div className="absolute -top-3 -right-3 w-full h-full border-2 border-accent/40 z-0" />
               <img
                 src="/images/about-portrait.jpg"
                 alt="Julkar Naeem - Steel Structure Detailer"
-                className="w-full max-w-md aspect-[3/4] object-cover"
+                className="w-full max-w-md aspect-[3/4] object-cover relative z-10 border border-white/10 shadow-2xl"
               />
             </div>
             <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">About</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 mb-6 tracking-tight">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">About Detailer</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-6 tracking-tight">
                 Julkar Naeem
               </h2>
-              <p className="text-lg text-steel leading-relaxed mb-6">
+              <p className="text-base text-steel-light leading-relaxed mb-6">
                 I am a Steel Structure Detailer specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.
               </p>
-              <p className="text-sm text-steel leading-relaxed mb-8">
+              <p className="text-sm text-steel-light leading-relaxed mb-8">
                 With over 150 successfully delivered steel structure projects — from PEB warehouses to multi-storey buildings, industrial platforms to complex connection details — I bring precision and real-world fabrication understanding to every project.
               </p>
               <div className="space-y-3 mb-8">
@@ -383,13 +373,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle size={16} className="text-accent flex-shrink-0" />
-                    <span className="text-sm text-charcoal font-medium">{item}</span>
+                    <span className="text-sm text-white font-medium">{item}</span>
                   </div>
                 ))}
               </div>
               <button
                 onClick={() => handleNav('about')}
-                className="group inline-flex items-center gap-2 px-7 py-3.5 border border-charcoal text-charcoal text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-charcoal hover:text-white transition-all duration-300"
+                className="btn-clicky group inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-charcoal font-bold text-[12px] uppercase tracking-[0.15em] hover:bg-white transition-all duration-300"
               >
                 About Me
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -400,18 +390,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="bg-surface border-t border-border py-24 lg:py-32">
-        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Let's Work Together</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-3 mb-6 tracking-tight">
+      <section className="bg-[#0f172a] text-white border-t border-white/10 py-24 lg:py-32 relative overflow-hidden">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center relative z-10">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">Let's Work Together</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-6 tracking-tight">
             Need Fabrication-Ready Steel Drawings?
           </h2>
-          <p className="text-lg text-steel leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-base text-steel-light leading-relaxed mb-10 max-w-xl mx-auto">
             Let's turn your structural concept into an accurate Tekla model and clear shop drawing package.
           </p>
           <button
             onClick={() => handleNav('contact')}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300"
+            className="btn-clicky group inline-flex items-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(0,240,255,0.25)]"
           >
             Start a Project
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
