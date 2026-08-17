@@ -45,8 +45,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-charcoal/95 backdrop-blur-md shadow-lg border-b border-white/10'
-          : 'bg-charcoal/90 backdrop-blur-md border-b border-white/10'
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80'
+          : 'bg-white/90 backdrop-blur-md border-b border-slate-200/80'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -57,16 +57,16 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             aria-label={`${navSettings.brandName} Home`}
             className="flex items-center gap-3 group text-left"
           >
-            <div className="w-8 h-8 bg-accent flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-charcoal font-bold text-sm font-mono">
+            <div className="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 shadow-md shadow-emerald-500/20">
+              <span className="text-white font-extrabold text-sm font-mono">
                 {navSettings.brandInitials || 'JN'}
               </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-white font-semibold text-[15px] leading-tight tracking-tight group-hover:text-accent transition-colors">
+              <span className="text-slate-900 font-extrabold text-[15px] leading-tight tracking-tight group-hover:text-emerald-600 transition-colors">
                 {navSettings.brandName}
               </span>
-              <span className="text-steel-lighter text-[10px] uppercase tracking-[0.2em] leading-tight font-medium">
+              <span className="text-slate-500 text-[10px] uppercase tracking-[0.2em] leading-tight font-bold font-mono">
                 {navSettings.brandRole}
               </span>
             </div>
@@ -80,22 +80,22 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <button
                   key={link.page}
                   onClick={() => handleNav(link.page)}
-                  className={`text-[13px] uppercase tracking-[0.12em] font-medium transition-colors duration-200 relative py-1 ${
+                  className={`text-[13px] uppercase tracking-[0.12em] font-bold transition-colors duration-200 relative py-1 ${
                     isActive
-                      ? 'text-accent font-semibold'
-                      : 'text-steel-lighter hover:text-white'
+                      ? 'text-emerald-600 font-extrabold'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="block w-full h-[2px] bg-accent mt-1 transition-all duration-200" />
+                    <span className="block w-full h-[2.5px] bg-emerald-500 mt-1 rounded-full transition-all duration-200" />
                   )}
                 </button>
               );
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="btn-clicky ml-2 px-5 py-2.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-200 shadow-sm"
+              className="btn-clicky ml-2 px-6 py-2.5 bg-emerald-500 text-white text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-emerald-600 transition-all duration-200 rounded-xl shadow-md shadow-emerald-500/20"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>
@@ -105,7 +105,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="md:hidden text-white hover:text-accent p-2 transition-colors"
+            className="md:hidden text-slate-800 hover:text-emerald-600 p-2 transition-colors"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -114,7 +114,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-charcoal border-t border-white/10">
+        <div className="md:hidden bg-white border-t border-slate-200">
           <div className="px-6 py-6 space-y-1">
             {navLinks.map((link) => {
               const isActive = currentPage === link.page;
@@ -122,10 +122,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <button
                   key={link.page}
                   onClick={() => handleNav(link.page)}
-                  className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                  className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.12em] font-bold transition-colors rounded-lg ${
                     isActive
-                      ? 'text-accent bg-white/5 font-semibold'
-                      : 'text-steel-lighter hover:text-white'
+                      ? 'text-emerald-600 bg-emerald-50 font-extrabold'
+                      : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   {link.label}
@@ -134,7 +134,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="btn-clicky mt-4 w-full px-5 py-3 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white transition-all"
+              className="btn-clicky mt-4 w-full px-5 py-3 bg-emerald-500 text-white text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-emerald-600 transition-all rounded-xl shadow-md"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>

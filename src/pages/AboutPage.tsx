@@ -11,55 +11,54 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
   return (
     <>
       {/* Page Header */}
-      <section className="bg-[#0a0e17] text-white pt-32 pb-16 lg:pt-36 lg:pb-20 border-b border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#00f0ff_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.05] pointer-events-none" />
+      <section className="bg-[#f8fafc] text-slate-900 pt-32 pb-16 lg:pt-36 lg:pb-20 border-b border-slate-200/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-mono font-bold">About Detailer</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mt-2 tracking-tight">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-emerald-600 font-mono font-bold">About Detailer</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2 tracking-tight">
             {content.about.name || content.profileName}
           </h1>
-          <p className="text-base md:text-lg text-steel-light mt-4 max-w-2xl">
+          <p className="text-base md:text-lg text-slate-600 mt-4 max-w-2xl">
             {content.about.subtitle}
           </p>
         </div>
       </section>
 
       {/* About Content */}
-      <section className="bg-[#0a0e17] text-white py-16 lg:py-24">
+      <section className="bg-white text-slate-900 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Image */}
             <div className="relative group">
-              <div className="absolute -top-3 -right-3 w-full h-full border-2 border-accent/40 z-0" />
+              <div className="absolute -top-3 -right-3 w-full h-full border-2 border-emerald-500/30 rounded-2xl z-0" />
               <img
                 src="/images/about-portrait.jpg"
                 alt="Julkar Naeem"
-                className="w-full max-w-lg aspect-[3/4] object-cover relative z-10 border border-white/10 shadow-2xl"
+                className="w-full max-w-lg aspect-[3/4] object-cover relative z-10 border border-slate-200/80 shadow-2xl rounded-2xl"
               />
-              <div className="mt-8 flex gap-6 p-4 bg-[#121824] border border-white/10 relative z-10">
+              <div className="mt-8 flex gap-6 p-4 bg-[#f8fafc] border border-slate-200/80 rounded-2xl relative z-10">
                 <div>
-                  <p className="text-3xl font-extrabold text-accent font-mono">1,200+</p>
-                  <p className="text-[10px] uppercase tracking-wider text-steel-light font-mono font-bold">Tons Detailed</p>
+                  <p className="text-3xl font-extrabold text-emerald-600 font-mono">1,200+</p>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono font-bold">Tons Detailed</p>
                 </div>
-                <div className="w-[1px] bg-white/10" />
+                <div className="w-[1px] bg-slate-200" />
                 <div>
-                  <p className="text-3xl font-extrabold text-white font-mono">Tekla 2025</p>
-                  <p className="text-[10px] uppercase tracking-wider text-steel-light font-mono font-bold">BIM Engine</p>
+                  <p className="text-3xl font-extrabold text-slate-900 font-mono">Tekla 2025</p>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono font-bold">BIM Engine</p>
                 </div>
-                <div className="w-[1px] bg-white/10" />
+                <div className="w-[1px] bg-slate-200" />
                 <div>
-                  <p className="text-3xl font-extrabold text-accent font-mono">LOD 400</p>
-                  <p className="text-[10px] uppercase tracking-wider text-steel-light font-mono font-bold">Precision</p>
+                  <p className="text-3xl font-extrabold text-emerald-600 font-mono">LOD 400</p>
+                  <p className="text-[10px] uppercase tracking-wider text-slate-500 font-mono font-bold">Precision</p>
                 </div>
               </div>
             </div>
 
             {/* Text */}
             <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-6 tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
                 Precision in Every Steel Connection
               </h2>
-              <div className="space-y-4 text-steel-light leading-relaxed">
+              <div className="space-y-4 text-slate-600 leading-relaxed">
                 <p>
                   I am Julkar Naeem, a Steel Structure Detailer specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.
                 </p>
@@ -75,8 +74,8 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
               </div>
 
               {/* Skills */}
-              <div className="mt-10 pt-10 border-t border-white/10">
-                <h3 className="text-xs font-mono font-bold text-accent uppercase tracking-wider mb-6">
+              <div className="mt-10 pt-10 border-t border-slate-200/80">
+                <h3 className="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider mb-6">
                   Core Competencies
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -93,16 +92,16 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                     'Multi-storey Framing',
                   ].map((skill, i) => (
                     <div key={i} className="flex items-center gap-2.5">
-                      <CheckCircle size={14} className="text-accent flex-shrink-0" />
-                      <span className="text-xs text-white font-medium">{skill}</span>
+                      <CheckCircle size={14} className="text-emerald-600 flex-shrink-0" />
+                      <span className="text-xs text-slate-800 font-bold">{skill}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Focus Areas */}
-              <div className="mt-10 pt-10 border-t border-white/10">
-                <h3 className="text-xs font-mono font-bold text-accent uppercase tracking-wider mb-6">
+              <div className="mt-10 pt-10 border-t border-slate-200/80">
+                <h3 className="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider mb-6">
                   Project Focus Areas
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -121,7 +120,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                   ].map((area, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1.5 bg-[#121824] border border-white/10 text-[10px] uppercase tracking-wider text-white font-semibold font-mono hover:border-accent/40 transition-colors"
+                      className="px-3 py-1.5 bg-[#f8fafc] border border-slate-200 text-[10px] uppercase tracking-wider text-slate-800 font-semibold font-mono hover:border-emerald-500/40 transition-colors rounded-md"
                     >
                       {area}
                     </span>
@@ -134,23 +133,23 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       </section>
 
       {/* Philosophy */}
-      <section className="bg-[#0f172a] text-white py-20 border-y border-white/10">
+      <section className="bg-slate-900 text-white py-20 border-y border-slate-800">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <span className="text-accent text-4xl font-serif">"</span>
+          <span className="text-emerald-400 text-4xl font-serif">"</span>
           <p className="text-xl md:text-2xl text-white leading-relaxed font-light mt-2">
             Good steel detailing isn't about making impressive models — it's about making models that fabricators can trust and build from without confusion.
           </p>
-          <p className="text-accent font-mono text-xs mt-6 uppercase tracking-wider font-bold">— Julkar Naeem</p>
+          <p className="text-emerald-400 font-mono text-xs mt-6 uppercase tracking-wider font-bold">— Julkar Naeem</p>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[#0a0e17] text-white py-20">
+      <section className="bg-white text-slate-900 py-20">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4 tracking-tight">
             Let's Work Together
           </h2>
-          <p className="text-steel-light mb-8">
+          <p className="text-slate-600 mb-8">
             Have a project that needs steel detailing? I'd love to discuss how I can help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -159,7 +158,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 onNavigate('contact');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="btn-clicky group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(0,240,255,0.25)]"
+              className="btn-clicky group inline-flex items-center justify-center gap-2 px-9 py-4 bg-emerald-500 text-white text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-emerald-600 transition-all duration-300 rounded-xl shadow-xl shadow-emerald-500/25"
             >
               Contact Me
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -169,7 +168,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 onNavigate('projects');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="btn-clicky group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 text-white font-semibold text-[12px] uppercase tracking-[0.15em] hover:border-accent hover:text-accent bg-white/5 transition-all duration-300"
+              className="btn-clicky group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border-2 border-slate-200 text-slate-800 font-bold text-[12px] uppercase tracking-[0.15em] hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 rounded-xl shadow-xs"
             >
               View Projects
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
