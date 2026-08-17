@@ -19,6 +19,8 @@ import {
   Compass,
   ShieldCheck,
   Sparkles,
+  Save,
+  CheckCircle2,
 } from 'lucide-react';
 import { useCms } from '../../context/CmsContext';
 import { ProjectItem } from '../../types/cms';
@@ -50,6 +52,17 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
   const [jsonInput, setJsonInput] = useState('');
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const [passcodeMsg, setPasscodeMsg] = useState<string | null>(null);
+  const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
+
+  const handleSaveAndApply = () => {
+    // If an inline project edit is active, save it first
+    if (editingProject) {
+      updateProject(editingProject.id, editingProject);
+      setEditingProject(null);
+    }
+    setSaveSuccessMsg('All changes saved & applied to live website!');
+    setTimeout(() => setSaveSuccessMsg(null), 3500);
+  };
 
   // Fallback for NavSettings
   const navSettings = content.navSettings || {
@@ -160,23 +173,44 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
     >
       {/* Top Header Drawer Bar if not embedded */}
       {!embedded && (
-        <div className="px-6 py-5 bg-[#181828] border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#181828] border-b border-white/10 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-accent flex items-center justify-center shadow-lg">
+            <div className="w-9 h-9 bg-accent flex items-center justify-center shadow-lg flex-shrink-0">
               <Sparkles size={18} className="text-charcoal" />
             </div>
             <div>
               <h2 className="text-lg font-bold tracking-tight text-white">Management Dashboard</h2>
-              <p className="text-xs text-steel-lighter">Modify portfolio content, navbar, photos, and settings</p>
+              <p className="text-xs text-steel-lighter hidden sm:block">Modify portfolio content, navbar, photos, and settings</p>
             </div>
           </div>
 
-          <button
-            onClick={() => setIsAdminOpen(false)}
-            aria-label="Close admin dashboard"
-            className="w-8 h-8 bg-white/10 text-white hover:bg-accent hover:text-charcoal flex items-center justify-center transition-colors"
-          >
-            <X size={18} />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleSaveAndApply}
+              className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-charcoal font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg transition-all"
+            >
+              <Save size={15} /> Save & Apply Changes
+            </button>
+            <button
+              onClick={() => setIsAdminOpen(false)}
+              aria-label="Close admin dashboard"
+              className="w-8 h-8 bg-white/10 text-white hover:bg-accent hover:text-charcoal flex items-center justify-center transition-colors"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING SAVE & APPLY TOAST NOTIFICATION */}
+      {saveSuccessMsg && (
+        <div className="bg-emerald-500 text-charcoal px-6 py-3 border-b border-emerald-400 flex items-center justify-between gap-3 animate-fadeIn font-semibold text-xs uppercase tracking-wider shadow-xl">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 size={18} />
+            <span>{saveSuccessMsg}</span>
+          </div>
+          <button onClick={() => setSaveSuccessMsg(null)} className="hover:opacity-75">
+            <X size={16} />
           </button>
         </div>
       )}
@@ -1078,16 +1112,24 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
       </div>
 
       {/* Bottom Drawer Bar */}
-      <div className="p-4 bg-[#161625] border-t border-white/10 flex items-center justify-between text-xs text-steel-lighter">
-        <span>All edits auto-save to local storage</span>
-        {!embedded && (
+      <div className="p-4 bg-[#161625] border-t border-white/10 flex items-center justify-between gap-3 text-xs text-steel-lighter">
+        <span className="hidden sm:inline">All changes are immediately stored & synchronized locally</span>
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setIsAdminOpen(false)}
-            className="px-5 py-2 bg-accent text-charcoal font-semibold uppercase tracking-wider text-xs hover:bg-white"
+            onClick={handleSaveAndApply}
+            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-charcoal font-bold uppercase tracking-wider text-xs flex items-center gap-1.5 shadow-md transition-all"
           >
-            Done Editing
+            <Save size={14} /> Save & Apply Changes
           </button>
-        )}
+          {!embedded && (
+            <button
+              onClick={() => setIsAdminOpen(false)}
+              className="px-4 py-2 bg-white/10 text-white hover:bg-accent hover:text-charcoal font-semibold uppercase tracking-wider text-xs transition-all"
+            >
+              Done Editing
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
