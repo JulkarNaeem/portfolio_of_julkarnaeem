@@ -10,13 +10,18 @@ import {
   ClipboardList,
   BarChart3,
   Footprints,
+  MapPin,
+  Award,
 } from 'lucide-react';
+import { WhatsAppIcon } from '../components/SocialIcons';
 import ProjectModal, { ProjectItem } from '../components/ProjectModal';
 import { useCms } from '../context/CmsContext';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }
+
+const WA_LINK = 'https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.';
 
 export default function HomePage({ onNavigate }: HomePageProps) {
   const { content } = useCms();
@@ -27,6 +32,9 @@ export default function HomePage({ onNavigate }: HomePageProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Pick 6 featured projects from CMS
+  const featuredProjects = content.projects.slice(0, 6);
+
   return (
     <>
       {/* ─── HERO ─── */}
@@ -35,7 +43,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left */}
             <div className="order-2 lg:order-1">
-              <div className="flex items-center gap-3 mb-6">
+              {/* Location badge */}
+              <div className="flex items-center gap-2 mb-5">
+                <MapPin size={13} className="text-accent" />
+                <span className="text-[11px] uppercase tracking-[0.2em] text-steel font-medium">
+                  Dhaka, Bangladesh · Remote Worldwide
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-[2px] bg-accent" />
                 <span className="text-[11px] uppercase tracking-[0.25em] text-steel font-medium">
                   {content.hero.badge}
@@ -56,11 +72,20 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 {content.hero.subtitle}
               </p>
 
-              <div className="flex items-center gap-2 mb-8">
-                <span className="w-2 h-2 bg-accent rounded-full" />
-                <span className="text-sm font-medium text-charcoal tracking-wide">
-                  {content.hero.projectsCountText}
-                </span>
+              {/* Stats inline */}
+              <div className="flex items-center gap-6 mb-8 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full" />
+                  <span className="text-sm font-medium text-charcoal tracking-wide">150+ Projects</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full" />
+                  <span className="text-sm font-medium text-charcoal tracking-wide">9+ Years</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full" />
+                  <span className="text-sm font-medium text-charcoal tracking-wide">4+ Countries</span>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -71,23 +96,37 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   View Projects
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button
-                  onClick={() => handleNav('contact')}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-charcoal/20 text-charcoal text-[12px] uppercase tracking-[0.15em] font-medium hover:border-accent hover:text-accent transition-all duration-300"
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-[#1ebe5d] transition-all duration-300"
                 >
-                  Contact Me
-                </button>
+                  <WhatsAppIcon size={14} />
+                  Book a Call
+                </a>
+              </div>
+
+              {/* Certifications mini badges */}
+              <div className="mt-8 flex items-center gap-3 flex-wrap">
+                <span className="text-[10px] uppercase tracking-wider text-steel">Certified:</span>
+                <span className="px-2.5 py-1 border border-[#e8b100] text-[#c89a00] text-[9px] uppercase tracking-wider font-bold">
+                  Tekla Steel Fundamentals
+                </span>
+                <span className="px-2.5 py-1 border border-[#2563eb] text-[#2563eb] text-[9px] uppercase tracking-wider font-bold">
+                  AISC DTS
+                </span>
               </div>
             </div>
 
-            {/* Right - Hero Image */}
+            {/* Right - Hero Image (real Tekla model) */}
             <div className="order-1 lg:order-2">
               <div className="relative">
                 <div className="absolute -top-4 -right-4 w-full h-full border-2 border-accent/20" />
                 <img
-                  src="/images/hero-steel.jpg"
-                  alt="Tekla 3D Steel Structure Model"
-                  className="w-full aspect-[4/3] object-cover relative z-10"
+                  src="/images/Project Photos/Multistoried Building.png"
+                  alt="Tekla 3D Steel Structure Model — Multi-storied Building by Julkar Naeem"
+                  className="w-full aspect-[4/3] object-contain bg-white relative z-10"
                 />
                 <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-4 py-3 border-l-2 border-accent">
                   <p className="text-[10px] uppercase tracking-[0.2em] text-steel">Tekla Structures 2025</p>
@@ -106,18 +145,18 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── TRUST BAR ─── */}
-      <section className="bg-surface border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+      <section className="bg-accent border-y border-accent">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { value: '150+', label: 'Projects Delivered' },
-              { value: 'Tekla', label: 'Structures 2025' },
-              { value: '100%', label: 'Fabrication-Focused' },
-              { value: 'BIM', label: 'Models & Shop Drawings' },
+              { value: '9+',   label: 'Years Experience' },
+              { value: '4+',   label: 'Countries Served' },
+              { value: '2025', label: 'Tekla Version' },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-charcoal mb-1 font-mono">{item.value}</p>
-                <p className="text-[11px] uppercase tracking-[0.15em] text-steel">{item.label}</p>
+                <p className="text-[11px] uppercase tracking-[0.15em] text-charcoal/70">{item.label}</p>
               </div>
             ))}
           </div>
@@ -133,6 +172,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
                 Featured Steel Projects
               </h2>
+              <p className="text-steel text-sm mt-2">Real Tekla BIM models & shop drawings — click any project to explore</p>
             </div>
             <button
               onClick={() => handleNav('projects')}
@@ -144,54 +184,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                img: '/images/project-1.jpg',
-                title: 'Curved Industrial Steel Walkway Platform',
-                category: 'Industrial Platform',
-                desc: 'Full Tekla BIM model with curved steel walkway, handrails, grating, and connection details for an industrial plant.',
-              },
-              {
-                img: '/images/project-2.jpg',
-                title: 'PEB Warehouse Portal Frame',
-                category: 'Pre-Engineered Building',
-                desc: 'Complete portal frame modeling with purlins, bracing, and girts for a 40m span PEB warehouse facility.',
-              },
-              {
-                img: '/images/project-3.jpg',
-                title: 'Industrial Steel Platform & Handrail',
-                category: 'Industrial Steel',
-                desc: 'Multi-level access platform with checkered plate flooring, stairs, and safety handrails for process equipment access.',
-              },
-              {
-                img: '/images/project-4.jpg',
-                title: 'Steel Stair and Guardrail System',
-                category: 'Access Structures',
-                desc: 'Detailed stair stringers, treads, guardrail posts, and mid-rails with fabrication-ready shop drawings.',
-              },
-              {
-                img: '/images/project-5.jpg',
-                title: 'Multi-storey Steel Building Framing',
-                category: 'Structural Steel',
-                desc: 'Full structural steel framing model for a 4-storey commercial building with composite deck connections.',
-              },
-              {
-                img: '/images/project-6.jpg',
-                title: 'Heavy Steel Connection Details',
-                category: 'Connection Design',
-                desc: 'Moment connections, base plates, splice joints, and bracing gussets modeled with full bolt and weld details.',
-              },
-            ].map((project, i) => (
-              <div 
-                key={i} 
-                className="group cursor-pointer" 
+            {featuredProjects.map((project, i) => (
+              <div
+                key={project.id || i}
+                className="group cursor-pointer"
                 onClick={() => setSelectedProject(project as ProjectItem)}
               >
-                <div className="overflow-hidden mb-5">
+                <div className="overflow-hidden mb-5 bg-surface">
                   <img
                     src={project.img}
                     alt={project.title}
-                    className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full aspect-[4/3] object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
@@ -200,9 +203,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-steel leading-relaxed mb-4">
+                <p className="text-sm text-steel leading-relaxed mb-4 line-clamp-2">
                   {project.desc}
                 </p>
+                {project.tonnage && project.tonnage !== '—' && (
+                  <p className="text-[11px] uppercase tracking-wider text-steel mb-3">
+                    Tonnage: <span className="text-charcoal font-semibold">{project.tonnage}</span>
+                  </p>
+                )}
                 <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-charcoal font-medium group-hover:text-accent transition-colors">
                   View Project <ArrowRight size={12} />
                 </span>
@@ -227,7 +235,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {
                 icon: <Box size={28} />,
                 title: 'Tekla BIM Models',
-                desc: 'Accurate, coordinated 3D models built in Tekla Structures with proper material grades, profiles, bolt assemblies, and weld preparations — ready for fabrication extraction.',
+                desc: 'Accurate, coordinated 3D models built in Tekla Structures 2025 with proper material grades, profiles, bolt assemblies, and weld preparations — ready for fabrication extraction.',
               },
               {
                 icon: <FileText size={28} />,
@@ -236,8 +244,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               },
               {
                 icon: <Link2 size={28} />,
-                title: 'Connection Detailing & Construction Clarity',
-                desc: 'Every joint, splice, base plate, and gusset is modeled and detailed with full bolt patterns, weld symbols, and erection marks for seamless fabrication and erection.',
+                title: 'Connection Detailing',
+                desc: 'Every joint, splice, base plate, and gusset detailed with full bolt patterns, weld symbols, and erection marks for seamless fabrication and erection.',
               },
             ].map((item, i) => (
               <div key={i} className="bg-white p-8 lg:p-10 border border-border hover:border-accent/30 transition-colors group">
@@ -333,30 +341,53 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <section className="bg-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <img
-                src="/images/about-portrait.jpg"
-                alt="Julkar Naeem - Steel Structure Detailer"
-                className="w-full max-w-md aspect-[3/4] object-cover"
-              />
+            <div className="relative">
+              <div className="border border-border bg-surface overflow-hidden shadow-md">
+                <img
+                  src="/images/julkar-naeem-working.png"
+                  alt="Julkar Naeem - Steel Structure Detailer at Workstation"
+                  className="w-full aspect-[16/10] object-cover"
+                />
+              </div>
+              {/* Certifications overlay */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="flex items-center gap-2 p-3 border border-border bg-surface">
+                  <Award size={14} className="text-[#e8b100] flex-shrink-0" />
+                  <div>
+                    <p className="text-[9px] uppercase tracking-wider text-steel">Tekla Certified</p>
+                    <p className="text-[10px] font-semibold text-charcoal">Steel Fundamentals 2025</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 p-3 border border-border bg-surface">
+                  <Award size={14} className="text-[#2563eb] flex-shrink-0" />
+                  <div>
+                    <p className="text-[9px] uppercase tracking-wider text-steel">AISC Certified</p>
+                    <p className="text-[10px] font-semibold text-charcoal">Detailer Training Series</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div>
               <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">About</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 mb-6 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 mb-2 tracking-tight">
                 Julkar Naeem
               </h2>
+              <p className="text-steel text-sm mb-5 flex items-center gap-1.5">
+                <MapPin size={12} className="text-accent" />
+                Dhaka, Bangladesh · Remote delivery worldwide
+              </p>
               <p className="text-lg text-steel leading-relaxed mb-6">
-                I am a Steel Structure Detailer specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.
+                Steel Structure Detailer with <strong className="text-charcoal">9+ years of experience</strong> specializing in Tekla Structures. I focus on clean, fabrication-oriented models and drawings that help fabricators execute with clarity.
               </p>
               <p className="text-sm text-steel leading-relaxed mb-8">
-                With over 150 successfully delivered steel structure projects — from PEB warehouses to multi-storey buildings, industrial platforms to complex connection details — I bring precision and real-world fabrication understanding to every project.
+                With 150+ delivered projects across 4+ countries — from PEB warehouses to metro rail stations, spiral staircases to flyover support structures — I bring real-world fabrication understanding to every project.
               </p>
               <div className="space-y-3 mb-8">
                 {[
-                  'Tekla Structures Expert',
-                  'Fabrication-Focused Approach',
-                  '150+ Projects Delivered',
-                  'Global Project Experience',
+                  'Tekla Structures 2025 Expert',
+                  'AISC & Tekla Certified Detailer',
+                  '150+ Projects Delivered Worldwide',
+                  'Sr. Detailer at SES Steel Structure Ltd.',
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle size={16} className="text-accent flex-shrink-0" />
@@ -368,7 +399,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 onClick={() => handleNav('about')}
                 className="group inline-flex items-center gap-2 px-7 py-3.5 border border-charcoal text-charcoal text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-charcoal hover:text-white transition-all duration-300"
               >
-                About Me
+                Full Profile
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -377,22 +408,33 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="bg-surface border-t border-border py-24 lg:py-32">
+      <section className="bg-charcoal py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
           <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Let's Work Together</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-3 mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-6 tracking-tight">
             Need Fabrication-Ready Steel Drawings?
           </h2>
-          <p className="text-lg text-steel leading-relaxed mb-10 max-w-xl mx-auto">
-            Let's turn your structural concept into an accurate Tekla model and clear shop drawing package.
+          <p className="text-lg text-steel-light leading-relaxed mb-10 max-w-xl mx-auto">
+            Let's turn your structural concept into an accurate Tekla model and clear shop drawing package — delivered remotely from Dhaka, Bangladesh.
           </p>
-          <button
-            onClick={() => handleNav('contact')}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300"
-          >
-            Start a Project
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => handleNav('contact')}
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-300"
+            >
+              Start a Project
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-[#1ebe5d] transition-all duration-300"
+            >
+              <WhatsAppIcon size={14} />
+              WhatsApp Me
+            </a>
+          </div>
         </div>
       </section>
 

@@ -118,11 +118,13 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Image + Location card */}
             <div>
-              <img
-                src="/images/about-portrait.jpg"
-                alt="Julkar Naeem"
-                className="w-full max-w-lg aspect-[3/4] object-cover"
-              />
+              <div className="relative border border-border bg-surface overflow-hidden shadow-md">
+                <img
+                  src="/images/julkar-naeem-working.png"
+                  alt="Julkar Naeem - Steel Structure Detailer at Workstation"
+                  className="w-full h-auto aspect-[16/10] object-cover"
+                />
+              </div>
               {/* Location badge */}
               <div className="mt-4 flex items-center gap-3 p-4 bg-surface border border-border">
                 <span className="text-2xl">🇧🇩</span>
