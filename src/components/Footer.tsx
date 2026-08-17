@@ -1,4 +1,4 @@
-import { LinkedInIcon, YouTubeIcon, InstagramIcon, FacebookIcon } from './SocialIcons';
+import { LinkedInIcon, UpworkIcon, BehanceIcon, PinterestIcon, WhatsAppIcon } from './SocialIcons';
 import { useCms } from '../context/CmsContext';
 
 interface FooterProps {
@@ -7,6 +7,14 @@ interface FooterProps {
 
 export default function Footer({ onNavigate }: FooterProps) {
   const { content } = useCms();
+
+  const socialLinks = [
+    { Icon: LinkedInIcon,  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/julkarnaeem/' },
+    { Icon: UpworkIcon,    label: 'Upwork',    href: 'https://www.upwork.com/freelancers/julkarnaeem' },
+    { Icon: BehanceIcon,   label: 'Behance',   href: 'https://www.behance.net/julkarnaeem' },
+    { Icon: PinterestIcon, label: 'Pinterest', href: 'https://www.pinterest.com/julkar_naeem' },
+    { Icon: WhatsAppIcon,  label: 'WhatsApp',  href: 'https://wa.me/8801739411586' },
+  ];
 
   return (
     <footer className="bg-charcoal text-white border-t border-white/10">
@@ -25,21 +33,20 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p className="text-steel-light text-sm leading-relaxed max-w-sm">
               {content.profileRole} | Tekla BIM & Fabrication Drawings
             </p>
+            <p className="text-steel/60 text-xs mt-1">Dhaka, Bangladesh · Remote worldwide</p>
           </div>
 
           {/* Social */}
-          <div className="flex gap-4">
-            {[
-              { Icon: LinkedInIcon, label: 'LinkedIn' },
-              { Icon: YouTubeIcon, label: 'YouTube' },
-              { Icon: InstagramIcon, label: 'Instagram' },
-              { Icon: FacebookIcon, label: 'Facebook' },
-            ].map(({ Icon, label }) => (
+          <div className="flex gap-3">
+            {socialLinks.map(({ Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="w-9 h-9 border border-steel/30 flex items-center justify-center text-steel-light hover:bg-accent hover:text-charcoal hover:border-accent transition-all duration-200"
+                title={label}
               >
                 <Icon size={16} />
               </a>
@@ -50,10 +57,12 @@ export default function Footer({ onNavigate }: FooterProps) {
         {/* Bottom Bar */}
         <div className="mt-10 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-steel-light text-xs">
-            © 2025 Julkar Naeem. All rights reserved.
+            © {new Date().getFullYear()} Julkar Naeem. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs">
-            <span className="text-steel/50">julkarnaeem.com</span>
+            <a href="mailto:hello@julkarnaeem.com" className="text-steel/50 hover:text-accent transition-colors">
+              hello@julkarnaeem.com
+            </a>
             <span className="text-steel/30">•</span>
             <button
               onClick={() => {

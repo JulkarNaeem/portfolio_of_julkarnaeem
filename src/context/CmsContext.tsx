@@ -192,16 +192,16 @@ export const defaultSiteContent: SiteContent = {
   about: {
     name: 'Julkar Naeem',
     titleTag: 'About',
-    subtitle: 'Steel Structure Detailer — Tekla Structures Specialist',
+    subtitle: 'Steel Structure Detailer & Tekla Structures Specialist — Dhaka, Bangladesh',
     portraitImg: '/images/about-portrait.jpg',
     statsProjects: '150+',
     statsTool: 'Tekla',
     statsBim: 'BIM',
     bioParagraphs: [
-      "I am Julkar Naeem, a Steel Structure Detailer specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.",
-      "With over 150 successfully completed steel structure projects, I've worked across a wide range of structural typologies — from PEB buildings and industrial sheds to multi-storey steel buildings, platforms, walkways, stairs, handrails, grating, bridges, and complex steel accessories.",
+      "I am Julkar Naeem, a Steel Structure Detailer based in Dhaka, Bangladesh, with 9+ years of professional experience specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.",
+      "With over 150 successfully completed steel structure projects across 4+ countries, I've worked across a wide range of structural typologies — from PEB buildings and industrial sheds to multi-storey steel buildings, platforms, walkways, stairs, handrails, grating, bridges, and complex steel accessories.",
       "My core offer is simple: fabrication-ready BIM models combined with clear shop drawings, GA drawings, and connection details. Every model I build is organized for easy fabrication extraction, and every drawing I produce is designed to minimize questions on the shop floor.",
-      "I work directly with steel fabricators, contractors, structural engineers, PEB companies, and industrial clients who need accurate steel detailing they can rely on."
+      "I work directly with steel fabricators, contractors, structural engineers, PEB companies, and industrial clients worldwide who need accurate steel detailing they can rely on — delivered remotely with full precision."
     ],
     competencies: [
       'Tekla Structures BIM Modeling',
@@ -233,11 +233,11 @@ export const defaultSiteContent: SiteContent = {
   contact: {
     badge: 'Get in Touch',
     title: 'Contact',
-    subtitle: "Have a steel project that needs detailing? Let's discuss your requirements and how I can deliver accurate, fabrication-ready deliverables.",
-    email: 'contact@julkarnaeem.com',
-    location: 'Available Worldwide',
-    remoteNotice: 'Remote project delivery',
-    linkedinUrl: 'https://linkedin.com',
+    subtitle: "Have a steel project that needs detailing? Let's discuss your requirements and how I can deliver accurate, fabrication-ready deliverables — remotely from Dhaka, Bangladesh.",
+    email: 'hello@julkarnaeem.com',
+    location: 'Dhaka, Bangladesh',
+    remoteNotice: 'Remote delivery worldwide • UTC+6',
+    linkedinUrl: 'https://www.linkedin.com/in/julkarnaeem/',
     whatToInclude: [
       'Project type & structure description',
       'Approximate tonnage or scope',
