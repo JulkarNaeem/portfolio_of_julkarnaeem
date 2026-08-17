@@ -698,79 +698,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ─── ABOUT SNAPSHOT ─── */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative group">
-              <div className="border border-border bg-surface overflow-hidden shadow-xl transition-all duration-300 group-hover:border-accent">
-                <img
-                  src="/images/julkar-naeem-working.png"
-                  alt="Julkar Naeem - Steel Structure Detailer at Workstation"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-103"
-                />
-              </div>
-              
-              {/* Certifications overlay */}
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="flex items-center gap-2.5 p-3.5 border border-border bg-surface shadow-xs hover:border-[#e8b100] transition-colors">
-                  <Award size={16} className="text-[#e8b100] flex-shrink-0" />
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-steel font-mono font-medium">Tekla Certified</p>
-                    <p className="text-[10px] font-bold text-charcoal">Steel Fundamentals 2025</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2.5 p-3.5 border border-border bg-surface shadow-xs hover:border-[#2563eb] transition-colors">
-                  <Award size={16} className="text-[#2563eb] flex-shrink-0" />
-                  <div>
-                    <p className="text-[9px] uppercase tracking-wider text-steel font-mono font-medium">AISC Certified</p>
-                    <p className="text-[10px] font-bold text-charcoal">Detailer Training Series</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">About Detailer</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 mb-2 tracking-tight">
-                Julkar Naeem
-              </h2>
-              <p className="text-steel text-sm mb-5 flex items-center gap-1.5">
-                <MapPin size={13} className="text-accent" />
-                Dhaka, Bangladesh · Remote delivery worldwide
-              </p>
-              <p className="text-base sm:text-lg text-steel leading-relaxed mb-6">
-                Steel Structure Detailer with <strong className="text-charcoal font-bold">9+ years of experience</strong> specializing in Tekla Structures. I focus on clean, fabrication-oriented models and drawings that help fabricators execute with clarity.
-              </p>
-              <p className="text-sm text-steel leading-relaxed mb-8">
-                With 150+ delivered projects across 4+ countries — from PEB warehouses to metro rail stations, spiral staircases to flyover support structures — I bring real-world fabrication understanding to every project.
-              </p>
-              <div className="space-y-3 mb-8">
-                {[
-                  'Tekla Structures 2025 Expert',
-                  'AISC & Tekla Certified Detailer',
-                  '150+ Projects Delivered Worldwide',
-                  'Sr. Detailer at SES Steel Structure Ltd.',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle size={16} className="text-accent flex-shrink-0" />
-                    <span className="text-sm text-charcoal font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() => handleNav('about')}
-                className="group inline-flex items-center gap-2 px-8 py-3.5 border-2 border-charcoal text-charcoal text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile-dark hover:bg-charcoal hover:text-white transition-all duration-300"
-              >
-                Full Profile
-                <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ─── FINAL CALL TO ACTION ─── */}
       <section className="bg-charcoal py-24 lg:py-32 text-white relative overflow-hidden cad-grid-dark border-t border-white/10">
