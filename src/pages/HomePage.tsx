@@ -504,8 +504,41 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
+      {/* ─── PROCESS TIMELINE (Moved under Projects) ─── */}
+      <section className="bg-charcoal text-white py-20 lg:py-28 relative overflow-hidden cad-grid-dark border-y border-white/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Workflow</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 tracking-tight">
+              Precision Detailing Process
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            {[
+              { step: '01', title: 'Review', desc: 'Review architectural/structural drawings and scope' },
+              { step: '02', title: 'Model', desc: 'Build coordinated LOD 400 Tekla BIM model' },
+              { step: '03', title: 'Detail', desc: 'Detail joints, connections, and assembly marks' },
+              { step: '04', title: 'Produce', desc: 'Generate shop drawings, GA plans, and BOM reports' },
+              { step: '05', title: 'Support', desc: 'Revise and clarify for seamless shop floor erection' },
+            ].map((item, i) => (
+              <div key={i} className="text-center group hover:scale-105 transition-transform duration-300">
+                <div className="text-3xl font-extrabold text-accent/40 font-mono mb-3 group-hover:text-accent transition-colors duration-300">
+                  {item.step}
+                </div>
+                <div className="w-full h-[1px] bg-white/10 mb-4 relative">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
+                </div>
+                <h3 className="text-white font-bold text-base mb-2">{item.title}</h3>
+                <p className="text-steel-light text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── WHAT I DELIVER (Deliverables) ─── */}
-      <section className="bg-surface py-24 lg:py-32 border-y border-border relative">
+      <section className="bg-surface py-24 lg:py-32 border-b border-border relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Deliverables</span>
@@ -662,39 +695,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             ))}
           </div>
 
-        </div>
-      </section>
-
-      {/* ─── PROCESS TIMELINE ─── */}
-      <section className="bg-charcoal text-white py-24 lg:py-32 relative overflow-hidden cad-grid-dark">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Workflow</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 tracking-tight">
-              Precision Detailing Process
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-            {[
-              { step: '01', title: 'Review', desc: 'Review architectural/structural drawings and scope' },
-              { step: '02', title: 'Model', desc: 'Build coordinated LOD 400 Tekla BIM model' },
-              { step: '03', title: 'Detail', desc: 'Detail joints, connections, and assembly marks' },
-              { step: '04', title: 'Produce', desc: 'Generate shop drawings, GA plans, and BOM reports' },
-              { step: '05', title: 'Support', desc: 'Revise and clarify for seamless shop floor erection' },
-            ].map((item, i) => (
-              <div key={i} className="text-center group hover:scale-105 transition-transform duration-300">
-                <div className="text-3xl font-extrabold text-accent/40 font-mono mb-3 group-hover:text-accent transition-colors duration-300">
-                  {item.step}
-                </div>
-                <div className="w-full h-[1px] bg-white/10 mb-4 relative">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
-                </div>
-                <h3 className="text-white font-bold text-base mb-2">{item.title}</h3>
-                <p className="text-steel-light text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
