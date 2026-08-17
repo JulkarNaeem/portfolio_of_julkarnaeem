@@ -159,22 +159,8 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 </div>
               </div>
 
-              {/* Focus Areas */}
-              <div className="mt-10 pt-10 border-t border-border">
-                <h3 className="text-sm font-semibold text-charcoal uppercase tracking-wider mb-6">
-                  Project Focus Areas
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {content.about.focusAreas.map((area, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1.5 bg-surface border border-border text-[11px] uppercase tracking-wider text-charcoal font-medium"
-                    >
-                      {area}
-                    </span>
-                  ))}
-                </div>
-              </div>
+
+
             </div>
           </div>
         </div>
