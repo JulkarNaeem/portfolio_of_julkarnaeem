@@ -157,7 +157,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 onNavigate('contact');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300"
+              className="btn-clicky group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300 shadow-md"
             >
               Contact Me
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -167,7 +167,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 onNavigate('projects');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-charcoal text-charcoal text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-charcoal hover:text-white transition-all duration-300"
+              className="btn-clicky group inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-charcoal text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300"
             >
               View Projects
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

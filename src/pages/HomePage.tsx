@@ -30,68 +30,88 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       {/* ─── HERO ─── */}
-      <section className="relative min-h-screen flex items-center bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-32 lg:py-0">
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
+        {/* Subtle Engineering Blueprint Grid Background Accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(#1a1a2e_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-32 lg:py-0 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left */}
             <div className="order-2 lg:order-1">
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-[2px] bg-accent" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-steel font-medium">
-                  {content.hero.badge}
+                <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-bold font-mono">
+                  {content.hero.badge || 'TEKLA STRUCTURAL STEEL DETAILER'}
+                </span>
+                <span className="px-2 py-0.5 bg-charcoal/5 border border-charcoal/10 text-[9px] font-mono text-charcoal uppercase tracking-wider font-semibold">
+                  AISC & NISD Standard
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-charcoal leading-[1.1] tracking-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold text-charcoal leading-[1.12] tracking-tight mb-6">
                 {content.hero.headlineLine1}
                 <br />
-                <span className="text-steel">
+                <span className="text-steel font-normal">
                   {content.hero.headlineLine2}
                 </span>
                 <br />
-                {content.hero.headlineLine3}
+                <span className="relative inline-block">
+                  {content.hero.headlineLine3}
+                  <span className="absolute bottom-1 left-0 w-full h-[3px] bg-accent/40" />
+                </span>
               </h1>
 
-              <p className="text-lg text-steel leading-relaxed max-w-lg mb-4">
+              <p className="text-base md:text-lg text-steel leading-relaxed max-w-lg mb-6">
                 {content.hero.subtitle}
               </p>
 
-              <div className="flex items-center gap-2 mb-8">
-                <span className="w-2 h-2 bg-accent rounded-full" />
-                <span className="text-sm font-medium text-charcoal tracking-wide">
-                  {content.hero.projectsCountText}
+              {/* Technical Badges Pills */}
+              <div className="flex flex-wrap items-center gap-2 mb-8">
+                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
+                  <CheckCircle size={12} className="text-accent" /> LOD 400 BIM Coordinated
+                </span>
+                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
+                  <CheckCircle size={12} className="text-accent" /> NC & DSTV CNC Output
+                </span>
+                <span className="px-3 py-1 bg-surface border border-border text-[11px] font-mono text-charcoal font-semibold flex items-center gap-1.5">
+                  <CheckCircle size={12} className="text-accent" /> Zero Field Clash Guarantee
                 </span>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => handleNav('projects')}
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-accent hover:text-charcoal transition-all duration-300"
+                  className="btn-clicky group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-accent hover:text-charcoal transition-all duration-300 shadow-md"
                 >
-                  View Projects
+                  View Steel Projects
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={() => handleNav('contact')}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-charcoal/20 text-charcoal text-[12px] uppercase tracking-[0.15em] font-medium hover:border-accent hover:text-accent transition-all duration-300"
+                  className="btn-clicky inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-charcoal/20 text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:border-accent hover:text-accent transition-all duration-300"
                 >
-                  Contact Me
+                  Request Detailing Quote
                 </button>
               </div>
             </div>
 
-            {/* Right - Hero Image */}
+            {/* Right - Hero Image with Technical CAD Framing */}
             <div className="order-1 lg:order-2">
-              <div className="relative">
-                <div className="absolute -top-4 -right-4 w-full h-full border-2 border-accent/20" />
-                <img
-                  src="/images/hero-steel.jpg"
-                  alt="Tekla 3D Steel Structure Model"
-                  className="w-full aspect-[4/3] object-cover relative z-10"
-                />
-                <div className="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-4 py-3 border-l-2 border-accent">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-steel">Tekla Structures 2025</p>
-                  <p className="text-sm font-semibold text-charcoal">Fabrication-Ready BIM</p>
+              <div className="relative group">
+                <div className="absolute -top-3 -right-3 w-full h-full border-2 border-accent/40 z-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="relative z-10 bg-charcoal overflow-hidden border border-charcoal/10 shadow-2xl">
+                  <img
+                    src="/images/hero-steel.jpg"
+                    alt="Tekla 3D Steel Structure Model"
+                    className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-4 left-4 z-20 bg-charcoal/90 text-white backdrop-blur-md px-4 py-3 border-l-4 border-accent shadow-xl">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-accent font-mono font-bold">Tekla Structures 2025</p>
+                    <p className="text-xs font-bold text-white">Fabrication-Ready Shop Package</p>
+                  </div>
+                  <div className="absolute top-4 right-4 z-20 bg-accent text-charcoal text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 shadow-md">
+                    LOD 400
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,25 +119,25 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-steel-light">Scroll</span>
-          <div className="w-[1px] h-8 bg-steel-lighter animate-pulse" />
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-steel-light font-mono font-semibold">Scroll Down</span>
+          <div className="w-[1px] h-7 bg-accent animate-pulse" />
         </div>
       </section>
 
-      {/* ─── TRUST BAR ─── */}
-      <section className="bg-surface border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+      {/* ─── REAL TECHNICAL METRICS BAR ─── */}
+      <section className="bg-charcoal text-white border-y border-white/10 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
-              { value: '150+', label: 'Projects Delivered' },
-              { value: 'Tekla', label: 'Structures 2025' },
-              { value: '100%', label: 'Fabrication-Focused' },
-              { value: 'BIM', label: 'Models & Shop Drawings' },
+              { value: '1,200+ Tons', label: 'Steel Detailed for Fabrication' },
+              { value: 'Tekla 2025', label: 'Primary BIM Detailing Engine' },
+              { value: 'AISC & NISD', label: 'Connection & Detailing Standards' },
+              { value: 'NC & DSTV', label: 'Direct CNC Machine Output' },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-charcoal mb-1 font-mono">{item.value}</p>
-                <p className="text-[11px] uppercase tracking-[0.15em] text-steel">{item.label}</p>
+                <p className="text-2xl md:text-3xl font-extrabold text-accent mb-1 font-mono">{item.value}</p>
+                <p className="text-[11px] uppercase tracking-[0.15em] text-steel-lighter font-medium">{item.label}</p>
               </div>
             ))}
           </div>
@@ -297,32 +317,35 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── PROCESS ─── */}
-      <section className="bg-charcoal py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="bg-charcoal py-24 lg:py-32 relative overflow-hidden">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 bg-[radial-gradient(#e8b100_1px,transparent_1px)] [background-size:28px_28px] opacity-[0.05] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Process</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 tracking-tight">
-              How I Work
+            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-bold font-mono">Workflow Pipeline</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">
+              From Structural Drawings to Shop Floor
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
             {[
-              { step: '01', title: 'Review', desc: 'Review drawings and project scope' },
-              { step: '02', title: 'Model', desc: 'Build coordinated Tekla BIM model' },
-              { step: '03', title: 'Detail', desc: 'Detail connections and assemblies' },
-              { step: '04', title: 'Produce', desc: 'Produce shop drawings and deliverables' },
-              { step: '05', title: 'Support', desc: 'Revise and support fabrication clarity' },
+              { step: '01', title: 'Drawing & RFI Review', desc: 'Review structural drawings & issue RFIs to resolve design queries before modeling' },
+              { step: '02', title: 'Tekla 3D BIM Modeling', desc: 'Construct LOD 400 3D Tekla model with exact member profiles, plates, and welds' },
+              { step: '03', title: 'Connection & Clash Check', desc: 'Detail moment, shear, and bracing connections with zero clash tolerance' },
+              { step: '04', title: 'Shop Package & CNC Data', desc: 'Extract GA plans, shop assembly drawings, bolt lists, and NC/DSTV CNC files' },
+              { step: '05', title: 'Fabrication & Erection Support', desc: 'Provide immediate technical support for shop floor and field erection teams' },
             ].map((item, i) => (
               <div key={i} className="text-center group">
-                <div className="text-3xl font-bold text-accent/30 font-mono mb-3 group-hover:text-accent transition-colors">
+                <div className="text-3xl font-extrabold text-accent/40 font-mono mb-3 group-hover:text-accent transition-colors">
                   {item.step}
                 </div>
                 <div className="w-full h-[1px] bg-white/10 mb-4 relative">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-accent rounded-full" />
                 </div>
-                <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
-                <p className="text-steel-light text-sm">{item.desc}</p>
+                <h3 className="text-white font-bold text-sm mb-2">{item.title}</h3>
+                <p className="text-steel-light text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>

@@ -95,7 +95,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="ml-2 px-5 py-2.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-200 shadow-sm"
+              className="btn-clicky ml-2 px-5 py-2.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-200 shadow-sm"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>
@@ -134,7 +134,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="mt-4 w-full px-5 py-3 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white transition-all"
+              className="btn-clicky mt-4 w-full px-5 py-3 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white transition-all"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>
