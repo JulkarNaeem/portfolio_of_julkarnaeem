@@ -1,0 +1,7 @@
+# Robots.txt for Julkar Naeem - Steel Structure Detailer Portfolio
+User-agent: *
+Allow: /
+Disallow: /#admin
+
+# Sitemap
+Sitemap: https://julkarnaeem.github.io/portfolio_of_julkarnaeem/sitemap.xml

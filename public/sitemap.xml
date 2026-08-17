@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- Home Page -->
+  <url>
+    <loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/images/logo.png</image:loc>
+      <image:title>Julkar Naeem - Steel Structure Detailer</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://i.ytimg.com/vi/Uy2WJKxm-qk/maxresdefault.jpg</video:thumbnail_loc>
+      <video:title>Steel Structure Detailer intro of Julkar Naeem</video:title>
+      <video:description>Professional video introduction showcasing 9+ years experience in Tekla Structures steel detailing.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/Uy2WJKxm-qk</video:player_loc>
+    </video:video>
+  </url>
+
+  <!-- Projects Page -->
+  <url>
+    <loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#projects</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services Page -->
+  <url>
+    <loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#services</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#about</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#contact</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
