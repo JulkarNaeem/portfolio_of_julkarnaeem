@@ -537,48 +537,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ─── WHAT I DELIVER (Deliverables) ─── */}
-      <section className="bg-surface py-24 lg:py-32 border-b border-border relative">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Deliverables</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
-              Fabrication-Ready Steel Detailing
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Box size={28} />,
-                title: 'Tekla BIM Models',
-                desc: 'Accurate, coordinated 3D models built in Tekla Structures 2025 with proper material grades, profiles, bolt assemblies, and weld preparations — ready for fabrication extraction.',
-              },
-              {
-                icon: <FileText size={28} />,
-                title: 'Shop Drawings & GA Drawings',
-                desc: 'Clean, organized general arrangement drawings and detailed shop drawings with dimensions, sections, material lists, and fabrication notes — clear enough for any workshop.',
-              },
-              {
-                icon: <Link2 size={28} />,
-                title: 'Connection Detailing',
-                desc: 'Every joint, splice, base plate, and gusset detailed with full bolt patterns, weld symbols, and erection marks for seamless fabrication and erection.',
-              },
-            ].map((item, i) => (
-              <div 
-                key={i} 
-                className="bg-white p-8 lg:p-10 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 cad-corner-box"
-              >
-                <div className="w-14 h-14 bg-surface border border-border flex items-center justify-center text-charcoal mb-6 group-hover:bg-accent group-hover:text-charcoal group-hover:border-accent transition-all duration-300 shadow-xs">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-bold text-charcoal mb-3 group-hover:text-accent transition-colors">{item.title}</h3>
-                <p className="text-sm text-steel leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ─── SERVICES & PROJECT CATALOG SNAPSHOT ─── */}
       <section className="bg-white py-24 lg:py-32">
