@@ -16,18 +16,22 @@ function MainLayout() {
   const { content } = useCms();
 
   useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === '#admin') {
+    const handleUrlChange = () => {
+      if (window.location.hash === '#admin' || window.location.pathname === '/admin') {
         setCurrentPage('admin');
       }
     };
 
-    if (window.location.hash === '#admin') {
+    if (window.location.hash === '#admin' || window.location.pathname === '/admin') {
       setCurrentPage('admin');
     }
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange);
+    return () => {
+      window.removeEventListener('hashchange', handleUrlChange);
+      window.removeEventListener('popstate', handleUrlChange);
+    };
   }, []);
 
   useEffect(() => {
