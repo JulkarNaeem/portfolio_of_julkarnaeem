@@ -43,14 +43,24 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
           <X size={20} />
         </button>
 
-        {/* Modal Main Media Display (Image or Video) */}
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-charcoal">
+        {/* Modal Main Header Bar */}
+        <div className="p-6 bg-charcoal text-white border-b border-white/10 pr-16">
+          <span className="inline-block px-3 py-1 bg-accent text-charcoal font-semibold text-[10px] uppercase tracking-[0.2em] mb-1.5">
+            {project.category}
+          </span>
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight text-white">
+            {project.title}
+          </h2>
+        </div>
+
+        {/* Modal Main Media Display (Full Photo Uncropped) */}
+        <div className="relative w-full min-h-[350px] max-h-[75vh] bg-[#0d0d15] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
           {isVideoActive && project.videoUrl ? (
             project.videoUrl.includes('youtube.com') || project.videoUrl.includes('youtu.be') ? (
               <iframe
                 src={project.videoUrl.replace('watch?v=', 'embed/')}
                 title={project.title}
-                className="w-full h-full border-0"
+                className="w-full h-[450px] border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -59,25 +69,16 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
                 src={project.videoUrl}
                 controls
                 autoPlay
-                className="w-full h-full object-contain bg-black"
+                className="w-full max-h-[70vh] object-contain bg-black"
               />
             )
           ) : (
             <img
               src={activeMedia || project.img}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="max-h-[70vh] w-auto max-w-full object-contain mx-auto shadow-2xl transition-all duration-300"
             />
           )}
-
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent p-6 text-white pointer-events-none">
-            <span className="inline-block px-3 py-1 bg-accent text-charcoal font-semibold text-[10px] uppercase tracking-[0.2em] mb-2 pointer-events-auto">
-              {project.category}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white pointer-events-auto">
-              {project.title}
-            </h2>
-          </div>
         </div>
 
         {/* Gallery & Video Thumbnail Strip */}
@@ -96,7 +97,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
                   : 'border-border opacity-70 hover:opacity-100'
               }`}
             >
-              <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+              <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain bg-black/80" />
               <span className="absolute top-1 left-1 bg-charcoal/80 text-white p-0.5 rounded-none">
                 <ImageIcon size={10} />
               </span>
