@@ -30,31 +30,31 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
   return (
     <>
       {/* Page Header */}
-      <section className="bg-[#f8fafc] text-slate-900 pt-32 pb-16 lg:pt-36 lg:pb-20 border-b border-slate-200/80 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-emerald-600 font-mono font-bold">Portfolio Showcase</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mt-2 tracking-tight">
-            Steel Projects Gallery
+      <section className="bg-charcoal pt-32 pb-16 lg:pt-36 lg:pb-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Portfolio</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 tracking-tight">
+            Steel Projects
           </h1>
-          <p className="text-base md:text-lg text-slate-600 mt-4 max-w-2xl">
-            Fabrication-ready Tekla BIM models, connection details, and shop drawing packages delivered for steel fabricators and contractors.
+          <p className="text-lg text-steel-light mt-4 max-w-2xl">
+            A selection of fabrication-ready Tekla BIM models and shop drawing packages delivered for steel fabricators, contractors, and engineering firms.
           </p>
         </div>
       </section>
 
       {/* Filters + Grid */}
-      <section className="bg-white text-slate-900 py-16 lg:py-24">
+      <section className="bg-white py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Filter Bar */}
-          <div className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-slate-200/80">
+          <div className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-border">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActive(cat)}
-                className={`px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-bold font-mono transition-all rounded-xl ${
+                className={`px-4 py-2 text-[11px] uppercase tracking-[0.15em] font-medium transition-all ${
                   active === cat
-                    ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20'
-                    : 'bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-emerald-500/40'
+                    ? 'bg-charcoal text-white'
+                    : 'bg-surface text-steel hover:text-charcoal'
                 }`}
               >
                 {cat}
@@ -67,32 +67,32 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
             {filtered.map((project, i) => (
               <div 
                 key={i} 
-                className="group cursor-pointer bg-white border border-slate-200/80 p-5 rounded-2xl hover:border-emerald-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="overflow-hidden mb-4 relative bg-slate-100 rounded-xl border border-slate-100">
+                <div className="overflow-hidden mb-5 relative">
                   <img
                     src={project.img}
                     alt={project.title}
                     className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {project.tonnage && project.tonnage !== '—' && (
-                    <div className="absolute top-3 right-3 bg-slate-900 text-white font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold shadow-md rounded-md">
+                  {project.tonnage !== '—' && (
+                    <div className="absolute top-4 right-4 bg-charcoal/90 text-white text-[10px] uppercase tracking-wider px-3 py-1 font-mono">
                       {project.tonnage}
                     </div>
                   )}
-                  <div className="absolute bottom-3 left-3 bg-white/95 text-emerald-700 font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs border border-emerald-100">
-                    {project.category}
-                  </div>
                 </div>
-                <h3 className="text-base font-bold text-slate-900 mt-1 mb-2 group-hover:text-emerald-600 transition-colors">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
+                  {project.category}
+                </span>
+                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-2">
+                <p className="text-sm text-steel leading-relaxed mb-4">
                   {project.desc}
                 </p>
-                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-emerald-600 font-bold group-hover:translate-x-1 transition-transform">
-                  View Full Specs <ArrowRight size={12} />
+                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-charcoal font-medium group-hover:text-accent transition-colors">
+                  View Details <ArrowRight size={12} />
                 </span>
               </div>
             ))}
@@ -101,12 +101,12 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#f8fafc] text-slate-900 border-t border-slate-200/80 py-20">
+      <section className="bg-surface border-t border-border py-20">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-charcoal mb-4 tracking-tight">
             Have a Steel Project That Needs Detailing?
           </h2>
-          <p className="text-slate-600 mb-8">
+          <p className="text-steel mb-8">
             I'm ready to help you create accurate Tekla models and fabrication-ready drawings.
           </p>
           <button
@@ -114,7 +114,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
               onNavigate('contact');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="btn-clicky group inline-flex items-center gap-2 px-9 py-4 bg-emerald-500 text-white text-[12px] uppercase tracking-[0.15em] font-extrabold hover:bg-emerald-600 transition-all duration-300 rounded-xl shadow-xl shadow-emerald-500/25"
+            className="group inline-flex items-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal hover:text-white transition-all duration-300"
           >
             Start a Project
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
