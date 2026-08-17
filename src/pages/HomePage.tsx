@@ -109,22 +109,22 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── REAL TECHNICAL METRICS BAR ─── */}
-      <section className="bg-slate-900 text-white border-y border-slate-800 relative overflow-hidden">
+      <section className="bg-white text-slate-900 border-y border-slate-200/80 relative overflow-hidden shadow-xs">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
-              { label: 'Steel Detailed', val: '1,200+ Tons', icon: <Building2 size={20} className="text-emerald-400" /> },
-              { label: 'BIM Engine', val: 'Tekla 2025', icon: <Box size={20} className="text-emerald-400" /> },
-              { label: 'Standards', val: 'AISC & NISD', icon: <CheckCircle size={20} className="text-emerald-400" /> },
-              { label: 'Output Data', val: 'NC & DSTV', icon: <ClipboardList size={20} className="text-emerald-400" /> },
+              { label: 'Steel Detailed', val: '1,200+ Tons', icon: <Building2 size={22} className="text-emerald-600" /> },
+              { label: 'BIM Engine', val: 'Tekla 2025', icon: <Box size={22} className="text-emerald-600" /> },
+              { label: 'Standards', val: 'AISC & NISD', icon: <CheckCircle size={22} className="text-emerald-600" /> },
+              { label: 'Output Data', val: 'NC & DSTV', icon: <ClipboardList size={22} className="text-emerald-600" /> },
             ].map((stat, i) => (
               <div key={i} className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs">
                   {stat.icon}
                 </div>
                 <div>
-                  <p className="text-2xl font-extrabold text-white font-mono">{stat.val}</p>
-                  <p className="text-[11px] uppercase tracking-wider text-slate-400 font-medium">{stat.label}</p>
+                  <p className="text-2xl font-extrabold text-slate-900 font-mono">{stat.val}</p>
+                  <p className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">{stat.label}</p>
                 </div>
               </div>
             ))}
@@ -305,11 +305,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* ─── PROCESS ─── */}
-      <section className="bg-slate-900 text-white py-24 lg:py-32 relative overflow-hidden">
+      <section className="bg-[#f8fafc] text-slate-900 py-24 lg:py-32 relative overflow-hidden border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-emerald-400 font-bold font-mono">Workflow Pipeline</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-emerald-600 font-bold font-mono">Workflow Pipeline</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
               From Structural Drawings to Shop Floor
             </h2>
           </div>
@@ -323,14 +323,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { step: '05', title: 'Fabrication & Erection Support', desc: 'Provide immediate technical support for shop floor and field erection teams' },
             ].map((item, i) => (
               <div key={i} className="text-center group">
-                <div className="text-3xl font-extrabold text-emerald-400 font-mono mb-3 group-hover:scale-110 transition-transform">
+                <div className="text-3xl font-extrabold text-emerald-600 font-mono mb-3 group-hover:scale-110 transition-transform">
                   {item.step}
                 </div>
-                <div className="w-full h-[1px] bg-white/10 mb-4 relative">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-emerald-400 rounded-full" />
+                <div className="w-full h-[2px] bg-slate-200 mb-4 relative">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-emerald-500 rounded-full" />
                 </div>
-                <h3 className="text-white font-bold text-sm mb-2">{item.title}</h3>
-                <p className="text-slate-300 text-xs leading-relaxed">{item.desc}</p>
+                <h3 className="text-slate-900 font-bold text-sm mb-2">{item.title}</h3>
+                <p className="text-slate-600 text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>

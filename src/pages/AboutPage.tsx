@@ -133,13 +133,13 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       </section>
 
       {/* Philosophy */}
-      <section className="bg-slate-900 text-white py-20 border-y border-slate-800">
+      <section className="bg-[#f8fafc] text-slate-900 py-20 border-y border-slate-200/80">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <span className="text-emerald-400 text-4xl font-serif">"</span>
-          <p className="text-xl md:text-2xl text-white leading-relaxed font-light mt-2">
+          <span className="text-emerald-600 text-5xl font-serif">"</span>
+          <p className="text-xl md:text-2xl text-slate-800 leading-relaxed font-normal mt-2">
             Good steel detailing isn't about making impressive models — it's about making models that fabricators can trust and build from without confusion.
           </p>
-          <p className="text-emerald-400 font-mono text-xs mt-6 uppercase tracking-wider font-bold">— Julkar Naeem</p>
+          <p className="text-emerald-600 font-mono text-xs mt-6 uppercase tracking-wider font-extrabold">— Julkar Naeem</p>
         </div>
       </section>
 
