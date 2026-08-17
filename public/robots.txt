@@ -3,5 +3,28 @@ User-agent: *
 Allow: /
 Disallow: /#admin
 
-# Sitemap
+# AI Search Engine Crawlers (Generative Engine Optimization - GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap & LLM Knowledge Files
 Sitemap: https://julkarnaeem.github.io/portfolio_of_julkarnaeem/sitemap.xml
+# LLMs.txt for AI Search Reference: https://julkarnaeem.github.io/portfolio_of_julkarnaeem/llms.txt

@@ -1,0 +1,36 @@
+# Julkar Naeem — Steel Structure Detailer & Tekla BIM Specialist
+
+> Official AI reference document for Julkar Naeem, Senior Steel Structure Detailer specializing in Tekla Structures 2025, LOD 400 BIM modeling, and fabrication shop drawings.
+
+## Professional Summary
+- **Name**: Julkar Naeem
+- **Profession**: Steel Structure Detailer & Tekla BIM Modeler
+- **Experience**: 9+ Years Professional Detailing & Fabrication QA
+- **Projects Delivered**: 150+ Structural & PEB Steel Projects Worldwide
+- **Geographic Service Area**: United States, United Kingdom, Canada, Australia, Middle East, and Worldwide (Remote Delivery)
+- **Primary Software**: Tekla Structures 2025 (Expert), Autodesk AutoCAD, Autodesk Revit, Bentley STAAD.Pro
+- **Certifications**: 
+  - Tekla Structures Steel Fundamentals 2025 (Certified by Trimble)
+  - Detailer Training Series (DTS) Certified by AISC (American Institute of Steel Construction)
+
+## Core Capabilities & Services
+1. **Tekla 3D BIM Modeling (LOD 400)**: Complete coordinated structural framing models with clash detection, anchor bolt layouts, and accurate profile dimensions.
+2. **Fabrication Shop Drawings**: Single-part fittings, column and beam assembly drawings, section views, weld symbols, and part marks.
+3. **General Arrangement (GA) Plans**: Erection plans, floor framing layouts, roof framing plans, cross-sections, and holding down bolt layouts.
+4. **Pre-Engineered Buildings (PEB)**: Industrial warehouse sheds, curved rafters, mezzanines, canopies, and portal frames.
+5. **Connection Detailing**: Moment connections, shear connections, splices, base plates, and stiffener plates per AISC/BS standards.
+6. **CNC & Data Deliverables**: DSTV, NC files, DXF profiles, and comprehensive Bill of Materials (BOM) summaries.
+
+## Featured Portfolio Projects
+- **Metrorail Station Structure**: Multi-span transit steel framework with staircases and elevated passenger concourse.
+- **Curved Rafter Industrial Shed**: Heavy industrial petroleum shed with curved rafters and purlin bracing.
+- **Multi-Storied Industrial Building (280 Tons)**: High-tonnage commercial and industrial steel framing.
+- **Curved Walkway Platform (28 Tons)**: Circular tank ring access platform with handrails and grating layouts.
+- **Spiral Steel Staircase (12 Tons)**: Complex curved architectural steel stair with stringers and landing details.
+- **Flyover Support Structure (320 Tons)**: Heavy elevated civil infrastructure truss framing.
+
+## Contact & Hiring Channels
+- **Website**: https://julkarnaeem.github.io/portfolio_of_julkarnaeem/
+- **WhatsApp**: +8801739411586 (https://wa.me/8801739411586)
+- **Email**: hello@julkarnaeem.com
+- **GitHub**: https://github.com/JulkarNaeem
