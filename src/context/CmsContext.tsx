@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SiteContent, ProjectItem, ServiceItem } from '../types/cms';
 
-const STORAGE_KEY = 'julkarnaeem_portfolio_cms_v2';
+const STORAGE_KEY = 'julkarnaeem_portfolio_cms_v3';
 
 export const defaultSiteContent: SiteContent = {
   profileName: 'Julkar Naeem',
@@ -28,7 +28,7 @@ export const defaultSiteContent: SiteContent = {
     headlineLine3: 'Fabrication',
     subtitle: 'I create accurate Tekla BIM models and fabrication-ready shop drawings for PEB, industrial steel, platforms, stairs, and structural steel projects.',
     projectsCountText: '150+ Steel Projects Delivered',
-    heroImage: '/images/hero-steel.jpg',
+    heroImage: '/images/Project Photos/Metrorail Station Structure with stair.png',
     softwareBadgeTitle: 'Tekla Structures 2025',
     softwareBadgeSub: 'Fabrication-Ready BIM',
   },

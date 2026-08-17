@@ -17,26 +17,31 @@ export default function Footer({ onNavigate }: FooterProps) {
   ];
 
   return (
-    <footer className="bg-charcoal text-white border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <footer className="bg-charcoal text-white border-t border-white/10 relative overflow-hidden cad-grid-dark">
+      {/* Top micro gold line */}
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-accent flex items-center justify-center">
-                <span className="text-charcoal font-bold text-sm font-mono">
-                  {content.profileName.split(' ').map(n => n[0]).join('') || 'JN'}
-                </span>
+            <div className="flex items-center gap-3.5 mb-3">
+              <div className="w-9 h-9 flex items-center justify-center">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Logo" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(232,177,0,0.3)]" 
+                />
               </div>
-              <span className="font-semibold text-lg tracking-tight">{content.profileName}</span>
+              <span className="font-extrabold text-xl tracking-tight text-white">{content.profileName}</span>
             </div>
             <p className="text-steel-light text-sm leading-relaxed max-w-sm">
               {content.profileRole} | Tekla BIM & Fabrication Drawings
             </p>
-            <p className="text-steel/60 text-xs mt-1">Dhaka, Bangladesh · Remote worldwide</p>
+            <p className="text-steel/60 text-xs mt-1 font-mono">Dhaka, Bangladesh · Remote Worldwide (UTC +6)</p>
           </div>
 
-          {/* Social */}
+          {/* Social Icons */}
           <div className="flex gap-3">
             {socialLinks.map(({ Icon, label, href }) => (
               <a
@@ -45,10 +50,10 @@ export default function Footer({ onNavigate }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 border border-steel/30 flex items-center justify-center text-steel-light hover:bg-accent hover:text-charcoal hover:border-accent transition-all duration-200"
+                className="w-10 h-10 border border-white/15 bg-white/5 flex items-center justify-center text-steel-lighter hover:bg-accent hover:text-charcoal hover:border-accent hover:scale-110 transition-all duration-200 shadow-sm"
                 title={label}
               >
-                <Icon size={16} />
+                <Icon size={18} />
               </a>
             ))}
           </div>
@@ -56,27 +61,13 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="mt-10 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-steel-light text-xs">
-            © {new Date().getFullYear()} Julkar Naeem. All rights reserved.
+          <p className="text-steel-light text-xs font-mono">
+            © {new Date().getFullYear()} {content.profileName}. Built for Steel Precision.
           </p>
-          <div className="flex items-center gap-4 text-xs">
-            <a href="mailto:hello@julkarnaeem.com" className="text-steel/50 hover:text-accent transition-colors">
+          <div className="flex items-center gap-4 text-xs font-mono">
+            <a href="mailto:hello@julkarnaeem.com" className="text-steel-lighter/60 hover:text-accent transition-colors">
               hello@julkarnaeem.com
             </a>
-            <span className="text-steel/30">•</span>
-            <button
-              onClick={() => {
-                if (onNavigate) {
-                  onNavigate('admin');
-                } else {
-                  window.location.hash = '#admin';
-                }
-              }}
-              className="text-steel/50 hover:text-accent flex items-center gap-1 transition-colors text-xs"
-              title="Admin Portal Access"
-            >
-              Admin Access
-            </button>
           </div>
         </div>
       </div>

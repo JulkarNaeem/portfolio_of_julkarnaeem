@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-charcoal: #1a1a2e;
-  --color-charcoal-light: #2d2d44;
-  --color-steel: #6b7280;
-  --color-steel-light: #9ca3af;
-  --color-steel-lighter: #d1d5db;
+  --color-charcoal: #12131c;
+  --color-charcoal-card: #181926;
+  --color-charcoal-light: #222436;
+  --color-steel: #64748b;
+  --color-steel-light: #94a3b8;
+  --color-steel-lighter: #cbd5e1;
   --color-accent: #e8b100;
   --color-accent-hover: #d4a200;
-  --color-surface: #f8f9fa;
-  --color-surface-alt: #f1f3f5;
-  --color-border: #e5e7eb;
+  --color-accent-light: #fef3c7;
+  --color-surface: #f8fafc;
+  --color-surface-alt: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-border-dark: #2a2d40;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -23,21 +26,25 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: var(--color-charcoal);
+  overflow-x: hidden;
 }
 
-/* Custom scrollbar */
+/* Custom modern scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0f1017;
 }
 ::-webkit-scrollbar-thumb {
-  background: #9ca3af;
-  border-radius: 3px;
+  background: #334155;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--color-accent);
 }
 
 /* Smooth section transitions */
@@ -45,20 +52,200 @@ section {
   scroll-margin-top: 80px;
 }
 
-/* Tactile Clicky Button Effects */
-.btn-clicky {
-  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(0) scale(1);
-  cursor: pointer;
-  user-select: none;
+/* ─────────────────────────────────────────────────────────────
+   ANIMATION KEYFRAMES
+───────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.btn-clicky:hover {
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.08);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.btn-clicky:active {
-  transform: translateY(2px) scale(0.95) !important;
-  filter: brightness(0.92);
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(232, 177, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(232, 177, 0, 0.45);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.animate-float {
+  animation: floatSlow 4s infinite ease-in-out;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ENGINEERING & CAD PATTERNS
+───────────────────────────────────────────────────────────── */
+
+/* Technical CAD dot grid pattern */
+.cad-grid-pattern {
+  background-image: radial-gradient(rgba(232, 177, 0, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.cad-grid-dark {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.cad-grid-light {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Technical blueprint corner accents */
+.cad-corner-box {
+  position: relative;
+}
+.cad-corner-box::before,
+.cad-corner-box::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--color-accent);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.cad-corner-box::before {
+  top: -2px;
+  left: -2px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.cad-corner-box::after {
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+.cad-corner-box:hover::before,
+.cad-corner-box:hover::after {
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-accent);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TACTILE BUTTONS & HOVER EFFECTS
+───────────────────────────────────────────────────────────── */
+
+.btn-tactile {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-tactile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(232, 177, 0, 0.35);
+}
+
+.btn-tactile:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-tactile-dark {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-tactile-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(18, 19, 28, 0.4);
+}
+
+.btn-tactile-dark:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Shimmer effect on buttons/badges */
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.6s ease;
+}
+
+.btn-shimmer:hover::after {
+  transform: translateX(350%) skewX(-20deg);
+}
+
+/* Glassmorphic cards */
+.glass-panel-dark {
+  background: rgba(18, 19, 28, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }

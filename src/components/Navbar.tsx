@@ -45,57 +45,67 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-charcoal/95 backdrop-blur-md shadow-lg border-b border-white/10'
-          : 'bg-charcoal/90 backdrop-blur-md border-b border-white/10'
+          ? 'bg-[#12131c]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
+          : 'bg-[#12131c]/80 backdrop-blur-sm border-b border-white/5'
       }`}
     >
+      {/* Top micro gold line */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-accent to-transparent opacity-80" />
+
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
-          {/* Logo */}
+          {/* Logo & Identity */}
           <button
             onClick={() => handleNav('home')}
             aria-label={`${navSettings.brandName} Home`}
-            className="flex items-center gap-3 group text-left"
+            className="flex items-center gap-3.5 group text-left transition-transform duration-200 hover:scale-[1.02]"
           >
-            <div className="w-8 h-8 bg-accent flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-charcoal font-bold text-sm font-mono">
-                {navSettings.brandInitials || 'JN'}
-              </span>
+            <div className="w-10 h-10 transition-transform group-hover:scale-105 flex items-center justify-center relative">
+              <img 
+                src="/images/logo.png" 
+                alt="Logo" 
+                className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(232,177,0,0.3)]" 
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#22c55e] border-2 border-charcoal rounded-full animate-pulse" title="Available for projects" />
             </div>
             <div className="flex flex-col">
-              <span className="text-white font-semibold text-[15px] leading-tight tracking-tight group-hover:text-accent transition-colors">
-                {navSettings.brandName}
-              </span>
-              <span className="text-steel-lighter text-[10px] uppercase tracking-[0.2em] leading-tight font-medium">
+              <div className="flex items-center gap-2">
+                <span className="text-white font-bold text-[16px] leading-tight tracking-tight group-hover:text-accent transition-colors">
+                  {navSettings.brandName}
+                </span>
+              </div>
+              <span className="text-steel-lighter text-[10px] uppercase tracking-[0.22em] leading-tight font-mono font-medium">
                 {navSettings.brandRole}
               </span>
             </div>
           </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => {
               const isActive = currentPage === link.page;
               return (
                 <button
                   key={link.page}
                   onClick={() => handleNav(link.page)}
-                  className={`text-[13px] uppercase tracking-[0.12em] font-medium transition-colors duration-200 relative py-1 ${
+                  className={`text-[12px] uppercase tracking-[0.16em] font-medium transition-all duration-200 relative py-2 ${
                     isActive
                       ? 'text-accent font-semibold'
-                      : 'text-steel-lighter hover:text-white'
+                      : 'text-steel-lighter hover:text-white hover:translate-y-[-1px]'
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="block w-full h-[2px] bg-accent mt-1 transition-all duration-200" />
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-accent to-accent-hover rounded-full shadow-[0_0_8px_rgba(232,177,0,0.6)]" />
                   )}
                 </button>
               );
             })}
+            
+            {/* CTA Button */}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="ml-2 px-5 py-2.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-200 shadow-sm"
+              className="ml-3 px-5 py-2.5 bg-accent text-charcoal text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile btn-shimmer shadow-[0_2px_12px_rgba(232,177,0,0.25)] hover:bg-white hover:text-charcoal transition-all duration-300"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>
@@ -105,26 +115,26 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="md:hidden text-white hover:text-accent p-2 transition-colors"
+            className="md:hidden text-white hover:text-accent p-2 transition-colors duration-200"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-charcoal border-t border-white/10">
-          <div className="px-6 py-6 space-y-1">
+        <div className="md:hidden bg-charcoal/95 backdrop-blur-xl border-t border-white/10 animate-fade-in-up">
+          <div className="px-6 py-6 space-y-2">
             {navLinks.map((link) => {
               const isActive = currentPage === link.page;
               return (
                 <button
                   key={link.page}
                   onClick={() => handleNav(link.page)}
-                  className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                  className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.15em] font-medium transition-colors ${
                     isActive
-                      ? 'text-accent bg-white/5 font-semibold'
+                      ? 'text-accent bg-white/5 font-semibold border-l-2 border-accent'
                       : 'text-steel-lighter hover:text-white'
                   }`}
                 >
@@ -134,7 +144,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="mt-4 w-full px-5 py-3 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white transition-all"
+              className="mt-4 w-full px-5 py-3.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-lg text-center"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>

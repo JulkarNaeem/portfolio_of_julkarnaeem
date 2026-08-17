@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import {
-  X,
+  Save,
+  CheckCircle2,
   Plus,
   Trash2,
-  Edit2,
+  Edit3,
+  Eye,
+  RotateCcw,
   Download,
   Upload,
-  RotateCcw,
   Layout,
   Briefcase,
   Wrench,
@@ -14,16 +16,29 @@ import {
   Mail,
   Database,
   Image as ImageIcon,
-  Video,
-  Film,
-  Compass,
-  ShieldCheck,
   Sparkles,
-  Save,
-  CheckCircle2,
+  Layers,
+  ArrowRight,
+  ExternalLink,
+  ShieldCheck,
+  Check,
+  AlertCircle,
+  HelpCircle,
 } from 'lucide-react';
 import { useCms } from '../../context/CmsContext';
 import { ProjectItem } from '../../types/cms';
+
+// Pre-existing Tekla project images in public folder for visual one-click picker
+const PRESET_PROJECT_IMAGES = [
+  { name: 'Metrorail Station Structure', path: '/images/Project Photos/Metrorail Station Structure with stair.png' },
+  { name: 'Flyover Steel Support Member', path: '/images/Project Photos/3d Drawing View of Flyover Support member.png' },
+  { name: 'Multistoried Building Frame', path: '/images/Project Photos/Multistoried Building.png' },
+  { name: 'Curved Rafter Industrial Shed', path: '/images/Project Photos/Carver Rafter Shed industrial.png' },
+  { name: 'Curved Walkway Platform (Tank)', path: '/images/Project Photos/Carve Walkaway Platform.png' },
+  { name: 'Spiral Steel Staircase', path: '/images/Project Photos/Spiral Stair.png' },
+  { name: 'General Steel Staircase', path: '/images/Project Photos/Stair.png' },
+  { name: 'Commercial Shed with Rooftop', path: '/images/Project Photos/Multistoried Building with Rooftop Shed & stair.png' },
+];
 
 interface AdminDashboardProps {
   embedded?: boolean;
@@ -32,1115 +47,781 @@ interface AdminDashboardProps {
 export default function AdminDashboard({ embedded = false }: AdminDashboardProps) {
   const {
     content,
-    isAdminOpen,
-    setIsAdminOpen,
     updateField,
     addProject,
     updateProject,
     deleteProject,
-    addService,
-    deleteService,
     resetToDefaults,
     exportJson,
     importJson,
   } = useCms();
 
-  const [activeTab, setActiveTab] = useState<'navbar' | 'hero' | 'projects' | 'services' | 'about' | 'contact' | 'data'>('navbar');
+  const [activeTab, setActiveTab] = useState<'hero' | 'projects' | 'services' | 'about' | 'contact' | 'backup'>('hero');
   const [editingProject, setEditingProject] = useState<ProjectItem | null>(null);
-  const [newProjectModal, setNewProjectModal] = useState(false);
-  const [newServiceModal, setNewServiceModal] = useState(false);
-  const [jsonInput, setJsonInput] = useState('');
-  const [importStatus, setImportStatus] = useState<string | null>(null);
-  const [passcodeMsg, setPasscodeMsg] = useState<string | null>(null);
+  const [showNewProjectModal, setShowNewProjectModal] = useState(false);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
-
-  const handleSaveAndApply = () => {
-    // If an inline project edit is active, save it first
-    if (editingProject) {
-      updateProject(editingProject.id, editingProject);
-      setEditingProject(null);
-    }
-    setSaveSuccessMsg('All changes saved & applied to live website!');
-    setTimeout(() => setSaveSuccessMsg(null), 3500);
-  };
-
-  // Fallback for NavSettings
-  const navSettings = content.navSettings || {
-    brandInitials: content.profileName?.split(' ').map((n) => n[0]).join('') || 'JN',
-    brandName: content.profileName || 'Julkar Naeem',
-    brandRole: content.profileRole || 'Steel Detailer',
-    ctaLabel: 'Inquire Now',
-    ctaPage: 'contact',
-    navLinks: [
-      { label: 'Home', page: 'home', visible: true },
-      { label: 'Projects', page: 'projects', visible: true },
-      { label: 'Services', page: 'services', visible: true },
-      { label: 'About', page: 'about', visible: true },
-      { label: 'Contact', page: 'contact', visible: true },
-    ],
-  };
+  const [selectedPresetImage, setSelectedPresetImage] = useState<string>('');
 
   // New Project Form State
-  const [newProjData, setNewProjData] = useState<Omit<ProjectItem, 'id'>>({
+  const [newProject, setNewProject] = useState<Omit<ProjectItem, 'id'>>({
     title: '',
-    category: 'Industrial Platform',
-    img: '/images/project-1.jpg',
+    category: 'Structural Steel',
+    img: PRESET_PROJECT_IMAGES[0].path,
     desc: '',
     tonnage: '50 tons',
-    gallery: [],
+    software: 'Tekla Structures 2025',
+    deliverables: ['3D BIM Model', 'Shop Drawings', 'GA Drawings', 'BOM Report'],
+    gallery: [PRESET_PROJECT_IMAGES[0].path],
     videoUrl: '',
   });
 
-  // New Service Form State
-  const [newSvcData, setNewSvcData] = useState({
-    title: '',
-    iconName: 'Wrench',
-    desc: '',
-    includes: ['Custom detailing item 1', 'Custom detailing item 2'],
-  });
-
-  if (!embedded && !isAdminOpen) return null;
-
-  // Total Media Count Calculation
-  const totalGalleryPhotos = content.projects.reduce((acc, p) => acc + (p.gallery?.length || 0), 0);
-  const totalVideos = content.projects.filter((p) => p.videoUrl).length;
-
-  // File Upload Helper to convert local files to DataURL
-  const handleFileUpload = (file: File, callback: (dataUrl: string) => void) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        callback(e.target.result as string);
-      }
-    };
-    reader.readAsDataURL(file);
+  const triggerSaveNotification = (msg = 'Changes saved successfully to your live website!') => {
+    setSaveSuccessMsg(msg);
+    setTimeout(() => setSaveSuccessMsg(null), 3000);
   };
 
-  const handleAddProjectSubmit = (e: React.FormEvent) => {
+  const handleCreateProject = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newProjData.title) return;
-    addProject(newProjData);
-    setNewProjData({
+    if (!newProject.title.trim()) return;
+
+    addProject({
+      ...newProject,
+      id: `proj-${Date.now()}`,
+      gallery: newProject.gallery?.length ? newProject.gallery : [newProject.img],
+    });
+
+    setShowNewProjectModal(false);
+    setNewProject({
       title: '',
-      category: 'Industrial Platform',
-      img: '/images/project-1.jpg',
+      category: 'Structural Steel',
+      img: PRESET_PROJECT_IMAGES[0].path,
       desc: '',
       tonnage: '50 tons',
-      gallery: [],
+      software: 'Tekla Structures 2025',
+      deliverables: ['3D BIM Model', 'Shop Drawings', 'GA Drawings', 'BOM Report'],
+      gallery: [PRESET_PROJECT_IMAGES[0].path],
       videoUrl: '',
     });
-    setNewProjectModal(false);
+    triggerSaveNotification('New Project added to Portfolio!');
   };
 
-  const handleSaveEditProject = (e: React.FormEvent) => {
+  const handleUpdateProjectSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!editingProject || !editingProject.id) return;
+    if (!editingProject) return;
     updateProject(editingProject.id, editingProject);
     setEditingProject(null);
+    triggerSaveNotification('Project details updated!');
   };
 
-  const handleAddServiceSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newSvcData.title) return;
-    addService(newSvcData);
-    setNewSvcData({
-      title: '',
-      iconName: 'Wrench',
-      desc: '',
-      includes: ['Custom detailing item 1', 'Custom detailing item 2'],
-    });
-    setNewServiceModal(false);
-  };
-
-  const handleImportSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = importJson(jsonInput);
-    if (success) {
-      setImportStatus('Content successfully imported!');
-      setJsonInput('');
-    } else {
-      setImportStatus('Error importing JSON. Please check file format.');
-    }
-  };
-
-  const dashboardContent = (
-    <div
-      className={`w-full bg-[#11111c] text-white flex flex-col overflow-hidden ${
-        embedded
-          ? 'max-w-6xl mx-auto py-6 px-4 border border-white/10 shadow-2xl my-6 rounded-none'
-          : 'relative w-full max-w-4xl h-full border-l border-white/10 shadow-2xl'
-      }`}
-    >
-      {/* Top Header Drawer Bar if not embedded */}
-      {!embedded && (
-        <div className="px-6 py-4 bg-[#181828] border-b border-white/10 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-accent flex items-center justify-center shadow-lg flex-shrink-0">
-              <Sparkles size={18} className="text-charcoal" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold tracking-tight text-white">Management Dashboard</h2>
-              <p className="text-xs text-steel-lighter hidden sm:block">Modify portfolio content, navbar, photos, and settings</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleSaveAndApply}
-              className="btn-clicky px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-charcoal font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 rounded-sm border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 shadow-xl transition-all select-none cursor-pointer"
-            >
-              <Save size={16} /> Save & Apply Changes
-            </button>
-            <button
-              onClick={() => setIsAdminOpen(false)}
-              aria-label="Close admin dashboard"
-              className="w-8 h-8 bg-white/10 text-white hover:bg-accent hover:text-charcoal flex items-center justify-center transition-colors"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* FLOATING SAVE & APPLY TOAST NOTIFICATION */}
+  return (
+    <div className="min-h-screen bg-[#0f1017] text-white flex flex-col font-sans">
+      
+      {/* Toast Save Notification */}
       {saveSuccessMsg && (
-        <div className="bg-emerald-500 text-charcoal px-6 py-3 border-b border-emerald-400 flex items-center justify-between gap-3 animate-fadeIn font-semibold text-xs uppercase tracking-wider shadow-xl">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={18} />
-            <span>{saveSuccessMsg}</span>
-          </div>
-          <button onClick={() => setSaveSuccessMsg(null)} className="hover:opacity-75">
-            <X size={16} />
-          </button>
+        <div className="fixed top-20 right-6 z-50 bg-[#22c55e] text-charcoal px-5 py-3 rounded-lg shadow-2xl font-bold text-xs flex items-center gap-2.5 animate-fade-in border-2 border-white/20">
+          <CheckCircle2 size={18} className="text-charcoal" />
+          <span>{saveSuccessMsg}</span>
         </div>
       )}
 
-      {/* METRIC OVERVIEW STATS BAR */}
-      <div className="p-6 bg-[#161625] border-b border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 bg-white/5 border border-white/10 hover:border-accent/30 transition-colors">
-          <div className="flex items-center justify-between text-steel-lighter mb-2">
-            <span className="text-[11px] uppercase tracking-wider font-semibold">Total Projects</span>
-            <Briefcase size={16} className="text-accent" />
-          </div>
-          <p className="text-2xl font-bold text-white font-mono">{content.projects.length}</p>
-          <span className="text-[10px] text-steel-lighter">Portfolio Showcase</span>
-        </div>
+      <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8 gap-8">
+        
+        {/* ─── LEFT SIDEBAR: Visual Navigation ─── */}
+        <aside className="w-full lg:w-72 flex-shrink-0 space-y-4">
+          <div className="bg-[#181926] border border-white/10 p-5 rounded-xl shadow-xl space-y-4">
+            <div>
+              <span className="text-[10px] uppercase font-mono font-bold text-accent tracking-widest block mb-1">
+                Visual CMS Controls
+              </span>
+              <h2 className="text-lg font-extrabold text-white">Content Editor</h2>
+              <p className="text-xs text-steel-light mt-0.5">Click any section below to edit texts, images, and services.</p>
+            </div>
 
-        <div className="p-4 bg-white/5 border border-white/10 hover:border-accent/30 transition-colors">
-          <div className="flex items-center justify-between text-steel-lighter mb-2">
-            <span className="text-[11px] uppercase tracking-wider font-semibold">Services</span>
-            <Wrench size={16} className="text-accent" />
+            {/* Navigation Tabs */}
+            <nav className="space-y-1.5 pt-2">
+              {[
+                { id: 'hero', label: 'Hero & Branding', icon: Layout, desc: 'Name, Headlines, Software' },
+                { id: 'projects', label: '3D Projects & Models', icon: Briefcase, desc: `${content.projects.length} Projects Listed` },
+                { id: 'services', label: 'Service Packages', icon: Wrench, desc: 'Starter, Standard, Advanced' },
+                { id: 'about', label: 'About & Bio', icon: User, desc: 'Story, Experience, Quote' },
+                { id: 'contact', label: 'Contact & Socials', icon: Mail, desc: 'WhatsApp, Email, Links' },
+                { id: 'backup', label: 'Backup & Restore', icon: Database, desc: '1-Click Export & Reset' },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`w-full p-3 rounded-lg text-left transition-all flex items-center gap-3.5 cursor-pointer ${
+                      isActive
+                        ? 'bg-accent text-charcoal font-bold shadow-lg shadow-accent/20'
+                        : 'text-steel-lighter hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <div className={`p-2 rounded-md ${isActive ? 'bg-charcoal text-accent' : 'bg-white/5 text-steel-lighter'}`}>
+                      <Icon size={18} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold leading-tight">{tab.label}</p>
+                      <p className={`text-[10px] truncate ${isActive ? 'text-charcoal/80' : 'text-steel'}`}>{tab.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </nav>
           </div>
-          <p className="text-2xl font-bold text-white font-mono">{content.services.length}</p>
-          <span className="text-[10px] text-steel-lighter">Active Detailing Scope</span>
-        </div>
 
-        <div className="p-4 bg-white/5 border border-white/10 hover:border-accent/30 transition-colors">
-          <div className="flex items-center justify-between text-steel-lighter mb-2">
-            <span className="text-[11px] uppercase tracking-wider font-semibold">Media Assets</span>
-            <ImageIcon size={16} className="text-accent" />
+          {/* Quick Helper Box */}
+          <div className="p-4 bg-accent/5 border border-accent/20 rounded-xl text-xs space-y-2">
+            <div className="flex items-center gap-1.5 text-accent font-bold text-[11px] uppercase tracking-wider font-mono">
+              <HelpCircle size={14} /> Non-Developer Tip
+            </div>
+            <p className="text-steel-light leading-relaxed text-[11px]">
+              Changes update your website immediately in real-time. No coding or terminal commands needed!
+            </p>
           </div>
-          <p className="text-2xl font-bold text-white font-mono">{totalGalleryPhotos + totalVideos}</p>
-          <span className="text-[10px] text-steel-lighter">{totalGalleryPhotos} Photos • {totalVideos} Videos</span>
-        </div>
-
-        <div className="p-4 bg-white/5 border border-white/10 hover:border-accent/30 transition-colors">
-          <div className="flex items-center justify-between text-steel-lighter mb-2">
-            <span className="text-[11px] uppercase tracking-wider font-semibold">Security</span>
-            <ShieldCheck size={16} className="text-accent" />
-          </div>
-          <p className="text-sm font-bold text-accent tracking-wide uppercase mt-1">Passcode Active</p>
-          <span className="text-[10px] text-steel-lighter">Protected Portal</span>
-        </div>
-      </div>
-
-      {/* MAIN SIDEBAR & CONTENT CONTAINER */}
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-        {/* VERTICAL SIDEBAR NAVIGATION */}
-        <aside className="w-full md:w-64 flex-shrink-0 bg-[#161625] border-r border-white/10 p-4 space-y-1 overflow-y-auto">
-          <div className="px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-bold text-accent mb-2">
-            Dashboard Menu
-          </div>
-          {[
-            { id: 'navbar', label: 'Navbar & Header', icon: Compass },
-            { id: 'hero', label: 'Hero & Profile', icon: Layout },
-            { id: 'projects', label: 'Projects & Media', icon: Briefcase },
-            { id: 'services', label: 'Services', icon: Wrench },
-            { id: 'about', label: 'About & Bio', icon: User },
-            { id: 'contact', label: 'Contact Details', icon: Mail },
-            { id: 'data', label: 'Backup & Reset', icon: Database },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-xs uppercase tracking-wider font-semibold border-l-4 transition-all text-left ${
-                  isActive
-                    ? 'border-accent text-accent bg-[#11111c] shadow-md font-bold'
-                    : 'border-transparent text-steel-lighter hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Icon size={16} className={isActive ? 'text-accent' : 'text-steel-lighter'} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
         </aside>
 
-        {/* BODY CONTENT AREA */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[#11111c]">
-
-        {/* TAB 0: NAVBAR & HEADER SETTINGS */}
-        {activeTab === 'navbar' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent flex items-center gap-2">
-                <Compass size={16} /> Navbar & Header Customization
-              </h3>
-            </div>
-
-            {/* BRAND LOGO CARD */}
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <h4 className="text-xs uppercase tracking-wider font-bold text-white border-b border-white/10 pb-2">
-                1. Brand Logo & Title Settings
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* ─── RIGHT MAIN PANEL: Friendly Form Editor ─── */}
+        <main className="flex-1 min-w-0 bg-[#181926] border border-white/10 rounded-xl p-6 sm:p-8 shadow-2xl space-y-8">
+          
+          {/* ══════════════════════════════════════════════
+              TAB 1: HERO & BRANDING
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'hero' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">
-                    Logo Monogram Initials
-                  </label>
-                  <input
-                    type="text"
-                    maxLength={3}
-                    value={navSettings.brandInitials}
-                    onChange={(e) =>
-                      updateField('navSettings', { ...navSettings, brandInitials: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white font-mono text-sm focus:border-accent focus:outline-none"
-                  />
+                  <h3 className="text-xl font-bold text-white">Hero Section & Main Branding</h3>
+                  <p className="text-xs text-steel-light">Customize your main headlines, role title, and featured Tekla model image.</p>
                 </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">
-                    Brand Name / Title
-                  </label>
-                  <input
-                    type="text"
-                    value={navSettings.brandName}
-                    onChange={(e) =>
-                      updateField('navSettings', { ...navSettings, brandName: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">
-                    Role Tagline Subtitle
-                  </label>
-                  <input
-                    type="text"
-                    value={navSettings.brandRole}
-                    onChange={(e) =>
-                      updateField('navSettings', { ...navSettings, brandRole: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
+                <button
+                  onClick={() => triggerSaveNotification()}
+                  className="px-5 py-2.5 bg-accent text-charcoal text-xs uppercase font-bold tracking-wider rounded-md hover:bg-white transition-all flex items-center gap-2 shadow-md cursor-pointer self-start sm:self-auto"
+                >
+                  <Save size={15} /> Save Hero Changes
+                </button>
               </div>
-            </div>
 
-            {/* NAVBAR CTA BUTTON CARD */}
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <h4 className="text-xs uppercase tracking-wider font-bold text-white border-b border-white/10 pb-2">
-                2. Top Action Button (CTA)
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">
-                    CTA Button Label
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Your Full Name
                   </label>
-                  <input
-                    type="text"
-                    value={navSettings.ctaLabel}
-                    onChange={(e) =>
-                      updateField('navSettings', { ...navSettings, ctaLabel: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">
-                    Target Navigation Page
-                  </label>
-                  <select
-                    value={navSettings.ctaPage}
-                    onChange={(e) =>
-                      updateField('navSettings', { ...navSettings, ctaPage: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  >
-                    <option value="contact">Contact Page</option>
-                    <option value="projects">Projects Page</option>
-                    <option value="services">Services Page</option>
-                    <option value="about">About Page</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* NAVIGATION LINKS VISIBILITY CARD */}
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <h4 className="text-xs uppercase tracking-wider font-bold text-white border-b border-white/10 pb-2">
-                3. Menu Items Visibility
-              </h4>
-              <div className="space-y-3">
-                {navSettings.navLinks.map((link, idx) => (
-                  <div
-                    key={link.page}
-                    className="p-3 bg-black/30 border border-white/10 flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="text"
-                        value={link.label}
-                        onChange={(e) => {
-                          const updated = [...navSettings.navLinks];
-                          updated[idx].label = e.target.value;
-                          updateField('navSettings', { ...navSettings, navLinks: updated });
-                        }}
-                        className="px-3 py-1.5 bg-black/50 border border-white/20 text-white text-xs font-medium focus:border-accent"
-                      />
-                      <span className="text-xs text-steel-lighter font-mono">#{link.page}</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const updated = [...navSettings.navLinks];
-                        updated[idx].visible = !updated[idx].visible;
-                        updateField('navSettings', { ...navSettings, navLinks: updated });
-                      }}
-                      className={`px-3 py-1 text-xs font-semibold uppercase tracking-wider border transition-all ${
-                        link.visible
-                          ? 'bg-accent/20 text-accent border-accent/40'
-                          : 'bg-white/5 text-steel-lighter border-white/10'
-                      }`}
-                    >
-                      {link.visible ? 'Visible' : 'Hidden'}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 1: HERO & PROFILE */}
-        {activeTab === 'hero' && (
-          <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Profile & Top Banner</h3>
-
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Full Name</label>
                   <input
                     type="text"
                     value={content.profileName}
                     onChange={(e) => updateField('profileName', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md focus:border-accent text-white text-sm outline-none"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Primary Role</label>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Professional Role Title
+                  </label>
                   <input
                     type="text"
                     value={content.profileRole}
                     onChange={(e) => updateField('profileRole', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md focus:border-accent text-white text-sm outline-none"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Hero Subtitle Badge</label>
-                <input
-                  type="text"
-                  value={content.hero.badge}
-                  onChange={(e) => updateField('hero.badge', e.target.value)}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Headline Line 1</label>
-                  <input
-                    type="text"
-                    value={content.hero.headlineLine1}
-                    onChange={(e) => updateField('hero.headlineLine1', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Headline Line 2</label>
-                  <input
-                    type="text"
-                    value={content.hero.headlineLine2}
-                    onChange={(e) => updateField('hero.headlineLine2', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Headline Line 3</label>
-                  <input
-                    type="text"
-                    value={content.hero.headlineLine3}
-                    onChange={(e) => updateField('hero.headlineLine3', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Hero Description Paragraph</label>
-                <textarea
-                  rows={3}
-                  value={content.hero.subtitle}
-                  onChange={(e) => updateField('hero.subtitle', e.target.value)}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Projects Delivered Highlight</label>
-                <input
-                  type="text"
-                  value={content.hero.projectsCountText}
-                  onChange={(e) => updateField('hero.projectsCountText', e.target.value)}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 2: PROJECTS & MEDIA MANAGER */}
-        {activeTab === 'projects' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Projects Portfolio ({content.projects.length})</h3>
-              <button
-                onClick={() => {
-                  setEditingProject(null);
-                  setNewProjectModal(true);
-                }}
-                className="px-4 py-2 bg-accent text-charcoal text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 hover:bg-white transition-all shadow-md"
-              >
-                <Plus size={14} /> Add New Project
-              </button>
-            </div>
-
-            {/* Add Project Form */}
-            {newProjectModal && !editingProject && (
-              <form onSubmit={handleAddProjectSubmit} className="p-5 bg-[#181828] border border-accent space-y-4 shadow-xl animate-fadeIn">
-                <h4 className="text-xs uppercase tracking-wider text-accent font-semibold">New Project Form</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    placeholder="Project Title *"
-                    required
-                    value={newProjData.title}
-                    onChange={(e) => setNewProjData({ ...newProjData, title: e.target.value })}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                  />
-                  <select
-                    value={newProjData.category}
-                    onChange={(e) => setNewProjData({ ...newProjData, category: e.target.value })}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                  >
-                    <option value="Industrial Platform">Industrial Platform</option>
-                    <option value="PEB">PEB</option>
-                    <option value="Structural Steel">Structural Steel</option>
-                    <option value="Access Structures">Access Structures</option>
-                    <option value="Connection Design">Connection Design</option>
-                  </select>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="flex gap-2">
+              {/* 3-Line Headline Editor */}
+              <div className="p-5 bg-white/5 border border-white/10 rounded-lg space-y-4">
+                <span className="text-[11px] uppercase font-mono font-bold text-accent tracking-wider block">
+                  3-Line Main Hero Headline
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[10px] text-steel-lighter mb-1">Line 1 (e.g. Steel Structures,)</label>
                     <input
                       type="text"
-                      placeholder="Image URL"
-                      value={newProjData.img}
-                      onChange={(e) => setNewProjData({ ...newProjData, img: e.target.value })}
-                      className="flex-1 px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
+                      value={content.hero.headlineLine1}
+                      onChange={(e) => updateField('hero.headlineLine1', e.target.value)}
+                      className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
                     />
-                    <label className="px-3 py-2 bg-white/10 hover:bg-accent hover:text-charcoal text-xs font-semibold cursor-pointer flex items-center">
-                      <ImageIcon size={14} />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) handleFileUpload(file, (dataUrl) => setNewProjData({ ...newProjData, img: dataUrl }));
-                        }}
-                      />
-                    </label>
                   </div>
-                  <input
-                    type="text"
-                    placeholder="Structural Tonnage (e.g. 45 tons)"
-                    value={newProjData.tonnage}
-                    onChange={(e) => setNewProjData({ ...newProjData, tonnage: e.target.value })}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
+                  <div>
+                    <label className="block text-[10px] text-steel-lighter mb-1">Line 2 (e.g. Detailed for)</label>
+                    <input
+                      type="text"
+                      value={content.hero.headlineLine2}
+                      onChange={(e) => updateField('hero.headlineLine2', e.target.value)}
+                      className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] text-steel-lighter mb-1">Line 3 (e.g. Fabrication)</label>
+                    <input
+                      type="text"
+                      value={content.hero.headlineLine3}
+                      onChange={(e) => updateField('hero.headlineLine3', e.target.value)}
+                      className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] text-steel-lighter mb-1">Hero Subtitle Paragraph</label>
+                  <textarea
+                    rows={3}
+                    value={content.hero.subtitle}
+                    onChange={(e) => updateField('hero.subtitle', e.target.value)}
+                    className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none resize-none"
                   />
                 </div>
-                <textarea
-                  placeholder="Project Description..."
-                  rows={2}
-                  value={newProjData.desc}
-                  onChange={(e) => setNewProjData({ ...newProjData, desc: e.target.value })}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                />
-                <div className="flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setNewProjectModal(false)}
-                    className="px-3 py-1.5 bg-white/10 text-white text-xs"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-1.5 bg-accent text-charcoal text-xs font-semibold"
-                  >
-                    Save New Project
-                  </button>
+              </div>
+
+              {/* Primary Hero Image Picker */}
+              <div className="p-5 bg-white/5 border border-white/10 rounded-lg space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] uppercase font-mono font-bold text-accent tracking-wider block">
+                      Primary Hero 3D Model Image
+                    </span>
+                    <p className="text-xs text-steel-light">Select which drawing structure model appears first on your homepage:</p>
+                  </div>
                 </div>
-              </form>
-            )}
 
-            {/* Projects List with Dropdown Edit Drawer */}
-            <div className="space-y-4">
-              {content.projects.map((project) => {
-                const isEditing = editingProject?.id === project.id;
-                return (
-                  <div
-                    key={project.id}
-                    className={`bg-[#181828] border transition-all duration-300 overflow-hidden ${
-                      isEditing ? 'border-accent ring-2 ring-accent/30 shadow-2xl' : 'border-white/10 hover:border-accent/40'
-                    }`}
-                  >
-                    {/* Project Header Bar */}
-                    <div className="p-4 flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-4">
-                        <img src={project.img} alt={project.title} className="w-16 h-12 object-cover bg-black/40 border border-white/10" />
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-[10px] uppercase tracking-wider text-accent font-semibold">{project.category}</span>
-                            {project.gallery && project.gallery.length > 0 && (
-                              <span className="text-[9px] bg-white/10 px-1.5 py-0.5 text-steel-lighter font-mono flex items-center gap-1">
-                                <ImageIcon size={10} /> {project.gallery.length} photos
-                              </span>
-                            )}
-                            {project.videoUrl && (
-                              <span className="text-[9px] bg-accent/20 text-accent px-1.5 py-0.5 font-mono flex items-center gap-1">
-                                <Video size={10} /> Video
-                              </span>
-                            )}
-                          </div>
-                          <h4 className="text-sm font-semibold text-white">{project.title}</h4>
-                          <p className="text-xs text-steel-lighter line-clamp-1">{project.desc}</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {PRESET_PROJECT_IMAGES.map((preset, idx) => {
+                    const isSelected = content.hero.heroImage === preset.path;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          updateField('hero.heroImage', preset.path);
+                          triggerSaveNotification(`Hero image set to: ${preset.name}`);
+                        }}
+                        className={`p-2 border-2 rounded-lg text-left transition-all cursor-pointer ${
+                          isSelected
+                            ? 'border-accent bg-accent/10 shadow-lg scale-102 ring-2 ring-accent/30'
+                            : 'border-white/10 bg-charcoal hover:border-white/30 opacity-70 hover:opacity-100'
+                        }`}
+                      >
+                        <div className="aspect-[4/3] bg-black/40 rounded overflow-hidden mb-2">
+                          <img src={preset.path} alt={preset.name} className="w-full h-full object-contain p-1" />
                         </div>
-                      </div>
+                        <p className="text-[10px] font-bold text-white truncate">{preset.name}</p>
+                        <span className={`text-[9px] font-mono ${isSelected ? 'text-accent font-bold' : 'text-steel'}`}>
+                          {isSelected ? '✓ Active Hero' : 'Click to select'}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0">
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════════════
+              TAB 2: 3D PROJECTS & MODELS
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'projects' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-bold text-white">3D Tekla Projects & Portfolio</h3>
+                  <p className="text-xs text-steel-light">Manage, edit, or add new steel structure drawings and models.</p>
+                </div>
+                <button
+                  onClick={() => setShowNewProjectModal(true)}
+                  className="px-5 py-2.5 bg-accent text-charcoal text-xs uppercase font-bold tracking-wider rounded-md hover:bg-white transition-all flex items-center gap-2 shadow-lg cursor-pointer self-start sm:self-auto"
+                >
+                  <Plus size={16} /> Add New Project
+                </button>
+              </div>
+
+              {/* Projects Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {content.projects.map((proj, idx) => (
+                  <div
+                    key={proj.id || idx}
+                    className="p-4 bg-white/5 border border-white/10 rounded-lg hover:border-accent/60 transition-all flex gap-4 items-start group"
+                  >
+                    <div className="w-24 h-20 bg-charcoal rounded overflow-hidden border border-white/10 flex-shrink-0">
+                      <img src={proj.img} alt={proj.title} className="w-full h-full object-contain p-1" />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-[9px] uppercase font-mono font-bold px-2 py-0.5 bg-accent/10 text-accent border border-accent/20 rounded">
+                          {proj.category}
+                        </span>
+                        <span className="text-[10px] text-steel font-mono">{proj.tonnage}</span>
+                      </div>
+                      <h4 className="text-sm font-bold text-white truncate">{proj.title}</h4>
+                      <p className="text-xs text-steel-light line-clamp-2 mt-1">{proj.desc}</p>
+
+                      {/* Edit & Delete Controls */}
+                      <div className="flex items-center gap-3 mt-3 pt-2 border-t border-white/10">
                         <button
-                          onClick={() => {
-                            setNewProjectModal(false);
-                            if (isEditing) {
-                              setEditingProject(null);
-                            } else {
-                              setEditingProject({ ...project });
-                            }
-                          }}
-                          className={`px-3 py-1.5 font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm ${
-                            isEditing
-                              ? 'bg-white text-charcoal'
-                              : 'bg-accent text-charcoal hover:bg-white'
-                          }`}
+                          onClick={() => setEditingProject(proj)}
+                          className="text-xs text-accent hover:text-white font-bold flex items-center gap-1 cursor-pointer"
                         >
-                          <Edit2 size={12} /> {isEditing ? 'Close' : 'Edit Project'}
+                          <Edit3 size={12} /> Edit Details
                         </button>
                         <button
-                          onClick={() => deleteProject(project.id)}
-                          aria-label="Delete project"
-                          className="p-2 bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white transition-colors"
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to delete "${proj.title}"?`)) {
+                              deleteProject(proj.id);
+                              triggerSaveNotification('Project deleted!');
+                            }
+                          }}
+                          className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1 cursor-pointer"
                         >
-                          <Trash2 size={14} />
+                          <Trash2 size={12} /> Delete
                         </button>
                       </div>
                     </div>
+                  </div>
+                ))}
+              </div>
 
-                    {/* INLINE DROPDOWN EDIT FORM UNDERNEATH THIS PROJECT */}
-                    {isEditing && (
-                      <form onSubmit={handleSaveEditProject} className="p-5 bg-[#11111c] border-t-2 border-accent space-y-4 animate-fadeIn">
-                        <div className="flex justify-between items-center pb-2 border-b border-white/10">
-                          <h4 className="text-xs uppercase tracking-wider text-accent font-bold">
-                            Editing Details for: {project.title}
-                          </h4>
-                          <button
-                            type="button"
-                            onClick={() => setEditingProject(null)}
-                            className="text-white hover:text-accent"
-                          >
-                            <X size={16} />
-                          </button>
-                        </div>
+              {/* Edit Project Modal */}
+              {editingProject && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+                  <div className="bg-[#181926] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Edit3 size={18} className="text-accent" /> Edit Project: {editingProject.title}
+                      </h4>
+                      <button onClick={() => setEditingProject(null)} className="text-steel hover:text-white">✕</button>
+                    </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-[11px] uppercase tracking-wider text-steel-lighter mb-1">Project Title</label>
-                            <input
-                              type="text"
-                              required
-                              value={editingProject.title}
-                              onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-                              className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] uppercase tracking-wider text-steel-lighter mb-1">Category</label>
-                            <select
-                              value={editingProject.category}
-                              onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                              className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                            >
-                              <option value="Industrial Platform">Industrial Platform</option>
-                              <option value="PEB">PEB</option>
-                              <option value="Structural Steel">Structural Steel</option>
-                              <option value="Access Structures">Access Structures</option>
-                              <option value="Connection Design">Connection Design</option>
-                            </select>
-                          </div>
-                        </div>
+                    <form onSubmit={handleUpdateProjectSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-1">Project Title</label>
+                        <input
+                          type="text"
+                          required
+                          value={editingProject.title}
+                          onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
+                          className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                        />
+                      </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-[11px] uppercase tracking-wider text-steel-lighter mb-1">Structural Tonnage</label>
-                            <input
-                              type="text"
-                              value={editingProject.tonnage || ''}
-                              onChange={(e) => setEditingProject({ ...editingProject, tonnage: e.target.value })}
-                              className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] uppercase tracking-wider text-steel-lighter mb-1">Cover Photo (URL or Upload)</label>
-                            <div className="flex gap-2">
-                              <input
-                                type="text"
-                                value={editingProject.img}
-                                onChange={(e) => setEditingProject({ ...editingProject, img: e.target.value })}
-                                className="flex-1 px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                                placeholder="/images/project-1.jpg"
-                              />
-                              <label className="px-3 py-2 bg-white/10 hover:bg-accent hover:text-charcoal text-xs font-semibold uppercase tracking-wider cursor-pointer flex items-center gap-1">
-                                <ImageIcon size={14} /> Upload
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  className="hidden"
-                                  onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) handleFileUpload(file, (dataUrl) => setEditingProject({ ...editingProject, img: dataUrl }));
-                                  }}
-                                />
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[11px] uppercase tracking-wider text-steel-lighter mb-1">Project Description</label>
-                          <textarea
-                            rows={3}
-                            value={editingProject.desc}
-                            onChange={(e) => setEditingProject({ ...editingProject, desc: e.target.value })}
-                            className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
+                          <label className="block text-xs text-steel-lighter font-mono mb-1">Category</label>
+                          <select
+                            value={editingProject.category}
+                            onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
+                            className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                          >
+                            <option value="Industrial Platform">Industrial Platform</option>
+                            <option value="PEB">PEB</option>
+                            <option value="Structural Steel">Structural Steel</option>
+                            <option value="Access Structures">Access Structures</option>
+                            <option value="Connection Design">Connection Design</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-steel-lighter font-mono mb-1">Tonnage Scope</label>
+                          <input
+                            type="text"
+                            value={editingProject.tonnage || ''}
+                            onChange={(e) => setEditingProject({ ...editingProject, tonnage: e.target.value })}
+                            placeholder="e.g. 150 tons"
+                            className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
                           />
                         </div>
+                      </div>
 
-                        {/* GALLERY PHOTOS MANAGER */}
-                        <div className="p-3 bg-black/40 border border-white/10 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <label className="text-[11px] uppercase tracking-wider font-semibold text-accent flex items-center gap-1.5">
-                              <ImageIcon size={14} /> Project Photo Gallery ({editingProject.gallery?.length || 0})
-                            </label>
-                            <label className="px-2.5 py-1 bg-accent text-charcoal text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-white flex items-center gap-1">
-                              <Plus size={12} /> Add Photos
-                              <input
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                className="hidden"
-                                onChange={(e) => {
-                                  const files = Array.from(e.target.files || []);
-                                  files.forEach((file) => {
-                                    handleFileUpload(file, (dataUrl) => {
-                                      setEditingProject((prev) =>
-                                        prev
-                                          ? {
-                                              ...prev,
-                                              gallery: [...(prev.gallery || []), dataUrl],
-                                            }
-                                          : null
-                                      );
-                                    });
-                                  });
-                                }}
-                              />
-                            </label>
-                          </div>
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-1">Description</label>
+                        <textarea
+                          rows={3}
+                          value={editingProject.desc}
+                          onChange={(e) => setEditingProject({ ...editingProject, desc: e.target.value })}
+                          className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none resize-none"
+                        />
+                      </div>
 
-                          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                            {editingProject.gallery?.map((imgUrl, i) => (
-                              <div key={i} className="relative group aspect-square bg-white/5 border border-white/20 overflow-hidden">
-                                <img src={imgUrl} alt={`Gallery ${i}`} className="w-full h-full object-cover" />
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setEditingProject({
-                                      ...editingProject,
-                                      gallery: editingProject.gallery?.filter((_, idx) => idx !== i),
-                                    });
-                                  }}
-                                  className="absolute top-1 right-1 bg-red-600 text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                  <Trash2 size={10} />
-                                </button>
-                              </div>
-                            ))}
-                          </div>
+                      {/* Visual Drawing Selector for this project */}
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-2">Change Image Model</label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {PRESET_PROJECT_IMAGES.map((preset, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => setEditingProject({ ...editingProject, img: preset.path })}
+                              className={`p-1 border rounded ${
+                                editingProject.img === preset.path ? 'border-accent bg-accent/20' : 'border-white/10 opacity-60 hover:opacity-100'
+                              }`}
+                            >
+                              <img src={preset.path} alt={preset.name} className="w-full h-12 object-contain" />
+                            </button>
+                          ))}
                         </div>
+                      </div>
 
-                        {/* VIDEO UPLOADER / EMBED */}
-                        <div className="p-3 bg-black/40 border border-white/10 space-y-2">
-                          <label className="text-[11px] uppercase tracking-wider font-semibold text-accent flex items-center gap-1.5">
-                            <Film size={14} /> Project Video (MP4 File Upload or Video URL)
-                          </label>
-                          <div className="flex gap-2">
-                            <input
-                              type="text"
-                              placeholder="Video URL (e.g. YouTube embed or MP4 link)"
-                              value={editingProject.videoUrl || ''}
-                              onChange={(e) => setEditingProject({ ...editingProject, videoUrl: e.target.value })}
-                              className="flex-1 px-3 py-2 bg-white/5 border border-white/20 text-white text-xs"
-                            />
-                            <label className="px-3 py-2 bg-white/10 hover:bg-accent hover:text-charcoal text-xs font-semibold uppercase tracking-wider cursor-pointer flex items-center gap-1">
-                              <Video size={14} /> Upload Video
-                              <input
-                                type="file"
-                                accept="video/*"
-                                className="hidden"
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) handleFileUpload(file, (dataUrl) => setEditingProject({ ...editingProject, videoUrl: dataUrl }));
-                                }}
-                              />
-                            </label>
-                          </div>
-                        </div>
-
-                        <div className="flex justify-end gap-2 pt-2">
-                          <button
-                            type="button"
-                            onClick={() => setEditingProject(null)}
-                            className="px-4 py-2 bg-white/10 text-white text-xs font-medium"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            type="submit"
-                            className="px-6 py-2 bg-accent text-charcoal text-xs font-bold uppercase tracking-wider hover:bg-white"
-                          >
-                            Save Project Changes
-                          </button>
-                        </div>
-                      </form>
-                    )}
+                      <div className="flex justify-end gap-3 pt-3 border-t border-white/10">
+                        <button
+                          type="button"
+                          onClick={() => setEditingProject(null)}
+                          className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-xs rounded"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-6 py-2 bg-accent text-charcoal font-bold text-xs uppercase rounded hover:bg-white"
+                        >
+                          Save Changes
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 3: SERVICES MANAGER */}
-        {activeTab === 'services' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Services Offered ({content.services.length})</h3>
-              <button
-                onClick={() => setNewServiceModal(true)}
-                className="px-4 py-2 bg-accent text-charcoal text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 hover:bg-white transition-all shadow-md"
-              >
-                <Plus size={14} /> Add Service
-              </button>
-            </div>
-
-            {/* Add Service Form */}
-            {newServiceModal && (
-              <form onSubmit={handleAddServiceSubmit} className="p-5 bg-[#181828] border border-accent space-y-4">
-                <h4 className="text-xs uppercase tracking-wider text-accent font-semibold">New Service Form</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    placeholder="Service Title *"
-                    required
-                    value={newSvcData.title}
-                    onChange={(e) => setNewSvcData({ ...newSvcData, title: e.target.value })}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                  />
-                  <select
-                    value={newSvcData.iconName}
-                    onChange={(e) => setNewSvcData({ ...newSvcData, iconName: e.target.value })}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                  >
-                    <option value="Wrench">Wrench</option>
-                    <option value="Building2">Building2</option>
-                    <option value="ClipboardList">ClipboardList</option>
-                    <option value="Link2">Link2</option>
-                    <option value="BarChart3">BarChart3</option>
-                    <option value="Footprints">Footprints</option>
-                  </select>
                 </div>
-                <textarea
-                  placeholder="Service Description..."
-                  rows={2}
-                  value={newSvcData.desc}
-                  onChange={(e) => setNewSvcData({ ...newSvcData, desc: e.target.value })}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs"
-                />
-                <div className="flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setNewServiceModal(false)}
-                    className="px-3 py-1.5 bg-white/10 text-white text-xs"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-1.5 bg-accent text-charcoal text-xs font-semibold"
-                  >
-                    Save Service
-                  </button>
-                </div>
-              </form>
-            )}
+              )}
 
-            {/* Services List */}
-            <div className="space-y-4">
-              {content.services.map((service) => (
-                <div key={service.id} className="p-4 bg-[#181828] border border-white/10 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-bold text-white">{service.title}</h4>
-                    <button
-                      onClick={() => deleteService(service.id)}
-                      className="p-1.5 text-red-400 hover:bg-red-500/20"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+              {/* Add Project Modal */}
+              {showNewProjectModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+                  <div className="bg-[#181926] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Plus size={18} className="text-accent" /> Add New Steel Project
+                      </h4>
+                      <button onClick={() => setShowNewProjectModal(false)} className="text-steel hover:text-white">✕</button>
+                    </div>
+
+                    <form onSubmit={handleCreateProject} className="space-y-4">
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-1">Project Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={newProject.title}
+                          onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
+                          placeholder="e.g. Metro Rail Staircase & Walkway"
+                          className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs text-steel-lighter font-mono mb-1">Structure Category</label>
+                          <select
+                            value={newProject.category}
+                            onChange={(e) => setNewProject({ ...newProject, category: e.target.value })}
+                            className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                          >
+                            <option value="Industrial Platform">Industrial Platform</option>
+                            <option value="PEB">PEB</option>
+                            <option value="Structural Steel">Structural Steel</option>
+                            <option value="Access Structures">Access Structures</option>
+                            <option value="Connection Design">Connection Design</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-steel-lighter font-mono mb-1">Tonnage Scope</label>
+                          <input
+                            type="text"
+                            value={newProject.tonnage || ''}
+                            onChange={(e) => setNewProject({ ...newProject, tonnage: e.target.value })}
+                            placeholder="e.g. 75 tons"
+                            className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-1">Description & Scope</label>
+                        <textarea
+                          rows={3}
+                          required
+                          value={newProject.desc}
+                          onChange={(e) => setNewProject({ ...newProject, desc: e.target.value })}
+                          placeholder="Describe the 3D model, Tekla version, and shop drawing outputs..."
+                          className="w-full px-3 py-2 bg-charcoal border border-white/15 rounded text-sm text-white focus:border-accent outline-none resize-none"
+                        />
+                      </div>
+
+                      {/* Visual Image Chooser */}
+                      <div>
+                        <label className="block text-xs text-steel-lighter font-mono mb-2">Select Drawing Image</label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {PRESET_PROJECT_IMAGES.map((preset, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => setNewProject({ ...newProject, img: preset.path, gallery: [preset.path] })}
+                              className={`p-1 border rounded ${
+                                newProject.img === preset.path ? 'border-accent bg-accent/20 ring-2 ring-accent/30' : 'border-white/10 opacity-60 hover:opacity-100'
+                              }`}
+                            >
+                              <img src={preset.path} alt={preset.name} className="w-full h-12 object-contain" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex justify-end gap-3 pt-3 border-t border-white/10">
+                        <button
+                          type="button"
+                          onClick={() => setShowNewProjectModal(false)}
+                          className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white text-xs rounded"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="px-6 py-2 bg-accent text-charcoal font-bold text-xs uppercase rounded hover:bg-white"
+                        >
+                          Add Project
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                  <p className="text-xs text-steel-lighter">{service.desc}</p>
                 </div>
-              ))}
+              )}
+
             </div>
-          </div>
-        )}
+          )}
 
-        {/* TAB 4: ABOUT & BIO */}
-        {activeTab === 'about' && (
-          <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">About Page & Bio</h3>
-
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Subtitle / Headline</label>
-                <input
-                  type="text"
-                  value={content.about.subtitle}
-                  onChange={(e) => updateField('about.subtitle', e.target.value)}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Bio Paragraph 1</label>
-                <textarea
-                  rows={3}
-                  value={content.about.bioParagraphs[0] || ''}
-                  onChange={(e) => {
-                    const copy = [...content.about.bioParagraphs];
-                    copy[0] = e.target.value;
-                    updateField('about.bioParagraphs', copy);
-                  }}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Quote Text</label>
-                <textarea
-                  rows={2}
-                  value={content.about.quoteText}
-                  onChange={(e) => updateField('about.quoteText', e.target.value)}
-                  className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none resize-none"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 5: CONTACT */}
-        {activeTab === 'contact' && (
-          <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Contact Details</h3>
-
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* ══════════════════════════════════════════════
+              TAB 3: SERVICE PACKAGES
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'services' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Email Address</label>
-                  <input
-                    type="email"
-                    value={content.contact.email}
-                    onChange={(e) => updateField('contact.email', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
+                  <h3 className="text-xl font-bold text-white">Upwork & Catalog Service Offerings</h3>
+                  <p className="text-xs text-steel-light">Review the 6 specialized detailing services shown on your website.</p>
                 </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-steel-lighter mb-1">Location</label>
-                  <input
-                    type="text"
-                    value={content.contact.location}
-                    onChange={(e) => updateField('contact.location', e.target.value)}
-                    className="w-full px-3 py-2 bg-black/40 border border-white/10 text-white text-sm focus:border-accent focus:outline-none"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 6: BACKUP & RESET */}
-        {activeTab === 'data' && (
-          <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Export, Import & Reset</h3>
-
-            <div className="p-5 bg-[#181828] border border-white/10 space-y-5">
-              <div>
-                <h4 className="text-xs uppercase tracking-wider font-semibold text-white mb-1">1. Export Portfolio JSON</h4>
-                <p className="text-xs text-steel-lighter mb-3">Download your customized portfolio settings as a JSON file backup.</p>
                 <button
-                  onClick={exportJson}
-                  className="px-4 py-2 bg-accent text-charcoal text-xs font-semibold uppercase tracking-wider flex items-center gap-2 hover:bg-white"
+                  onClick={() => triggerSaveNotification()}
+                  className="px-5 py-2.5 bg-accent text-charcoal text-xs uppercase font-bold tracking-wider rounded-md hover:bg-white transition-all flex items-center gap-2 shadow-md cursor-pointer"
                 >
-                  <Download size={14} /> Export Content Backup JSON
+                  <Save size={15} /> Save Services
                 </button>
               </div>
 
-              <div className="pt-4 border-t border-white/10">
-                <h4 className="text-xs uppercase tracking-wider font-semibold text-white mb-1">2. Import Portfolio JSON</h4>
-                <p className="text-xs text-steel-lighter mb-2">Paste JSON content below to restore or load configuration.</p>
-                <form onSubmit={handleImportSubmit} className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {content.services.map((svc, idx) => (
+                  <div key={svc.id || idx} className="p-5 bg-white/5 border border-white/10 rounded-lg space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-accent uppercase font-bold">Service #{idx + 1}</span>
+                      <span className="text-xs text-steel">{svc.iconName}</span>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-steel-lighter uppercase font-mono mb-1">Service Title</label>
+                      <input
+                        type="text"
+                        value={svc.title}
+                        onChange={(e) => {
+                          const updated = [...content.services];
+                          updated[idx].title = e.target.value;
+                          updateField('services', updated);
+                        }}
+                        className="w-full px-3 py-1.5 bg-charcoal border border-white/15 rounded text-xs text-white focus:border-accent outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-steel-lighter uppercase font-mono mb-1">Description</label>
+                      <textarea
+                        rows={2}
+                        value={svc.desc}
+                        onChange={(e) => {
+                          const updated = [...content.services];
+                          updated[idx].desc = e.target.value;
+                          updateField('services', updated);
+                        }}
+                        className="w-full px-3 py-1.5 bg-charcoal border border-white/15 rounded text-xs text-white focus:border-accent outline-none resize-none"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════════════
+              TAB 4: ABOUT & BIO
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'about' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h3 className="text-xl font-bold text-white">About Section & Personal Bio</h3>
+                  <p className="text-xs text-steel-light">Update your professional story, quote, and tagline.</p>
+                </div>
+                <button
+                  onClick={() => triggerSaveNotification()}
+                  className="px-5 py-2.5 bg-accent text-charcoal text-xs uppercase font-bold tracking-wider rounded-md hover:bg-white transition-all flex items-center gap-2 shadow-md cursor-pointer"
+                >
+                  <Save size={15} /> Save About Changes
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Page Subtitle / Headline
+                  </label>
+                  <input
+                    type="text"
+                    value={content.about.subtitle || ''}
+                    onChange={(e) => updateField('about.subtitle', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md focus:border-accent text-white text-sm outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Featured Personal Quote
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={content.about.quoteText || ''}
+                    onChange={(e) => updateField('about.quoteText', e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md focus:border-accent text-white text-sm outline-none resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Main Bio Paragraph
+                  </label>
                   <textarea
                     rows={4}
-                    value={jsonInput}
-                    onChange={(e) => setJsonInput(e.target.value)}
-                    placeholder="Paste JSON configuration here..."
-                    className="w-full px-3 py-2 bg-black/40 border border-white/20 text-white text-xs font-mono"
-                  />
-                  {importStatus && <p className="text-xs text-accent font-semibold">{importStatus}</p>}
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-white/10 text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-2 hover:bg-accent hover:text-charcoal"
-                  >
-                    <Upload size={14} /> Import JSON Configuration
-                  </button>
-                </form>
-              </div>
-
-              <div className="pt-4 border-t border-white/10">
-                <h4 className="text-xs uppercase tracking-wider font-semibold text-white mb-1">3. Change Admin Passcode</h4>
-                <p className="text-xs text-steel-lighter mb-2">Update passcode required to access the admin portal.</p>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="New Admin Passcode"
-                    value={content.adminPasscode || 'admin123'}
+                    value={content.about.bioParagraphs?.[0] || ''}
                     onChange={(e) => {
-                      updateField('adminPasscode', e.target.value);
-                      setPasscodeMsg('Passcode updated!');
+                      const paras = content.about.bioParagraphs ? [...content.about.bioParagraphs] : [''];
+                      paras[0] = e.target.value;
+                      updateField('about.bioParagraphs', paras);
                     }}
-                    className="px-3 py-2 bg-black/40 border border-white/20 text-white text-xs font-mono"
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md focus:border-accent text-white text-sm outline-none resize-none"
                   />
                 </div>
-                {passcodeMsg && <p className="text-xs text-accent mt-1">{passcodeMsg}</p>}
-              </div>
-
-              <div className="pt-4 border-t border-white/10">
-                <h4 className="text-xs uppercase tracking-wider font-semibold text-red-400 mb-1">4. Reset to Default Portfolio Data</h4>
-                <p className="text-xs text-steel-lighter mb-3">Wipe local edits and restore original portfolio data.</p>
-                <button
-                  onClick={() => {
-                    if (confirm('Are you sure you want to reset all portfolio content back to defaults?')) {
-                      resetToDefaults();
-                    }
-                  }}
-                  className="px-4 py-2 bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 hover:bg-red-500 hover:text-white transition-colors"
-                >
-                  <RotateCcw size={14} /> Reset All Content to Defaults
-                </button>
               </div>
             </div>
-          </div>
-        )}
-        </div>
-      </div>
-
-      {/* Bottom Drawer Bar */}
-      <div className="p-4 bg-[#161625] border-t border-white/10 flex items-center justify-between gap-3 text-xs text-steel-lighter">
-        <span className="hidden sm:inline">All changes are immediately stored & synchronized locally</span>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleSaveAndApply}
-            className="btn-clicky px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-charcoal font-extrabold uppercase tracking-wider text-xs flex items-center gap-2 rounded-sm border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 shadow-lg transition-all select-none cursor-pointer"
-          >
-            <Save size={15} /> Save & Apply Changes
-          </button>
-          {!embedded && (
-            <button
-              onClick={() => setIsAdminOpen(false)}
-              className="px-4 py-2 bg-white/10 text-white hover:bg-accent hover:text-charcoal font-semibold uppercase tracking-wider text-xs transition-all"
-            >
-              Done Editing
-            </button>
           )}
-        </div>
+
+          {/* ══════════════════════════════════════════════
+              TAB 5: CONTACT & SOCIALS
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'contact' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h3 className="text-xl font-bold text-white">Contact & WhatsApp Settings</h3>
+                  <p className="text-xs text-steel-light">Configure your direct communication channels.</p>
+                </div>
+                <button
+                  onClick={() => triggerSaveNotification()}
+                  className="px-5 py-2.5 bg-accent text-charcoal text-xs uppercase font-bold tracking-wider rounded-md hover:bg-white transition-all flex items-center gap-2 shadow-md cursor-pointer"
+                >
+                  <Save size={15} /> Save Contact Details
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    Direct Email
+                  </label>
+                  <input
+                    type="email"
+                    value="hello@julkarnaeem.com"
+                    readOnly
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md text-white text-sm opacity-80"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-steel-lighter mb-1.5 font-mono">
+                    WhatsApp Phone Number
+                  </label>
+                  <input
+                    type="text"
+                    value="8801739411586"
+                    readOnly
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-md text-white text-sm opacity-80"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ══════════════════════════════════════════════
+              TAB 6: 1-CLICK BACKUP & RESTORE
+             ══════════════════════════════════════════════ */}
+          {activeTab === 'backup' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="border-b border-white/10 pb-4">
+                <h3 className="text-xl font-bold text-white">One-Click Backup & Recovery</h3>
+                <p className="text-xs text-steel-light">Safely export all your website content or restore original factory defaults.</p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Download Backup */}
+                <div className="p-6 bg-white/5 border border-white/10 rounded-xl space-y-4">
+                  <div className="w-12 h-12 bg-accent/10 text-accent rounded-lg flex items-center justify-center">
+                    <Download size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-white">Download Portfolio Backup</h4>
+                    <p className="text-xs text-steel-light mt-1">
+                      Saves all your customized projects, hero texts, and settings as a secure backup file.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const dataStr = exportJson();
+                      const blob = new Blob([dataStr], { type: 'application/json' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = `julkarnaeem_portfolio_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                      a.click();
+                      triggerSaveNotification('Backup downloaded to your computer!');
+                    }}
+                    className="w-full py-3 bg-accent text-charcoal font-bold text-xs uppercase tracking-wider rounded-md hover:bg-white transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Download size={16} /> Download Backup (.json)
+                  </button>
+                </div>
+
+                {/* Reset to Factory Defaults */}
+                <div className="p-6 bg-white/5 border border-red-500/20 rounded-xl space-y-4">
+                  <div className="w-12 h-12 bg-red-500/10 text-red-400 rounded-lg flex items-center justify-center">
+                    <RotateCcw size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-white">Reset to Defaults</h4>
+                    <p className="text-xs text-steel-light mt-1">
+                      Reverts all content and projects back to the original default setup.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (confirm('Are you sure you want to reset all portfolio content to factory defaults?')) {
+                        resetToDefaults();
+                        triggerSaveNotification('Reset to defaults complete!');
+                      }
+                    }}
+                    className="w-full py-3 bg-red-500/20 text-red-300 border border-red-500/40 font-bold text-xs uppercase tracking-wider rounded-md hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <RotateCcw size={16} /> Reset All Content
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+        </main>
+
       </div>
-    </div>
-  );
-
-  if (embedded) {
-    return dashboardContent;
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-charcoal/80 backdrop-blur-sm transition-opacity duration-300">
-      {dashboardContent}
     </div>
   );
 }
