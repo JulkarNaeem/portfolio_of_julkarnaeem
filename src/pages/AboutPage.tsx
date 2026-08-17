@@ -42,6 +42,44 @@ const STATS = [
   { value: '2025', label: 'Tekla Version' },
 ];
 
+const EXPERIENCE = [
+  {
+    role: 'Sr. Structural Steel Detailer',
+    company: 'SES Steel Structure Ltd.',
+    period: 'Feb 2023 — Present',
+    current: true,
+    responsibilities: [
+      'Led and managed the steel detailing process using Tekla Structures and AutoCAD for various projects.',
+      'Produced precise 3D models, ensuring accuracy and adherence to project specifications.',
+      'Generated comprehensive fabrication drawings with detailed dimensions, welding information, and material specifications.',
+      'Developed accurate Bills of Materials (BOMs) to streamline material procurement and production.',
+      'Collaborated with engineers, fabricators, and erection teams for seamless project execution.',
+    ],
+  },
+  {
+    role: 'Structural Steel Detailer',
+    company: 'NDE Steel Structure Ltd.',
+    period: 'Feb 2022 — Feb 2023',
+    current: false,
+    responsibilities: [
+      'Created detailed 3D models of steel structures using Tekla Structures and AutoCAD.',
+      'Developed fabrication drawings and BOMs in accordance with project requirements and industry standards.',
+      'Ensured accuracy and quality of detailing outputs for efficient steel structure production.',
+    ],
+  },
+  {
+    role: 'Quality Assurance Engineer',
+    company: 'Confidence Steel Structure Ltd.',
+    period: 'Nov 2017 — Dec 2019',
+    current: false,
+    responsibilities: [
+      'Monitored daily production of steel structures to ensure adherence to quality standards.',
+      'Conducted inspections to identify and rectify defects in fabricated steel members.',
+      'Verified defect-free structures for dispatch and erection.',
+    ],
+  },
+];
+
 export default function AboutPage({ onNavigate }: AboutPageProps) {
   const { content } = useCms();
 
@@ -141,9 +179,80 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
           </div>
         </div>
       </section>
+      {/* Work Experience */}
+      <section className="bg-surface py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-10">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Career</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-charcoal mt-2 tracking-tight">
+              Work Experience
+            </h2>
+          </div>
+
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-0 md:left-[140px] top-0 bottom-0 w-px bg-border" />
+
+            <div className="space-y-0">
+              {EXPERIENCE.map((job, i) => (
+                <div key={i} className="relative flex flex-col md:flex-row gap-0 md:gap-10">
+
+                  {/* Period column (left side on md+) */}
+                  <div className="hidden md:flex flex-col items-end w-[140px] flex-shrink-0 pt-6 pr-8">
+                    <span className="text-[11px] uppercase tracking-wider text-steel text-right leading-snug">
+                      {job.period}
+                    </span>
+                    {job.current && (
+                      <span className="mt-2 px-2 py-0.5 bg-accent text-charcoal text-[9px] uppercase tracking-wider font-bold">
+                        Current
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Dot on the timeline */}
+                  <div className="absolute left-[-4px] md:left-[136px] mt-8 w-2.5 h-2.5 rounded-full border-2 border-accent bg-white flex-shrink-0" />
+
+                  {/* Content card */}
+                  <div className="ml-6 md:ml-10 pb-10 flex-1">
+                    <div className="bg-white border border-border p-6 hover:border-accent transition-colors duration-200 group">
+                      {/* Mobile period */}
+                      <div className="flex items-center gap-3 mb-3 md:hidden">
+                        <span className="text-[11px] uppercase tracking-wider text-steel">{job.period}</span>
+                        {job.current && (
+                          <span className="px-2 py-0.5 bg-accent text-charcoal text-[9px] uppercase tracking-wider font-bold">
+                            Current
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Role & Company */}
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+                        <h3 className="text-base font-bold text-charcoal">{job.role}</h3>
+                        <span className="text-steel text-sm">|</span>
+                        <span className="text-sm font-semibold text-accent">{job.company}</span>
+                      </div>
+
+                      {/* Responsibilities */}
+                      <ul className="space-y-2">
+                        {job.responsibilities.map((point, j) => (
+                          <li key={j} className="flex items-start gap-2.5">
+                            <span className="mt-1.5 w-1.5 h-1.5 bg-accent flex-shrink-0 rounded-full" />
+                            <span className="text-sm text-steel leading-relaxed">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Certifications */}
-      <section className="bg-surface py-16 lg:py-20">
+      <section className="bg-white py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-10">
             <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Credentials</span>
@@ -187,7 +296,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       </section>
 
       {/* Software Proficiency */}
-      <section className="bg-white py-16 lg:py-20">
+      <section className="bg-surface py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-10">
             <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Tools</span>
