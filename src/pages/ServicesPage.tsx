@@ -8,81 +8,25 @@ import {
   Footprints,
   CheckCircle,
 } from 'lucide-react';
+import { useCms } from '../context/CmsContext';
 
 interface ServicesPageProps {
   onNavigate: (page: string) => void;
 }
 
-const services = [
-  {
-    icon: <Wrench size={28} />,
-    title: 'Structural Steel Detailing',
-    desc: 'Complete detailing of all structural steel members including beams, columns, bracing, trusses, and assemblies using Tekla Structures. Every component is modeled with accurate profiles, material grades, and connection details.',
-    includes: [
-      'Primary & secondary structural members',
-      'Assembly & part mark numbering',
-      'Bolt and weld detail coordination',
-      'Erection & assembly sequence marks',
-    ],
-  },
-  {
-    icon: <Building2 size={28} />,
-    title: 'PEB & Industrial Modeling',
-    desc: 'Pre-engineered building frames, portal structures, shed frames, and industrial steel modeling for fabrication. I detail complete PEB systems from main frame to accessories.',
-    includes: [
-      'Portal frame & rigid frame modeling',
-      'Purlin, girt, and sag rod layout',
-      'Bracing systems & crane beams',
-      'Mezzanine & canopy structures',
-    ],
-  },
-  {
-    icon: <ClipboardList size={28} />,
-    title: 'Shop Drawing Production',
-    desc: 'Fabrication-ready shop drawings with precise dimensions, bolt callouts, weld symbols, material lists, and fabrication notes. Clear, organized, and ready for the workshop.',
-    includes: [
-      'General Arrangement (GA) drawings',
-      'Anchor bolt layout plans',
-      'Individual member shop drawings',
-      'Assembly drawings with sections',
-    ],
-  },
-  {
-    icon: <Link2 size={28} />,
-    title: 'Steel Connection Detailing',
-    desc: 'Every joint fully modeled and detailed — moment connections, shear connections, base plates, column splices, bracing gussets, and special connections.',
-    includes: [
-      'Moment & shear connections',
-      'Base plate & anchor bolt details',
-      'Splice & field connection details',
-      'Bracing gusset plates & cleats',
-    ],
-  },
-  {
-    icon: <BarChart3 size={28} />,
-    title: 'Material Take-Off / Reports',
-    desc: 'Accurate material quantity reports extracted directly from the Tekla model. Bolt lists, assembly summaries, weight breakdowns, and procurement-ready reports.',
-    includes: [
-      'Material quantity summaries',
-      'Bolt & nut lists with grades',
-      'Assembly weight reports',
-      'Paint area / surface treatment data',
-    ],
-  },
-  {
-    icon: <Footprints size={28} />,
-    title: 'Stairs, Platforms & Access Structures',
-    desc: 'Steel staircases, walkway platforms, handrails, ladders, gratings, and access structures — all modeled and detailed to fabrication standard.',
-    includes: [
-      'Stair stringers, treads, and nosing',
-      'Handrails, mid-rails & kick plates',
-      'Grating & checker plate flooring',
-      'Ladder & cage details',
-    ],
-  },
-];
+const iconMap: Record<string, any> = {
+  Wrench: Wrench,
+  Building2: Building2,
+  ClipboardList: ClipboardList,
+  Link2: Link2,
+  BarChart3: BarChart3,
+  Footprints: Footprints,
+};
 
 export default function ServicesPage({ onNavigate }: ServicesPageProps) {
+  const { content } = useCms();
+  const services = content.services;
+
   return (
     <>
       {/* Page Header */}
@@ -102,28 +46,33 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
       <section className="bg-white py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="space-y-12">
-            {services.map((svc, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 lg:p-12 border border-border hover:border-accent/30 transition-colors"
-              >
-                <div className="lg:col-span-1">
-                  <div className="text-accent mb-4">{svc.icon}</div>
-                  <h3 className="text-xl font-semibold text-charcoal">{svc.title}</h3>
-                </div>
-                <div className="lg:col-span-2">
-                  <p className="text-steel leading-relaxed mb-6">{svc.desc}</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {svc.includes.map((item, j) => (
-                      <div key={j} className="flex items-start gap-2">
-                        <CheckCircle size={14} className="text-accent flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-charcoal">{item}</span>
-                      </div>
-                    ))}
+            {services.map((svc, i) => {
+              const IconComponent = iconMap[svc.iconName] || Wrench;
+              return (
+                <div
+                  key={svc.id || i}
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 lg:p-12 border border-border hover:border-accent/30 transition-colors"
+                >
+                  <div className="lg:col-span-1">
+                    <div className="text-accent mb-4">
+                      <IconComponent size={28} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-charcoal">{svc.title}</h3>
+                  </div>
+                  <div className="lg:col-span-2">
+                    <p className="text-steel leading-relaxed mb-6">{svc.desc}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {svc.includes.map((item, j) => (
+                        <div key={j} className="flex items-start gap-2">
+                          <CheckCircle size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-charcoal">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

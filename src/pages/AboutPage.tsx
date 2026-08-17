@@ -1,10 +1,13 @@
 import { ArrowRight, CheckCircle } from 'lucide-react';
+import { useCms } from '../context/CmsContext';
 
 interface AboutPageProps {
   onNavigate: (page: string) => void;
 }
 
 export default function AboutPage({ onNavigate }: AboutPageProps) {
+  const { content } = useCms();
+
   return (
     <>
       {/* Page Header */}
@@ -12,10 +15,10 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">About</span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 tracking-tight">
-            Julkar Naeem
+            {content.about.name || content.profileName}
           </h1>
           <p className="text-lg text-steel-light mt-4 max-w-2xl">
-            Steel Structure Detailer — Tekla Structures Specialist
+            {content.about.subtitle}
           </p>
         </div>
       </section>

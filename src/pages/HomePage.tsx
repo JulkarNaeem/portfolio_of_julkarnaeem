@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ArrowRight,
   CheckCircle,
@@ -10,12 +11,17 @@ import {
   BarChart3,
   Footprints,
 } from 'lucide-react';
+import ProjectModal, { ProjectItem } from '../components/ProjectModal';
+import { useCms } from '../context/CmsContext';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }
 
 export default function HomePage({ onNavigate }: HomePageProps) {
+  const { content } = useCms();
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
   const handleNav = (page: string) => {
     onNavigate(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -32,26 +38,28 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-[2px] bg-accent" />
                 <span className="text-[11px] uppercase tracking-[0.25em] text-steel font-medium">
-                  Steel Structure Detailer
+                  {content.hero.badge}
                 </span>
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-charcoal leading-[1.1] tracking-tight mb-6">
-                Steel Structures,
+                {content.hero.headlineLine1}
                 <br />
-                <span className="text-steel">Detailed for</span>
+                <span className="text-steel">
+                  {content.hero.headlineLine2}
+                </span>
                 <br />
-                Fabrication
+                {content.hero.headlineLine3}
               </h1>
 
               <p className="text-lg text-steel leading-relaxed max-w-lg mb-4">
-                I create accurate Tekla BIM models and fabrication-ready shop drawings for PEB, industrial steel, platforms, stairs, and structural steel projects.
+                {content.hero.subtitle}
               </p>
 
               <div className="flex items-center gap-2 mb-8">
                 <span className="w-2 h-2 bg-accent rounded-full" />
                 <span className="text-sm font-medium text-charcoal tracking-wide">
-                  150+ Steel Projects Delivered
+                  {content.hero.projectsCountText}
                 </span>
               </div>
 
@@ -174,7 +182,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 desc: 'Moment connections, base plates, splice joints, and bracing gussets modeled with full bolt and weld details.',
               },
             ].map((project, i) => (
-              <div key={i} className="group cursor-pointer" onClick={() => handleNav('projects')}>
+              <div 
+                key={i} 
+                className="group cursor-pointer" 
+                onClick={() => setSelectedProject(project as ProjectItem)}
+              >
                 <div className="overflow-hidden mb-5">
                   <img
                     src={project.img}
@@ -185,7 +197,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
                   {project.category}
                 </span>
-                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-steel transition-colors">
+                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-steel leading-relaxed mb-4">
@@ -383,6 +395,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </button>
         </div>
       </section>
+
+      {/* Project Detail Lightbox Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onInquire={() => handleNav('contact')}
+      />
     </>
   );
 }

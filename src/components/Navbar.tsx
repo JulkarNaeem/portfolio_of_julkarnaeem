@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useCms } from '../context/CmsContext';
 
 interface NavbarProps {
   currentPage: string;
@@ -9,6 +10,7 @@ interface NavbarProps {
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { content } = useCms();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -16,13 +18,22 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Home', page: 'home' },
-    { label: 'Projects', page: 'projects' },
-    { label: 'Services', page: 'services' },
-    { label: 'About', page: 'about' },
-    { label: 'Contact', page: 'contact' },
-  ];
+  const navSettings = content.navSettings || {
+    brandInitials: content.profileName?.split(' ').map(n => n[0]).join('') || 'JN',
+    brandName: content.profileName || 'Julkar Naeem',
+    brandRole: content.profileRole || 'Steel Detailer',
+    ctaLabel: 'Inquire Now',
+    ctaPage: 'contact',
+    navLinks: [
+      { label: 'Home', page: 'home', visible: true },
+      { label: 'Projects', page: 'projects', visible: true },
+      { label: 'Services', page: 'services', visible: true },
+      { label: 'About', page: 'about', visible: true },
+      { label: 'Contact', page: 'contact', visible: true },
+    ],
+  };
+
+  const navLinks = navSettings.navLinks.filter(l => l.visible);
 
   const handleNav = (page: string) => {
     onNavigate(page);
@@ -34,8 +45,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-border'
-          : 'bg-transparent'
+          ? 'bg-charcoal/95 backdrop-blur-md shadow-lg border-b border-white/10'
+          : 'bg-charcoal/90 backdrop-blur-md border-b border-white/10'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -43,51 +54,58 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           {/* Logo */}
           <button
             onClick={() => handleNav('home')}
-            className="flex items-center gap-3 group"
+            aria-label={`${navSettings.brandName} Home`}
+            className="flex items-center gap-3 group text-left"
           >
-            <div className="w-8 h-8 bg-charcoal flex items-center justify-center">
-              <span className="text-white font-bold text-sm font-mono">JN</span>
+            <div className="w-8 h-8 bg-accent flex items-center justify-center transition-transform group-hover:scale-105">
+              <span className="text-charcoal font-bold text-sm font-mono">
+                {navSettings.brandInitials || 'JN'}
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-charcoal font-semibold text-[15px] leading-tight tracking-tight">
-                Julkar Naeem
+              <span className="text-white font-semibold text-[15px] leading-tight tracking-tight group-hover:text-accent transition-colors">
+                {navSettings.brandName}
               </span>
-              <span className="text-steel text-[10px] uppercase tracking-[0.2em] leading-tight">
-                Steel Detailer
+              <span className="text-steel-lighter text-[10px] uppercase tracking-[0.2em] leading-tight font-medium">
+                {navSettings.brandRole}
               </span>
             </div>
           </button>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.page}
-                onClick={() => handleNav(link.page)}
-                className={`text-[13px] uppercase tracking-[0.12em] font-medium transition-colors duration-200 ${
-                  currentPage === link.page
-                    ? 'text-charcoal'
-                    : 'text-steel hover:text-charcoal'
-                }`}
-              >
-                {link.label}
-                {currentPage === link.page && (
-                  <span className="block w-full h-[2px] bg-accent mt-1" />
-                )}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = currentPage === link.page;
+              return (
+                <button
+                  key={link.page}
+                  onClick={() => handleNav(link.page)}
+                  className={`text-[13px] uppercase tracking-[0.12em] font-medium transition-colors duration-200 relative py-1 ${
+                    isActive
+                      ? 'text-accent font-semibold'
+                      : 'text-steel-lighter hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="block w-full h-[2px] bg-accent mt-1 transition-all duration-200" />
+                  )}
+                </button>
+              );
+            })}
             <button
-              onClick={() => handleNav('projects')}
-              className="ml-2 px-5 py-2.5 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-accent hover:text-charcoal transition-all duration-200"
+              onClick={() => handleNav(navSettings.ctaPage || 'contact')}
+              className="ml-2 px-5 py-2.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white hover:text-charcoal transition-all duration-200 shadow-sm"
             >
-              View Projects
+              {navSettings.ctaLabel || 'Inquire Now'}
             </button>
           </div>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-charcoal p-2"
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            className="md:hidden text-white hover:text-accent p-2 transition-colors"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -96,26 +114,29 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-border">
+        <div className="md:hidden bg-charcoal border-t border-white/10">
           <div className="px-6 py-6 space-y-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.page}
-                onClick={() => handleNav(link.page)}
-                className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.12em] font-medium transition-colors ${
-                  currentPage === link.page
-                    ? 'text-charcoal bg-surface'
-                    : 'text-steel hover:text-charcoal'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = currentPage === link.page;
+              return (
+                <button
+                  key={link.page}
+                  onClick={() => handleNav(link.page)}
+                  className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.12em] font-medium transition-colors ${
+                    isActive
+                      ? 'text-accent bg-white/5 font-semibold'
+                      : 'text-steel-lighter hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
             <button
-              onClick={() => handleNav('projects')}
-              className="mt-4 w-full px-5 py-3 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-accent hover:text-charcoal transition-all"
+              onClick={() => handleNav(navSettings.ctaPage || 'contact')}
+              className="mt-4 w-full px-5 py-3 bg-accent text-charcoal text-[12px] uppercase tracking-[0.15em] font-semibold hover:bg-white transition-all"
             >
-              View Projects
+              {navSettings.ctaLabel || 'Inquire Now'}
             </button>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import ProjectModal, { ProjectItem } from '../components/ProjectModal';
+import { useCms } from '../context/CmsContext';
 
 const categories = [
   'All',
@@ -10,78 +12,16 @@ const categories = [
   'Connection Design',
 ];
 
-const projects = [
-  {
-    img: '/images/project-1.jpg',
-    title: 'Curved Industrial Steel Walkway Platform',
-    category: 'Industrial Platform',
-    desc: 'Full Tekla BIM model with curved steel walkway, handrails, grating, and connection details for an industrial plant.',
-    tonnage: '45 tons',
-  },
-  {
-    img: '/images/project-2.jpg',
-    title: 'PEB Warehouse Portal Frame',
-    category: 'PEB',
-    desc: 'Complete portal frame modeling with purlins, bracing, and girts for a 40m span PEB warehouse facility.',
-    tonnage: '120 tons',
-  },
-  {
-    img: '/images/project-3.jpg',
-    title: 'Industrial Steel Platform & Handrail',
-    category: 'Industrial Platform',
-    desc: 'Multi-level access platform with checkered plate flooring, stairs, and safety handrails for process equipment access.',
-    tonnage: '32 tons',
-  },
-  {
-    img: '/images/project-4.jpg',
-    title: 'Steel Stair and Guardrail System',
-    category: 'Access Structures',
-    desc: 'Detailed stair stringers, treads, guardrail posts, and mid-rails with fabrication-ready shop drawings.',
-    tonnage: '18 tons',
-  },
-  {
-    img: '/images/project-5.jpg',
-    title: 'Multi-storey Steel Building Framing',
-    category: 'Structural Steel',
-    desc: 'Full structural steel framing model for a 4-storey commercial building with composite deck connections.',
-    tonnage: '280 tons',
-  },
-  {
-    img: '/images/project-6.jpg',
-    title: 'Heavy Steel Connection Details',
-    category: 'Connection Design',
-    desc: 'Moment connections, base plates, splice joints, and bracing gussets modeled with full bolt and weld details.',
-    tonnage: '—',
-  },
-  {
-    img: '/images/project-1.jpg',
-    title: 'Chemical Plant Pipe Rack Platform',
-    category: 'Industrial Platform',
-    desc: 'Complex pipe rack support structure with multiple access levels, grating, and kick plates for a chemical processing facility.',
-    tonnage: '65 tons',
-  },
-  {
-    img: '/images/project-2.jpg',
-    title: 'Cold Storage PEB Facility',
-    category: 'PEB',
-    desc: 'Insulated pre-engineered building with specialized panel connections and crane beam provisions for cold storage operations.',
-    tonnage: '95 tons',
-  },
-  {
-    img: '/images/project-5.jpg',
-    title: 'Steel Bridge Girder System',
-    category: 'Structural Steel',
-    desc: 'Plate girder bridge structure with cross-bracing, stiffener details, and bearing connection assemblies.',
-    tonnage: '180 tons',
-  },
-];
-
 interface ProjectsPageProps {
   onNavigate: (page: string) => void;
 }
 
 export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
+  const { content } = useCms();
   const [active, setActive] = useState('All');
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
+  const projects = content.projects;
 
   const filtered = active === 'All'
     ? projects
@@ -125,7 +65,11 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
           {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filtered.map((project, i) => (
-              <div key={i} className="group cursor-pointer">
+              <div 
+                key={i} 
+                className="group cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
                 <div className="overflow-hidden mb-5 relative">
                   <img
                     src={project.img}
@@ -141,7 +85,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
                 <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
                   {project.category}
                 </span>
-                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-steel transition-colors">
+                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-steel leading-relaxed mb-4">
@@ -177,6 +121,16 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
           </button>
         </div>
       </section>
+
+      {/* Project Lightbox Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onInquire={() => {
+          onNavigate('contact');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
     </>
   );
 }
