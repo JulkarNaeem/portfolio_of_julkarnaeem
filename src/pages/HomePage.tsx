@@ -15,6 +15,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Maximize2,
+  Play,
+  X,
 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/SocialIcons';
 import ProjectModal, { ProjectItem } from '../components/ProjectModal';
@@ -31,6 +33,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   const heroImages = Array.from(new Set([content.hero.heroImage, ...content.projects.map(p => p.img)]));
 
@@ -128,19 +131,30 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </div>
 
               {/* CTA Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3.5 flex-wrap">
                 <button
                   onClick={() => handleNav('projects')}
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile-dark shadow-lg hover:bg-accent hover:text-charcoal transition-all duration-300"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile-dark shadow-lg hover:bg-accent hover:text-charcoal transition-all duration-300 cursor-pointer"
                 >
                   View Projects
                   <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
                 </button>
+
+                <button
+                  onClick={() => setIsVideoOpen(true)}
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-white border border-border text-charcoal text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:border-accent hover:bg-surface transition-all duration-300 cursor-pointer"
+                >
+                  <span className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
+                    <Play size={10} className="fill-charcoal text-charcoal ml-0.5" />
+                  </span>
+                  Watch Video Intro
+                </button>
+
                 <a
                   href={WA_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-lg hover:bg-[#1ebe5d] transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-lg hover:bg-[#1ebe5d] transition-all duration-300"
                 >
                   <WhatsAppIcon size={16} />
                   Book a Call
@@ -287,6 +301,92 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── VIDEO INTRODUCTION SHOWCASE ─── */}
+      <section className="bg-charcoal text-white py-20 lg:py-24 relative overflow-hidden cad-grid-dark border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left: Video Overview & Highlights (5 Cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/30 text-accent text-[10px] uppercase font-mono font-bold tracking-widest mb-3">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Video Presentation
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                  Meet Julkar Naeem
+                </h2>
+                <p className="text-sm text-steel-light mt-3 leading-relaxed">
+                  Watch a 1-minute video introduction to my structural steel detailing background, Tekla Structures 3D modeling workflow, and fabrication drawing deliverables.
+                </p>
+              </div>
+
+              {/* Value Highlights */}
+              <div className="space-y-3 pt-1">
+                {[
+                  {
+                    title: '9+ Years Tekla Detailing Experience',
+                    desc: 'Expertise in LOD 400 BIM modeling, PEB industrial sheds, and complex access structures.',
+                  },
+                  {
+                    title: 'Fabrication-Ready Precision',
+                    desc: 'Zero-clash assemblies, GA plans, part details, and automated BOM reports.',
+                  },
+                  {
+                    title: 'AISC & International Standards',
+                    desc: 'Standardized connection detailing for fabricators and structural engineers.',
+                  },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3 p-3 bg-white/5 border border-white/10 rounded-xs hover:border-accent/40 transition-colors">
+                    <CheckCircle className="text-accent w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">{item.title}</h4>
+                      <p className="text-[11px] text-steel-lighter mt-0.5 leading-normal">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex items-center gap-4 flex-wrap">
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent text-charcoal text-xs uppercase tracking-widest font-bold btn-tactile hover:bg-white transition-all shadow-lg"
+                >
+                  <WhatsAppIcon size={16} /> Discuss on WhatsApp
+                </a>
+                <button
+                  onClick={() => handleNav('projects')}
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-mono text-steel-lighter hover:text-accent transition-colors"
+                >
+                  Inspect 3D Projects <ArrowRight size={13} />
+                </button>
+              </div>
+            </div>
+
+            {/* Right: Embedded 16:9 YouTube Cinema Player (7 Cols) */}
+            <div className="lg:col-span-7 w-full">
+              <div className="relative bg-black border-2 border-white/20 p-2 shadow-2xl cad-corner-box group">
+                <div className="relative w-full aspect-video overflow-hidden bg-black rounded-xs">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube-nocookie.com/embed/Uy2WJKxm-qk?rel=0"
+                    title="Steel Structure Detailer intro of Julkar Naeem"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
@@ -709,6 +809,39 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         onClose={() => setSelectedProject(null)}
         onInquire={() => handleNav('contact')}
       />
+
+      {/* Full-Screen Video Lightbox Modal */}
+      {isVideoOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in"
+          onClick={() => setIsVideoOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl bg-charcoal border-2 border-accent p-2 sm:p-3 shadow-2xl cad-corner-box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVideoOpen(false)}
+              className="absolute -top-10 right-0 text-white/80 hover:text-white flex items-center gap-1 text-xs font-mono uppercase tracking-widest cursor-pointer"
+            >
+              Close <X size={18} />
+            </button>
+
+            {/* Responsive 16:9 YouTube Player */}
+            <div className="relative w-full aspect-video bg-black overflow-hidden">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube-nocookie.com/embed/Uy2WJKxm-qk?autoplay=1&rel=0"
+                title="Steel Structure Detailer intro of Julkar Naeem"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

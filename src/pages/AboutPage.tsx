@@ -1,4 +1,5 @@
 import { ArrowRight, Award, ExternalLink, MapPin, CheckCircle2 } from 'lucide-react';
+import { WhatsAppIcon } from '../components/SocialIcons';
 import { useCms } from '../context/CmsContext';
 
 interface AboutPageProps {
@@ -231,6 +232,50 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
 
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ─── VIDEO INTRODUCTION SPOTLIGHT ─── */}
+      <section className="bg-charcoal text-white py-16 lg:py-20 border-t border-white/10 cad-grid-dark relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="lg:w-5/12 space-y-4">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold font-mono">
+                Video Introduction
+              </span>
+              <h2 className="text-3xl font-extrabold text-white tracking-tight">
+                Watch My Detailer Introduction
+              </h2>
+              <p className="text-sm text-steel-light leading-relaxed">
+                Get an inside look into my background, BIM modeling approach in Tekla Structures, and dedication to delivering accurate fabrication drawings for steel contractors worldwide.
+              </p>
+              <div className="pt-2">
+                <a
+                  href="https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20watched%20your%20video%20intro%20and%20would%20like%20to%20discuss%20a%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent text-charcoal text-xs uppercase tracking-widest font-bold btn-tactile hover:bg-white transition-all shadow-md"
+                >
+                  <WhatsAppIcon size={16} /> Connect On WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:w-7/12 w-full">
+              <div className="relative bg-black border-2 border-white/20 p-2 shadow-2xl cad-corner-box">
+                <div className="relative w-full aspect-video overflow-hidden bg-black rounded-xs">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube-nocookie.com/embed/Uy2WJKxm-qk?rel=0"
+                    title="Steel Structure Detailer intro of Julkar Naeem"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
