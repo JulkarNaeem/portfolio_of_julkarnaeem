@@ -166,54 +166,100 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       {/* ─── FEATURED PROJECTS ─── */}
       <section className="bg-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-14">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-medium">Portfolio</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-charcoal mt-2 tracking-tight">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-6 h-[2px] bg-accent" />
+                <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Portfolio & Drawings</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-charcoal tracking-tight">
                 Featured Steel Projects
               </h2>
-              <p className="text-steel text-sm mt-2">Real Tekla BIM models & shop drawings — click any project to explore</p>
+              <p className="text-steel text-sm mt-2 max-w-xl">
+                Real Tekla Structures BIM models, shop drawings, and erected structural steelwork. Click any project to inspect the full gallery and drawing details.
+              </p>
             </div>
             <button
               onClick={() => handleNav('projects')}
-              className="group flex items-center gap-2 text-[12px] uppercase tracking-[0.15em] text-steel font-medium hover:text-charcoal transition-colors"
+              className="group inline-flex items-center gap-2 px-6 py-3 bg-charcoal text-white text-[12px] uppercase tracking-[0.15em] font-medium hover:bg-accent hover:text-charcoal transition-all self-start md:self-auto"
             >
-              View All Projects
+              View All {content.projects.length} Projects
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
+          {/* Project Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, i) => (
+            {content.projects.map((project, i) => (
               <div
                 key={project.id || i}
-                className="group cursor-pointer"
+                className="group cursor-pointer bg-white border border-border hover:border-accent hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                 onClick={() => setSelectedProject(project as ProjectItem)}
               >
-                <div className="overflow-hidden mb-5 bg-surface">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full aspect-[4/3] object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
+                {/* Image Container / Blueprint Viewport */}
+                <div>
+                  <div className="relative bg-[#f8fafc] border-b border-border p-3 overflow-hidden aspect-[4/3] flex items-center justify-center">
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Tonnage Badge */}
+                    {project.tonnage && project.tonnage !== '—' && (
+                      <div className="absolute top-3 right-3 bg-charcoal/90 text-white text-[10px] uppercase tracking-wider px-2.5 py-1 font-mono font-bold shadow-sm">
+                        {project.tonnage}
+                      </div>
+                    )}
+                    {/* Gallery Count Badge */}
+                    {project.gallery && project.gallery.length > 1 && (
+                      <div className="absolute bottom-3 right-3 bg-accent text-charcoal text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shadow-sm flex items-center gap-1">
+                        <span>📷 {project.gallery.length} Images</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+                        {project.category}
+                      </span>
+                      {project.software && (
+                        <span className="text-[9px] uppercase tracking-wider text-steel bg-surface border border-border px-2 py-0.5 font-mono">
+                          {typeof project.software === 'string' ? project.software.split(' ')[0] : 'Tekla'}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-bold text-charcoal mb-2 group-hover:text-accent transition-colors line-clamp-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-steel leading-relaxed line-clamp-2 mb-4">
+                      {project.desc}
+                    </p>
+
+                    {/* Deliverables Tags */}
+                    {project.deliverables && project.deliverables.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60">
+                        {project.deliverables.slice(0, 3).map((deliv, dIdx) => (
+                          <span
+                            key={dIdx}
+                            className="text-[10px] uppercase tracking-wider text-charcoal/70 bg-surface px-2 py-0.5 border border-border"
+                          >
+                            {deliv}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
-                  {project.category}
-                </span>
-                <h3 className="text-lg font-semibold text-charcoal mt-1 mb-2 group-hover:text-accent transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-steel leading-relaxed mb-4 line-clamp-2">
-                  {project.desc}
-                </p>
-                {project.tonnage && project.tonnage !== '—' && (
-                  <p className="text-[11px] uppercase tracking-wider text-steel mb-3">
-                    Tonnage: <span className="text-charcoal font-semibold">{project.tonnage}</span>
-                  </p>
-                )}
-                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-charcoal font-medium group-hover:text-accent transition-colors">
-                  View Project <ArrowRight size={12} />
-                </span>
+
+                {/* Footer Action */}
+                <div className="px-6 pb-6 pt-2 flex items-center justify-between border-t border-border/40">
+                  <span className="text-[11px] uppercase tracking-[0.15em] text-charcoal font-semibold group-hover:text-accent transition-colors flex items-center gap-1.5">
+                    Inspect Drawings <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <span className="text-xs text-steel/50 font-mono">#0{i + 1}</span>
+                </div>
               </div>
             ))}
           </div>
