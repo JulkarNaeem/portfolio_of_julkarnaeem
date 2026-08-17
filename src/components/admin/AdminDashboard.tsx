@@ -187,9 +187,9 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
           <div className="flex items-center gap-3">
             <button
               onClick={handleSaveAndApply}
-              className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-charcoal font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg transition-all"
+              className="btn-clicky px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-charcoal font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 rounded-sm border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 shadow-xl transition-all select-none cursor-pointer"
             >
-              <Save size={15} /> Save & Apply Changes
+              <Save size={16} /> Save & Apply Changes
             </button>
             <button
               onClick={() => setIsAdminOpen(false)}
@@ -1117,9 +1117,9 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
         <div className="flex items-center gap-3">
           <button
             onClick={handleSaveAndApply}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-charcoal font-bold uppercase tracking-wider text-xs flex items-center gap-1.5 shadow-md transition-all"
+            className="btn-clicky px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-charcoal font-extrabold uppercase tracking-wider text-xs flex items-center gap-2 rounded-sm border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 shadow-lg transition-all select-none cursor-pointer"
           >
-            <Save size={14} /> Save & Apply Changes
+            <Save size={15} /> Save & Apply Changes
           </button>
           {!embedded && (
             <button
