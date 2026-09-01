@@ -3,6 +3,8 @@ import { ArrowUp } from 'lucide-react';
 import { WhatsAppIcon } from './components/SocialIcons';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
+import PrivacyModal from './components/PrivacyModal';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
@@ -14,6 +16,7 @@ import { CmsProvider, useCms } from './context/CmsContext';
 function MainLayout() {
   const [currentPage, setCurrentPage] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
   const { content } = useCms();
 
   useEffect(() => {
@@ -108,6 +111,16 @@ function MainLayout() {
           <ArrowUp size={18} />
         </button>
       )}
+
+      {/* Cookie & Privacy Compliance Banner */}
+      <CookieBanner onOpenPrivacy={() => setPrivacyModalOpen(true)} />
+
+      {/* Global Privacy & Terms Modal */}
+      <PrivacyModal
+        isOpen={privacyModalOpen}
+        onClose={() => setPrivacyModalOpen(false)}
+        defaultTab="privacy"
+      />
     </div>
   );
 }
