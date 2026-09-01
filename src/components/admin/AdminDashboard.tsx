@@ -114,7 +114,7 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1017] text-white flex flex-col font-sans">
+    <div className="min-h-screen bg-[#20252B] text-white flex flex-col font-sans">
       
       {/* Toast Save Notification */}
       {saveSuccessMsg && (
@@ -128,7 +128,7 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
         
         {/* ─── LEFT SIDEBAR: Visual Navigation ─── */}
         <aside className="w-full lg:w-72 flex-shrink-0 space-y-4">
-          <div className="bg-[#181926] border border-white/10 p-5 rounded-xl shadow-xl space-y-4">
+          <div className="bg-[#282e36] border border-white/10 p-5 rounded-xl shadow-xl space-y-4">
             <div>
               <span className="text-[10px] uppercase font-mono font-bold text-accent tracking-widest block mb-1">
                 Visual CMS Controls
@@ -387,7 +387,7 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
               {/* Edit Project Modal */}
               {editingProject && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-                  <div className="bg-[#181926] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
+                  <div className="bg-[#20252B] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
                       <h4 className="text-lg font-bold text-white flex items-center gap-2">
                         <Edit3 size={18} className="text-accent" /> Edit Project: {editingProject.title}
@@ -486,7 +486,7 @@ export default function AdminDashboard({ embedded = false }: AdminDashboardProps
               {/* Add Project Modal */}
               {showNewProjectModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-                  <div className="bg-[#181926] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
+                  <div className="bg-[#20252B] border-2 border-accent rounded-xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
                       <h4 className="text-lg font-bold text-white flex items-center gap-2">
                         <Plus size={18} className="text-accent" /> Add New Steel Project

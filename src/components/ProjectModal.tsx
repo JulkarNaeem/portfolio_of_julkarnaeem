@@ -38,14 +38,14 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
         <button
           onClick={onClose}
           aria-label="Close project modal"
-          className="absolute top-4 right-4 z-20 w-10 h-10 bg-charcoal text-white hover:bg-accent hover:text-charcoal flex items-center justify-center transition-colors duration-200 shadow-lg cursor-pointer"
+          className="absolute top-4 right-4 z-20 w-10 h-10 bg-charcoal text-white hover:bg-safety-yellow hover:text-charcoal flex items-center justify-center transition-colors duration-200 shadow-lg cursor-pointer"
         >
           <X size={20} />
         </button>
 
         {/* Modal Main Header Bar */}
         <div className="p-6 bg-charcoal text-white border-b border-white/10 pr-16 cad-grid-dark">
-          <span className="inline-block px-3 py-1 bg-accent text-charcoal font-bold text-[10px] uppercase tracking-[0.2em] mb-1.5 font-mono shadow-xs">
+          <span className="inline-block px-3 py-1 bg-safety-yellow text-charcoal font-bold text-[10px] uppercase tracking-[0.2em] mb-1.5 font-mono shadow-xs">
             {project.category}
           </span>
           <h2 className="text-xl md:text-2xl font-extrabold tracking-tight text-white">
@@ -54,7 +54,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
         </div>
 
         {/* Modal Main Media Display */}
-        <div className="relative w-full min-h-[350px] max-h-[72vh] bg-[#0d0d15] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
+        <div className="relative w-full min-h-[350px] max-h-[72vh] bg-[#121418] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
           {isVideoActive && project.videoUrl ? (
             project.videoUrl.includes('youtube.com') || project.videoUrl.includes('youtu.be') ? (
               <iframe
@@ -92,8 +92,8 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
               }}
               className={`relative w-20 h-14 flex-shrink-0 border-2 overflow-hidden transition-all cursor-pointer ${
                 !isVideoActive && activeMedia === imgUrl
-                  ? 'border-accent ring-2 ring-accent/30 scale-105 shadow-md'
-                  : 'border-border opacity-70 hover:opacity-100 hover:scale-102'
+                  ? 'border-safety-yellow ring-2 ring-safety-yellow/30 scale-105 shadow-md'
+                  : 'border-border opacity-70 hover:opacity-100 hover:border-steel-blue hover:scale-102'
               }`}
             >
               <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain bg-black/80" />
@@ -108,11 +108,11 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
               onClick={() => setIsVideoActive(true)}
               className={`relative w-24 h-14 flex-shrink-0 border-2 bg-charcoal text-white flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
                 isVideoActive
-                  ? 'border-accent ring-2 ring-accent/30 bg-accent text-charcoal'
+                  ? 'border-safety-yellow ring-2 ring-safety-yellow/30 bg-safety-yellow text-charcoal'
                   : 'border-border opacity-80 hover:opacity-100'
               }`}
             >
-              <Play size={16} className={isVideoActive ? 'text-charcoal' : 'text-accent'} />
+              <Play size={16} className={isVideoActive ? 'text-charcoal' : 'text-safety-yellow'} />
               <span className="text-[9px] uppercase tracking-wider font-bold">Play Video</span>
             </button>
           )}
@@ -123,26 +123,26 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
           {/* Key Stats Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-surface border border-border">
             <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-steel text-xs uppercase tracking-wider font-mono">
-                <Weight size={14} className="text-accent" /> Tonnage
+              <div className="flex items-center gap-1.5 text-steel-blue text-xs uppercase tracking-wider font-mono font-bold">
+                <Weight size={14} className="text-steel-blue" /> Tonnage
               </div>
               <p className="font-mono font-bold text-charcoal text-sm">{project.tonnage || 'Custom Scope'}</p>
             </div>
             <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-steel text-xs uppercase tracking-wider font-mono">
-                <Cpu size={14} className="text-accent" /> Software
+              <div className="flex items-center gap-1.5 text-steel-blue text-xs uppercase tracking-wider font-mono font-bold">
+                <Cpu size={14} className="text-steel-blue" /> Software
               </div>
               <p className="font-semibold text-charcoal text-sm">Tekla 2025</p>
             </div>
             <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-steel text-xs uppercase tracking-wider font-mono">
-                <Layers size={14} className="text-accent" /> Model Standard
+              <div className="flex items-center gap-1.5 text-steel-blue text-xs uppercase tracking-wider font-mono font-bold">
+                <Layers size={14} className="text-steel-blue" /> Model Standard
               </div>
               <p className="font-semibold text-charcoal text-sm">LOD 400 BIM</p>
             </div>
             <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-steel text-xs uppercase tracking-wider font-mono">
-                <FileCode size={14} className="text-accent" /> Formats
+              <div className="flex items-center gap-1.5 text-steel-blue text-xs uppercase tracking-wider font-mono font-bold">
+                <FileCode size={14} className="text-steel-blue" /> Formats
               </div>
               <p className="font-semibold text-charcoal text-sm">NC, DSTV, IFC</p>
             </div>
@@ -150,17 +150,17 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
 
           {/* Description */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-charcoal mb-2 font-mono">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-steel-blue mb-2 font-mono">
               Project Overview
             </h3>
-            <p className="text-steel leading-relaxed text-base">
+            <p className="text-charcoal/85 leading-relaxed text-base">
               {project.desc}
             </p>
           </div>
 
           {/* Key Deliverables */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-charcoal mb-4 font-mono">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-steel-blue mb-4 font-mono">
               Scope & Package Deliverables
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -175,7 +175,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
                 'Field Erection Mark Layouts',
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <CheckCircle2 size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 size={16} className="text-steel-blue flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-charcoal font-medium">{item}</span>
                 </div>
               ))}
@@ -186,14 +186,14 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
           <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <p className="text-sm font-bold text-charcoal">Need a similar steel structure detailed?</p>
-              <p className="text-xs text-steel">Get fabrication-ready models and drawings for your project.</p>
+              <p className="text-xs text-charcoal/70">Get fabrication-ready models and drawings for your project.</p>
             </div>
             <button
               onClick={() => {
                 onClose();
                 onInquire();
               }}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.16em] font-bold btn-tactile-dark hover:bg-accent hover:text-charcoal transition-all duration-200 cursor-pointer shadow-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-safety-yellow text-charcoal text-[11px] uppercase tracking-[0.16em] font-bold btn-tactile hover:bg-steel-blue hover:text-white transition-all duration-200 cursor-pointer shadow-lg"
             >
               Inquire About Similar Project <ArrowRight size={14} />
             </button>

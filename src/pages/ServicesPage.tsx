@@ -145,21 +145,21 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
   return (
     <>
       {/* ─── BREADCRUMB & HEADER BAR ─── */}
-      <section className="bg-charcoal pt-28 pb-8 text-white relative overflow-hidden cad-grid-dark border-b border-white/10">
+      <section className="bg-charcoal pt-28 sm:pt-32 lg:pt-36 pb-10 lg:pb-14 text-white relative overflow-hidden cad-grid-dark border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           
           {/* Breadcrumb Navigation */}
-          <div className="flex items-center gap-2 text-xs text-steel-light font-mono mb-4 flex-wrap">
+          <div className="flex items-center gap-2 text-xs text-[#F3F4F6]/70 font-mono mb-4 flex-wrap">
             <span className="hover:text-white transition-colors cursor-pointer" onClick={() => onNavigate('home')}>Home</span>
-            <ChevronRight size={12} className="text-accent" />
+            <ChevronRight size={12} className="text-safety-yellow" />
             <span className="hover:text-white transition-colors">Engineering & BIM</span>
-            <ChevronRight size={12} className="text-accent" />
-            <span className="text-accent font-semibold">Steel Structure Detailing Catalog</span>
+            <ChevronRight size={12} className="text-safety-yellow" />
+            <span className="text-safety-yellow font-semibold">Steel Structure Detailing Catalog</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
-              <span className="inline-block px-3 py-1 bg-accent/10 border border-accent/30 text-accent font-mono font-bold text-[10px] uppercase tracking-[0.2em] mb-2 shadow-xs">
+              <span className="inline-block px-3 py-1 bg-white/10 border border-safety-yellow/40 text-safety-yellow font-mono font-bold text-[10px] uppercase tracking-[0.2em] mb-2 shadow-xs">
                 Project Catalog & Service Packages
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -172,12 +172,12 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
               href="https://www.upwork.com/freelancers/julkarnaeem"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/5 border border-white/15 hover:border-[#6FDA44] hover:bg-[#6FDA44]/10 text-white transition-all duration-200 self-start lg:self-auto group shadow-md"
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/5 border border-white/15 hover:border-steel-blue hover:bg-steel-blue/20 text-white transition-all duration-200 self-start lg:self-auto group shadow-md"
             >
               <UpworkIcon size={18} className="text-[#6FDA44]" />
               <div className="text-left">
-                <p className="text-[10px] uppercase font-mono tracking-wider text-steel-lighter">Verified on Upwork</p>
-                <p className="text-xs font-bold text-white group-hover:text-[#6FDA44] transition-colors">Top Rated Detailer ↗</p>
+                <p className="text-[10px] uppercase font-mono tracking-wider text-[#F3F4F6]/70">Verified on Upwork</p>
+                <p className="text-xs font-bold text-white group-hover:text-safety-yellow transition-colors">Top Rated Detailer ↗</p>
               </div>
             </a>
           </div>
@@ -185,23 +185,23 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
           {/* Seller Snapshot Bar */}
           <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-accent shadow-md">
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-safety-yellow shadow-md">
                 <img src="/images/logo.png" alt="Julkar Naeem" className="w-full h-full object-cover" />
               </div>
               <div>
                 <p className="text-sm font-bold text-white leading-tight">{content.profileName}</p>
-                <p className="text-xs text-steel-light font-mono">Sr. Tekla Detailer · 9+ Years Experience</p>
+                <p className="text-xs text-[#F3F4F6]/80 font-mono">Sr. Tekla Detailer · 9+ Years Experience</p>
               </div>
             </div>
 
             <div className="h-6 w-[1px] bg-white/10 hidden sm:block" />
 
-            <div className="flex items-center gap-6 text-xs text-steel-light font-mono flex-wrap">
-              <span className="flex items-center gap-1.5 text-accent font-semibold">
+            <div className="flex items-center gap-6 text-xs text-[#F3F4F6]/80 font-mono flex-wrap">
+              <span className="flex items-center gap-1.5 text-safety-yellow font-semibold">
                 ★ 5.0 Rating (150+ Projects)
               </span>
               <span className="flex items-center gap-1.5 text-white">
-                <Clock size={13} className="text-accent" /> Response in &lt; 1 Hour
+                <Clock size={13} className="text-safety-yellow" /> Response in &lt; 1 Hour
               </span>
               <span className="flex items-center gap-1.5 text-[#22c55e]">
                 <ShieldCheck size={14} /> Milestone Escrow Protection
@@ -221,7 +221,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
             <div className="lg:col-span-7 space-y-6">
               
               {/* Main Model Viewport */}
-              <div className="relative bg-[#0e0f17] border border-border overflow-hidden aspect-[16/11] flex items-center justify-center p-4 shadow-2xl group cad-corner-box">
+              <div className="relative bg-[#121418] border border-border overflow-hidden aspect-[16/11] flex items-center justify-center p-4 shadow-2xl group cad-corner-box">
                 <img
                   src={CATALOG_GALLERY[activeMediaIndex].img}
                   alt={CATALOG_GALLERY[activeMediaIndex].title}
@@ -231,8 +231,8 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                 />
                 
                 {/* Active Caption */}
-                <div className="absolute bottom-3 left-3 z-20 bg-charcoal/90 backdrop-blur-md px-3.5 py-1.5 border-l-2 border-accent text-white shadow-md">
-                  <p className="text-[9px] uppercase tracking-wider text-accent font-mono font-bold">Tekla Sample Model</p>
+                <div className="absolute bottom-3 left-3 z-20 bg-charcoal/95 backdrop-blur-md px-3.5 py-1.5 border-l-2 border-safety-yellow text-white shadow-md">
+                  <p className="text-[9px] uppercase tracking-wider text-safety-yellow font-mono font-bold">Tekla Sample Model</p>
                   <p className="text-xs font-semibold text-white">{CATALOG_GALLERY[activeMediaIndex].title}</p>
                 </div>
 
@@ -242,7 +242,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                     const imgUrl = CATALOG_GALLERY[activeMediaIndex].img;
                     window.open(imgUrl, '_blank');
                   }}
-                  className="absolute top-3 right-3 z-20 w-9 h-9 bg-charcoal/80 text-white flex items-center justify-center hover:bg-accent hover:text-charcoal transition-all shadow-md cursor-pointer"
+                  className="absolute top-3 right-3 z-20 w-9 h-9 bg-charcoal/90 text-white flex items-center justify-center hover:bg-safety-yellow hover:text-charcoal transition-all shadow-md cursor-pointer"
                   title="View Full Resolution Drawing"
                 >
                   <Maximize2 size={16} />
@@ -257,8 +257,8 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                     onClick={() => setActiveMediaIndex(idx)}
                     className={`relative aspect-[4/3] bg-surface border-2 overflow-hidden transition-all duration-200 cursor-pointer ${
                       activeMediaIndex === idx
-                        ? 'border-accent shadow-md scale-105 ring-2 ring-accent/30'
-                        : 'border-border opacity-70 hover:opacity-100 hover:scale-102'
+                        ? 'border-safety-yellow shadow-md scale-105 ring-2 ring-safety-yellow/30'
+                        : 'border-border opacity-70 hover:opacity-100 hover:border-steel-blue hover:scale-102'
                     }`}
                   >
                     <img src={item.img} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-contain p-1" />
@@ -268,10 +268,10 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
 
               {/* Overview & Key Highlights */}
               <div className="p-6 bg-surface border border-border space-y-4 shadow-xs">
-                <h3 className="text-base font-bold text-charcoal uppercase tracking-wider font-mono">
+                <h3 className="text-base font-bold text-steel-blue uppercase tracking-wider font-mono">
                   Catalog Deliverables Summary
                 </h3>
-                <p className="text-sm text-steel leading-relaxed">
+                <p className="text-sm text-charcoal/80 leading-relaxed">
                   Every steel project is modeled precisely in <strong>Tekla Structures 2025</strong> according to AISC and regional engineering guidelines. Deliverables are checked for zero fabrication clashes and labeled with standard part and assembly marks.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
@@ -284,7 +284,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                     { label: 'Direct Escrow', val: 'Upwork / WhatsApp' },
                   ].map((spec, sIdx) => (
                     <div key={sIdx} className="p-2.5 bg-white border border-border">
-                      <p className="text-[10px] text-steel uppercase font-mono">{spec.label}</p>
+                      <p className="text-[10px] text-steel-blue uppercase font-mono font-bold">{spec.label}</p>
                       <p className="text-xs font-bold text-charcoal">{spec.val}</p>
                     </div>
                   ))}
@@ -300,10 +300,10 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
                   <div>
-                    <span className="text-[10px] uppercase font-mono font-bold text-accent tracking-widest block">Choose Package</span>
+                    <span className="text-[10px] uppercase font-mono font-bold text-steel-blue tracking-widest block">Choose Package</span>
                     <h3 className="text-lg font-bold text-charcoal">Select Service Tier</h3>
                   </div>
-                  <span className="text-xs text-steel font-mono">3 Available Tiers</span>
+                  <span className="text-xs text-charcoal/70 font-mono">3 Available Tiers</span>
                 </div>
 
                 {/* Tier Radio Pill Switcher */}
@@ -315,11 +315,11 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                       className={`py-2.5 text-center transition-all duration-200 cursor-pointer ${
                         selectedTier === tier.id
                           ? 'bg-charcoal text-white font-bold shadow-md'
-                          : 'text-steel hover:text-charcoal hover:bg-white text-xs font-medium'
+                          : 'text-charcoal/70 hover:text-charcoal hover:bg-white text-xs font-medium'
                       }`}
                     >
                       <span className="block text-[11px] uppercase tracking-wider">{tier.name.split(' ')[0]}</span>
-                      <span className="block text-[9px] text-accent font-mono mt-0.5">{tier.badge}</span>
+                      <span className="block text-[9px] text-safety-yellow font-mono mt-0.5">{tier.badge}</span>
                     </button>
                   ))}
                 </div>
@@ -328,37 +328,37 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                 <div className="space-y-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <span className="inline-block px-2.5 py-0.5 bg-accent text-charcoal text-[9px] uppercase font-mono font-bold mb-1 shadow-xs">
+                      <span className="inline-block px-2.5 py-0.5 bg-safety-yellow text-charcoal text-[9px] uppercase font-mono font-bold mb-1 shadow-xs">
                         {activeTier.badge}
                       </span>
                       <h4 className="text-xl font-extrabold text-charcoal">{activeTier.name}</h4>
-                      <p className="text-xs text-steel font-mono font-semibold mt-0.5">{activeTier.scope}</p>
+                      <p className="text-xs text-steel-blue font-mono font-bold mt-0.5">{activeTier.scope}</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] uppercase font-mono text-steel block">Pricing</span>
+                      <span className="text-[10px] uppercase font-mono text-charcoal/70 block">Pricing</span>
                       <span className="text-sm font-bold text-charcoal bg-surface px-2.5 py-1 border border-border inline-block">
                         Custom Quote
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-steel leading-relaxed bg-surface p-3 border border-border">
+                  <p className="text-xs text-charcoal/80 leading-relaxed bg-surface p-3 border border-border">
                     {activeTier.description}
                   </p>
 
                   {/* Delivery & Revisions Stats */}
                   <div className="grid grid-cols-2 gap-4 py-3 border-y border-border text-xs">
                     <div className="flex items-center gap-2">
-                      <Clock size={16} className="text-accent" />
+                      <Clock size={16} className="text-steel-blue" />
                       <div>
-                        <p className="text-[10px] uppercase text-steel font-mono">Estimated Delivery</p>
+                        <p className="text-[10px] uppercase text-charcoal/70 font-mono">Estimated Delivery</p>
                         <p className="font-bold text-charcoal">{activeTier.delivery}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <RefreshCw size={16} className="text-accent" />
+                      <RefreshCw size={16} className="text-steel-blue" />
                       <div>
-                        <p className="text-[10px] uppercase text-steel font-mono">Revisions</p>
+                        <p className="text-[10px] uppercase text-charcoal/70 font-mono">Revisions</p>
                         <p className="font-bold text-charcoal">{activeTier.revisions}</p>
                       </div>
                     </div>
@@ -366,10 +366,10 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
 
                   {/* Feature Checklist */}
                   <div className="space-y-2.5 pt-1">
-                    <p className="text-[11px] uppercase tracking-wider font-bold text-charcoal font-mono">Included in this Tier:</p>
+                    <p className="text-[11px] uppercase tracking-wider font-bold text-steel-blue font-mono">Included in this Tier:</p>
                     {activeTier.includes.map((item, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-xs">
-                        <CheckCircle2 size={15} className="text-accent flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 size={15} className="text-steel-blue flex-shrink-0 mt-0.5" />
                         <span className="text-charcoal font-medium">{item}</span>
                       </div>
                     ))}
@@ -379,7 +379,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                   <div className="space-y-3 pt-4">
                     <button
                       onClick={() => handleOrderTier(activeTier.name)}
-                      className="w-full inline-flex items-center justify-center gap-2 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile-dark shadow-xl hover:bg-accent hover:text-charcoal transition-all duration-300 cursor-pointer"
+                      className="w-full inline-flex items-center justify-center gap-2 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
                     >
                       <WhatsAppIcon size={16} />
                       Request {activeTier.name} on WhatsApp
@@ -390,14 +390,14 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                         onNavigate('contact');
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
-                      className="w-full inline-flex items-center justify-center gap-2 py-3 bg-surface border border-border text-charcoal text-[11px] uppercase tracking-[0.15em] font-semibold hover:bg-surface-alt transition-colors cursor-pointer"
+                      className="w-full inline-flex items-center justify-center gap-2 py-3 bg-steel-blue text-white text-[11px] uppercase tracking-[0.15em] font-semibold hover:bg-charcoal transition-colors cursor-pointer"
                     >
                       Submit Custom Project Brief <ArrowRight size={13} />
                     </button>
                   </div>
 
                   {/* Trust & Guarantee Note */}
-                  <div className="pt-4 border-t border-border flex items-center gap-2 text-[11px] text-steel">
+                  <div className="pt-4 border-t border-border flex items-center gap-2 text-[11px] text-charcoal/75">
                     <ShieldCheck size={18} className="text-[#22c55e] flex-shrink-0" />
                     <span>Direct escrow / milestone payment security. Paid only when drawings are approved.</span>
                   </div>
@@ -416,11 +416,11 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           
           <div className="text-center mb-14">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Detailed Breakdown</span>
+            <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">Detailed Breakdown</span>
             <h2 className="text-2xl md:text-3xl font-extrabold text-charcoal mt-1 tracking-tight">
               Compare Service Packages
             </h2>
-            <p className="text-sm text-steel mt-2 max-w-xl mx-auto">
+            <p className="text-sm text-charcoal/80 mt-2 max-w-xl mx-auto">
               Find the ideal detailing tier for your steel fabrication scope, timeline, and drawing output requirements.
             </p>
           </div>
@@ -433,15 +433,15 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                   <th className="p-5 font-bold uppercase tracking-wider text-xs">Deliverables & Features</th>
                   <th className="p-5 font-bold uppercase tracking-wider text-xs border-l border-white/10 text-center">
                     Starter
-                    <span className="block text-[9px] text-accent font-normal mt-0.5">Quick Scope</span>
+                    <span className="block text-[9px] text-safety-yellow font-normal mt-0.5">Quick Scope</span>
                   </th>
-                  <th className="p-5 font-bold uppercase tracking-wider text-xs border-l border-white/10 text-center bg-accent/10 text-accent">
+                  <th className="p-5 font-bold uppercase tracking-wider text-xs border-l border-white/10 text-center bg-white/10 text-safety-yellow">
                     Standard ★
                     <span className="block text-[9px] text-white font-normal mt-0.5">Most Popular</span>
                   </th>
                   <th className="p-5 font-bold uppercase tracking-wider text-xs border-l border-white/10 text-center">
                     Advanced
-                    <span className="block text-[9px] text-accent font-normal mt-0.5">Full Plant / Tower</span>
+                    <span className="block text-[9px] text-safety-yellow font-normal mt-0.5">Full Plant / Tower</span>
                   </th>
                 </tr>
               </thead>
@@ -461,23 +461,23 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                 ].map((row, rIdx) => (
                   <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-surface/50'}>
                     <td className="p-4 font-semibold text-charcoal text-xs sm:text-sm">{row.feature}</td>
-                    <td className="p-4 text-center border-l border-border text-xs text-steel">
+                    <td className="p-4 text-center border-l border-border text-xs text-charcoal/80">
                       {typeof row.starter === 'boolean' ? (
-                        row.starter ? <Check size={16} className="text-accent mx-auto" /> : <Minus size={16} className="text-steel-lighter mx-auto" />
+                        row.starter ? <Check size={16} className="text-steel-blue mx-auto font-bold" /> : <Minus size={16} className="text-charcoal/30 mx-auto" />
                       ) : (
                         row.starter
                       )}
                     </td>
-                    <td className="p-4 text-center border-l border-border text-xs font-semibold text-charcoal bg-accent/5">
+                    <td className="p-4 text-center border-l border-border text-xs font-semibold text-charcoal bg-safety-yellow/5">
                       {typeof row.standard === 'boolean' ? (
-                        row.standard ? <Check size={16} className="text-accent mx-auto" /> : <Minus size={16} className="text-steel-lighter mx-auto" />
+                        row.standard ? <Check size={16} className="text-steel-blue mx-auto font-bold" /> : <Minus size={16} className="text-charcoal/30 mx-auto" />
                       ) : (
                         row.standard
                       )}
                     </td>
-                    <td className="p-4 text-center border-l border-border text-xs text-steel">
+                    <td className="p-4 text-center border-l border-border text-xs text-charcoal/80">
                       {typeof row.advanced === 'boolean' ? (
-                        row.advanced ? <Check size={16} className="text-accent mx-auto" /> : <Minus size={16} className="text-steel-lighter mx-auto" />
+                        row.advanced ? <Check size={16} className="text-steel-blue mx-auto font-bold" /> : <Minus size={16} className="text-charcoal/30 mx-auto" />
                       ) : (
                         row.advanced
                       )}
@@ -490,13 +490,13 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
 
           {/* Inquiry CTA under Table */}
           <div className="mt-8 text-center">
-            <p className="text-xs text-steel font-mono mb-3">Have a project with unique specifications or higher tonnage?</p>
+            <p className="text-xs text-charcoal/70 font-mono mb-3">Have a project with unique specifications or higher tonnage?</p>
             <button
               onClick={() => {
                 onNavigate('contact');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile-dark hover:bg-accent hover:text-charcoal transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile-dark hover:bg-steel-blue hover:text-white transition-all shadow-md cursor-pointer"
             >
               Get a Custom Scope Quotation <ArrowRight size={14} />
             </button>
@@ -510,7 +510,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           
           <div className="mb-12">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Specialized Detailing</span>
+            <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">Specialized Detailing</span>
             <h2 className="text-2xl md:text-3xl font-extrabold text-charcoal mt-1 tracking-tight">
               Other Specialized Project Catalogs
             </h2>
@@ -557,24 +557,24 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
             ].map((cat, cIdx) => (
               <div
                 key={cIdx}
-                className="p-6 border border-border bg-surface hover:bg-white hover:border-accent hover:shadow-xl transition-all duration-300 cad-corner-box group"
+                className="p-6 border border-border bg-surface hover:bg-white hover:border-steel-blue hover:shadow-xl transition-all duration-300 cad-corner-box group"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-charcoal transition-colors shadow-xs">
+                  <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-steel-blue group-hover:bg-steel-blue group-hover:text-white transition-colors shadow-xs">
                     {cat.icon}
                   </div>
-                  <span className="text-[9px] uppercase font-mono font-bold text-steel bg-white border border-border px-2 py-0.5">
+                  <span className="text-[9px] uppercase font-mono font-bold text-steel-blue bg-white border border-border px-2 py-0.5">
                     {cat.badge}
                   </span>
                 </div>
-                <h3 className="text-base font-bold text-charcoal mb-2 group-hover:text-accent transition-colors">{cat.title}</h3>
-                <p className="text-xs text-steel leading-relaxed mb-4">{cat.desc}</p>
+                <h3 className="text-base font-bold text-charcoal mb-2 group-hover:text-steel-blue transition-colors">{cat.title}</h3>
+                <p className="text-xs text-charcoal/75 leading-relaxed mb-4">{cat.desc}</p>
                 <button
                   onClick={() => {
                     onNavigate('contact');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="text-[11px] uppercase tracking-wider text-charcoal font-bold group-hover:text-accent transition-colors flex items-center gap-1 cursor-pointer"
+                  className="text-[11px] uppercase tracking-wider text-charcoal font-bold group-hover:text-steel-blue transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   Inquire Scope <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -588,13 +588,13 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
       {/* ─── DIRECT CONTRACT GUARANTEE ─── */}
       <section className="bg-charcoal text-white py-16 border-t border-white/10 relative cad-grid-dark">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center space-y-6">
-          <div className="w-12 h-12 bg-accent/10 border border-accent/40 rounded-full flex items-center justify-center mx-auto text-accent shadow-md">
+          <div className="w-12 h-12 bg-white/10 border border-safety-yellow/40 rounded-full flex items-center justify-center mx-auto text-safety-yellow shadow-md">
             <ShieldCheck size={24} />
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
             Guaranteed Fabrication Accuracy & Escrow Security
           </h2>
-          <p className="text-sm sm:text-base text-steel-light leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#F3F4F6]/90 leading-relaxed max-w-2xl mx-auto">
             Work with confidence. Every project includes milestone-based payment safety (via Upwork or direct milestone contracts), zero-clash checking, and post-delivery fabrication support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
@@ -603,7 +603,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                 onNavigate('contact');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="px-8 py-3.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-xl hover:bg-white hover:text-charcoal transition-all cursor-pointer"
+              className="px-8 py-3.5 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all cursor-pointer"
             >
               Start a Project Catalog Order
             </button>
@@ -611,7 +611,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
               href="https://www.upwork.com/freelancers/julkarnaeem"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/5 border border-white/20 text-white text-[12px] uppercase tracking-[0.18em] font-bold hover:bg-white hover:text-charcoal transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-steel-blue text-white text-[12px] uppercase tracking-[0.18em] font-bold hover:bg-charcoal transition-all cursor-pointer"
             >
               <UpworkIcon size={16} className="text-[#6FDA44]" />
               Hire on Upwork

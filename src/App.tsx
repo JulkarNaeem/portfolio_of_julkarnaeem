@@ -103,7 +103,7 @@ function MainLayout() {
         <button
           onClick={scrollToTop}
           aria-label="Scroll back to top"
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 bg-charcoal text-white hover:bg-accent hover:text-charcoal flex items-center justify-center shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105"
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 bg-charcoal text-white hover:bg-steel-blue hover:text-white flex items-center justify-center shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
         >
           <ArrowUp size={18} />
         </button>

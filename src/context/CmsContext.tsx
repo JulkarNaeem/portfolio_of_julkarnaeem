@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SiteContent, ProjectItem, ServiceItem } from '../types/cms';
 
-const STORAGE_KEY = 'julkarnaeem_portfolio_cms_v3';
+const STORAGE_KEY = 'julkarnaeem_portfolio_cms_v4';
 
 export const defaultSiteContent: SiteContent = {
   profileName: 'Julkar Naeem',
@@ -37,7 +37,7 @@ export const defaultSiteContent: SiteContent = {
       id: 'proj-1',
       img: '/images/Project Photos/Carver Rafter Shed industrial.png',
       title: 'Curved Rafter Industrial Shed',
-      category: 'Industrial Platform',
+      category: 'Industrial / PEB',
       desc: 'Full Tekla BIM model of a curved rafter industrial shed for a petroleum facility. Model includes curved rafters, purlins, bracing, and full erection drawings. Built and erected on site.',
       tonnage: '85 tons',
       software: 'Tekla Structures 2025',

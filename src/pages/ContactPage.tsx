@@ -56,20 +56,20 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
       {/* Page Header */}
       <section className="bg-charcoal pt-32 pb-16 lg:pt-36 lg:pb-20 text-white relative overflow-hidden cad-grid-dark border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-bold font-mono">
             {content.contact.badge || 'Get in Touch'}
           </span>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mt-2 tracking-tight">
             {content.contact.title || 'Contact Julkar Naeem'}
           </h1>
-          <p className="text-base sm:text-lg text-steel-light mt-4 max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg text-[#F3F4F6]/90 mt-4 max-w-2xl leading-relaxed">
             {content.contact.subtitle}
           </p>
           <a
             href={`${WA_BASE}?text=${encodeURIComponent('Hi Julkar! I would like to book a quick call to discuss a steel detailing project.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-[#1ebe5d] transition-all duration-300"
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3.5 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
           >
             <WhatsAppIcon size={16} />
             Book a Call via WhatsApp
@@ -85,23 +85,23 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
             {/* Left Contact Details */}
             <div className="lg:col-span-5 space-y-8">
               <div>
-                <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Direct Channels</span>
+                <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">Direct Channels</span>
                 <h2 className="text-2xl font-extrabold text-charcoal mt-1 mb-4 tracking-tight">
                   Project Inquiry Details
                 </h2>
-                <p className="text-steel text-sm leading-relaxed mb-8">
+                <p className="text-charcoal/80 text-sm leading-relaxed mb-8">
                   Share your project scope, drawings, or specifications, and I will provide a clear estimate, turnaround timeline, and deliverable list.
                 </p>
 
                 <div className="space-y-4">
                   {/* Email */}
                   <div className="flex items-start gap-4 p-4 bg-surface border border-border">
-                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-accent flex-shrink-0 shadow-xs">
+                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-steel-blue flex-shrink-0 shadow-xs">
                       <Mail size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-steel font-mono font-medium">Direct Email</p>
-                      <a href="mailto:hello@julkarnaeem.com" className="text-sm font-bold text-charcoal hover:text-accent transition-colors">
+                      <p className="text-[10px] uppercase tracking-wider text-steel-blue font-mono font-bold">Direct Email</p>
+                      <a href="mailto:hello@julkarnaeem.com" className="text-sm font-bold text-charcoal hover:text-steel-blue transition-colors">
                         hello@julkarnaeem.com
                       </a>
                     </div>
@@ -109,24 +109,24 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
 
                   {/* Location & Timezone */}
                   <div className="flex items-start gap-4 p-4 bg-surface border border-border">
-                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-accent flex-shrink-0 shadow-xs">
+                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-steel-blue flex-shrink-0 shadow-xs">
                       <MapPin size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-steel font-mono font-medium">Location</p>
+                      <p className="text-[10px] uppercase tracking-wider text-steel-blue font-mono font-bold">Location</p>
                       <p className="text-sm font-bold text-charcoal">Dhaka, Bangladesh</p>
-                      <p className="text-xs text-steel">Remote Worldwide (UTC +6)</p>
+                      <p className="text-xs text-charcoal/70">Remote Worldwide (UTC +6)</p>
                     </div>
                   </div>
 
                   {/* WhatsApp */}
                   <div className="flex items-start gap-4 p-4 bg-surface border border-border">
-                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-[#25D366] flex-shrink-0 shadow-xs">
+                    <div className="w-10 h-10 bg-white border border-border flex items-center justify-center text-steel-blue flex-shrink-0 shadow-xs">
                       <WhatsAppIcon size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase tracking-wider text-steel font-mono font-medium">Instant Messaging</p>
-                      <a href={WA_BASE} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-charcoal hover:text-[#25D366] transition-colors">
+                      <p className="text-[10px] uppercase tracking-wider text-steel-blue font-mono font-bold">Instant Messaging</p>
+                      <a href={WA_BASE} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-charcoal hover:text-steel-blue transition-colors">
                         +880 1739-411586
                       </a>
                     </div>
@@ -144,7 +144,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-surface border border-border flex items-center justify-center text-charcoal hover:bg-accent hover:border-accent hover:text-charcoal transition-all duration-200 shadow-xs"
+                      className="w-10 h-10 bg-surface border border-border flex items-center justify-center text-charcoal hover:bg-steel-blue hover:border-steel-blue hover:text-white transition-all duration-200 shadow-xs"
                       title={label}
                     >
                       <Icon size={18} />
@@ -157,7 +157,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
             {/* Right Contact Form */}
             <div className="lg:col-span-7">
               <div className="bg-surface border border-border p-8 lg:p-10 shadow-xl cad-corner-box">
-                <span className="text-[10px] uppercase font-mono font-bold text-accent tracking-widest block mb-1">Interactive Form</span>
+                <span className="text-[10px] uppercase font-mono font-bold text-steel-blue tracking-widest block mb-1">Interactive Form</span>
                 <h3 className="text-xl font-bold text-charcoal mb-6">Send a Project Brief</h3>
 
                 {submitted ? (
@@ -166,13 +166,13 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                       <CheckCircle2 size={32} />
                     </div>
                     <h4 className="text-xl font-bold text-charcoal">Inquiry Ready!</h4>
-                    <p className="text-sm text-steel max-w-md mx-auto">
+                    <p className="text-sm text-charcoal/80 max-w-md mx-auto">
                       Your message has been compiled into WhatsApp. If your chat didn't open automatically, click the button below.
                     </p>
                     <div className="flex justify-center gap-3 pt-4">
                       <button
                         onClick={handleReset}
-                        className="px-6 py-2.5 bg-surface border border-border text-charcoal text-xs uppercase font-bold tracking-wider hover:bg-surface-alt transition-all"
+                        className="px-6 py-2.5 bg-surface border border-border text-charcoal text-xs uppercase font-bold tracking-wider hover:bg-surface-alt transition-all cursor-pointer"
                       >
                         Send Another
                       </button>
@@ -192,7 +192,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="e.g. John Smith"
-                          className="w-full px-4 py-3 bg-white border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-sm text-charcoal transition-all"
+                          className="w-full px-4 py-3 bg-white border border-border focus:border-steel-blue focus:ring-2 focus:ring-steel-blue/20 outline-none text-sm text-charcoal transition-all"
                         />
                       </div>
                       <div>
@@ -206,7 +206,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="john@company.com"
-                          className="w-full px-4 py-3 bg-white border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-sm text-charcoal transition-all"
+                          className="w-full px-4 py-3 bg-white border border-border focus:border-steel-blue focus:ring-2 focus:ring-steel-blue/20 outline-none text-sm text-charcoal transition-all"
                         />
                       </div>
                     </div>
@@ -222,7 +222,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                           value={formData.company}
                           onChange={handleChange}
                           placeholder="Company Ltd."
-                          className="w-full px-4 py-3 bg-white border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-sm text-charcoal transition-all"
+                          className="w-full px-4 py-3 bg-white border border-border focus:border-steel-blue focus:ring-2 focus:ring-steel-blue/20 outline-none text-sm text-charcoal transition-all"
                         />
                       </div>
                       <div>
@@ -233,7 +233,7 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                           name="projectType"
                           value={formData.projectType}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-white border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-sm text-charcoal transition-all"
+                          className="w-full px-4 py-3 bg-white border border-border focus:border-steel-blue focus:ring-2 focus:ring-steel-blue/20 outline-none text-sm text-charcoal transition-all"
                         >
                           <option value="">Select Project Type</option>
                           <option value="PEB Building / Warehouse">PEB Building / Warehouse</option>
@@ -258,13 +258,13 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Please describe approximate tonnage, design drawings available, required timeline..."
-                        className="w-full px-4 py-3 bg-white border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none text-sm text-charcoal transition-all resize-none"
+                        className="w-full px-4 py-3 bg-white border border-border focus:border-steel-blue focus:ring-2 focus:ring-steel-blue/20 outline-none text-sm text-charcoal transition-all resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile-dark shadow-xl hover:bg-accent hover:text-charcoal transition-all duration-300 cursor-pointer"
+                      className="w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
                     >
                       <Send size={15} />
                       Send Inquiry via WhatsApp

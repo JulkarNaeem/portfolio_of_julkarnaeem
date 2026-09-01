@@ -45,12 +45,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#12131c]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
-          : 'bg-[#12131c]/80 backdrop-blur-sm border-b border-white/5'
+          ? 'bg-[#20252B]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
+          : 'bg-[#20252B]/85 backdrop-blur-sm border-b border-white/5'
       }`}
     >
-      {/* Top micro gold line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-accent to-transparent opacity-80" />
+      {/* Top micro steel blue / yellow line */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#164E80] to-transparent opacity-80" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
@@ -64,17 +64,17 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               <img 
                 src="/images/logo.png" 
                 alt="Logo" 
-                className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(232,177,0,0.3)]" 
+                className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(245,196,0,0.3)]" 
               />
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#22c55e] border-2 border-charcoal rounded-full animate-pulse" title="Available for projects" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="text-white font-bold text-[16px] leading-tight tracking-tight group-hover:text-accent transition-colors">
+                <span className="text-white font-bold text-[16px] leading-tight tracking-tight group-hover:text-safety-yellow transition-colors">
                   {navSettings.brandName}
                 </span>
               </div>
-              <span className="text-steel-lighter text-[10px] uppercase tracking-[0.22em] leading-tight font-mono font-medium">
+              <span className="text-[#F3F4F6]/70 text-[10px] uppercase tracking-[0.22em] leading-tight font-mono font-medium">
                 {navSettings.brandRole}
               </span>
             </div>
@@ -88,24 +88,24 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <button
                   key={link.page}
                   onClick={() => handleNav(link.page)}
-                  className={`text-[12px] uppercase tracking-[0.16em] font-medium transition-all duration-200 relative py-2 ${
+                  className={`text-[12px] uppercase tracking-[0.16em] font-medium transition-all duration-200 relative py-2 cursor-pointer ${
                     isActive
-                      ? 'text-accent font-semibold'
-                      : 'text-steel-lighter hover:text-white hover:translate-y-[-1px]'
+                      ? 'text-safety-yellow font-bold'
+                      : 'text-[#F3F4F6]/80 hover:text-white hover:translate-y-[-1px]'
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-accent to-accent-hover rounded-full shadow-[0_0_8px_rgba(232,177,0,0.6)]" />
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-safety-yellow rounded-full shadow-[0_0_8px_rgba(245,196,0,0.6)]" />
                   )}
                 </button>
               );
             })}
             
-            {/* CTA Button */}
+            {/* CTA Button: Primary CTA Safety Yellow -> Hover Steel Blue with White text */}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="ml-3 px-5 py-2.5 bg-accent text-charcoal text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile btn-shimmer shadow-[0_2px_12px_rgba(232,177,0,0.25)] hover:bg-white hover:text-charcoal transition-all duration-300"
+              className="ml-3 px-5 py-2.5 bg-safety-yellow text-charcoal text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile btn-shimmer shadow-[0_2px_12px_rgba(245,196,0,0.25)] hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>
@@ -115,7 +115,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="md:hidden text-white hover:text-accent p-2 transition-colors duration-200"
+            className="md:hidden text-white hover:text-safety-yellow p-2 transition-colors duration-200"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -134,8 +134,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   onClick={() => handleNav(link.page)}
                   className={`block w-full text-left px-4 py-3 text-[13px] uppercase tracking-[0.15em] font-medium transition-colors ${
                     isActive
-                      ? 'text-accent bg-white/5 font-semibold border-l-2 border-accent'
-                      : 'text-steel-lighter hover:text-white'
+                      ? 'text-safety-yellow bg-white/5 font-semibold border-l-2 border-safety-yellow'
+                      : 'text-[#F3F4F6]/80 hover:text-white'
                   }`}
                 >
                   {link.label}
@@ -144,7 +144,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             })}
             <button
               onClick={() => handleNav(navSettings.ctaPage || 'contact')}
-              className="mt-4 w-full px-5 py-3.5 bg-accent text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-lg text-center"
+              className="mt-4 w-full px-5 py-3.5 bg-safety-yellow text-charcoal hover:bg-steel-blue hover:text-white text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-lg text-center cursor-pointer transition-colors"
             >
               {navSettings.ctaLabel || 'Inquire Now'}
             </button>

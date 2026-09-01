@@ -70,19 +70,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       {/* ─── HERO SECTION ─── */}
-      <section className="relative min-h-[92vh] flex items-center bg-white overflow-hidden cad-grid-light">
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden cad-grid-light pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
         {/* Subtle radial glow in background */}
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 right-10 w-96 h-96 bg-steel-blue/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full py-28 lg:py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             
             {/* Left Column: Headline & Bio */}
             <div className="order-2 lg:order-1 animate-fade-in-up">
               {/* Location badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-surface border border-border rounded-full mb-5 shadow-xs">
-                <MapPin size={13} className="text-accent flex-shrink-0" />
-                <span className="text-[11px] uppercase tracking-[0.2em] text-steel font-medium">
+                <MapPin size={13} className="text-steel-blue flex-shrink-0" />
+                <span className="text-[11px] uppercase tracking-[0.2em] text-charcoal/80 font-medium font-mono">
                   Dhaka, Bangladesh · Remote Worldwide
                 </span>
                 <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-ping ml-1" />
@@ -90,51 +90,35 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
               {/* Subtitle Badge */}
               <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[2px] bg-accent" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-steel font-semibold">
+                <span className="w-8 h-[2px] bg-safety-yellow" />
+                <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">
                   {content.hero.badge}
                 </span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.6rem] font-extrabold text-charcoal leading-[1.1] tracking-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold text-charcoal leading-[1.12] tracking-tight mb-6">
                 {content.hero.headlineLine1}
                 <br />
-                <span className="text-steel font-bold">
+                <span className="text-steel-blue font-extrabold">
                   {content.hero.headlineLine2}
                 </span>
                 <br />
-                <span className="text-charcoal bg-gradient-to-r from-charcoal via-charcoal to-accent/80 bg-clip-text">
+                <span className="text-charcoal bg-gradient-to-r from-charcoal via-charcoal to-steel-blue/90 bg-clip-text">
                   {content.hero.headlineLine3}
                 </span>
               </h1>
 
               {/* Subtitle paragraph */}
-              <p className="text-base sm:text-lg text-steel leading-relaxed max-w-lg mb-6">
+              <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed max-w-lg mb-8">
                 {content.hero.subtitle}
               </p>
 
-              {/* Stats inline */}
-              <div className="flex items-center gap-6 mb-8 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
-                  <span className="text-sm font-semibold text-charcoal tracking-wide">150+ Projects</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
-                  <span className="text-sm font-semibold text-charcoal tracking-wide">9+ Years</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
-                  <span className="text-sm font-semibold text-charcoal tracking-wide">4+ Countries</span>
-                </div>
-              </div>
-
-              {/* CTA Action Buttons */}
+              {/* CTA Action Buttons: Primary Safety Yellow / Secondary Steel Blue */}
               <div className="flex flex-col sm:flex-row gap-3.5 flex-wrap">
                 <button
                   onClick={() => handleNav('projects')}
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile-dark shadow-lg hover:bg-accent hover:text-charcoal transition-all duration-300 cursor-pointer"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
                 >
                   View Projects
                   <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -142,50 +126,40 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
                 <button
                   onClick={() => setIsVideoOpen(true)}
-                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-white border border-border text-charcoal text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:border-accent hover:bg-surface transition-all duration-300 cursor-pointer"
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-steel-blue text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:bg-charcoal transition-all duration-300 cursor-pointer"
                 >
-                  <span className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
-                    <Play size={10} className="fill-charcoal text-charcoal ml-0.5" />
+                  <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-safety-yellow group-hover:scale-110 transition-all">
+                    <Play size={10} className="fill-white text-white group-hover:fill-charcoal group-hover:text-charcoal ml-0.5" />
                   </span>
                   Watch Video Intro
                 </button>
-
-                <a
-                  href={WA_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-lg hover:bg-[#1ebe5d] transition-all duration-300"
-                >
-                  <WhatsAppIcon size={16} />
-                  Book a Call
-                </a>
               </div>
 
               {/* Certifications mini badges */}
               <div className="mt-8 flex items-center gap-3 flex-wrap">
-                <span className="text-[10px] uppercase tracking-wider text-steel font-mono">Certified:</span>
-                <span className="px-3 py-1 border border-[#e8b100]/60 bg-[#e8b100]/5 text-[#c89a00] text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
+                <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Certified:</span>
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
                   Tekla Steel Fundamentals
                 </span>
-                <span className="px-3 py-1 border border-[#2563eb]/60 bg-[#2563eb]/5 text-[#2563eb] text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
                   AISC DTS
                 </span>
               </div>
 
               {/* Software Toolkit Mini Strip */}
               <div className="mt-5 pt-4 border-t border-border/70 flex items-center gap-3 flex-wrap">
-                <span className="text-[10px] uppercase tracking-wider text-steel font-mono">Toolkit:</span>
+                <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Toolkit:</span>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-accent hover:scale-110 transition-all rounded-xs cursor-pointer" title="Tekla Structures 2025">
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Tekla Structures 2025">
                     <img src="/images/icons/tekla.jpg" alt="Tekla Structures" className="w-full h-full object-contain" />
                   </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-accent hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk AutoCAD">
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk AutoCAD">
                     <img src="/images/icons/autocad.jpg" alt="AutoCAD" className="w-full h-full object-contain" />
                   </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-accent hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk Revit">
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk Revit">
                     <img src="/images/icons/ravit.png" alt="Revit" className="w-full h-full object-contain" />
                   </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-accent hover:scale-110 transition-all rounded-xs cursor-pointer" title="Bentley STAAD.Pro">
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Bentley STAAD.Pro">
                     <img src="/images/icons/staad-pro.jpg" alt="STAAD.Pro" className="w-full h-full object-contain" />
                   </div>
                 </div>
@@ -197,16 +171,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="relative group">
                 
                 {/* CAD Technical Crosses in corners */}
-                <div className="absolute -top-3 -left-3 text-accent font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -top-3 -right-3 text-accent font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -bottom-3 -left-3 text-accent font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -bottom-3 -right-3 text-accent font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
+                <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
+                <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
+                <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
+                <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
 
                 {/* Decorative border frame */}
-                <div className="absolute -top-3 -right-3 w-full h-full border border-accent/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
 
                 {/* Main Image Container */}
-                <div className="relative z-10 bg-white border border-border shadow-2xl overflow-hidden aspect-[4/3] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_20px_50px_rgba(232,177,0,0.15)] group-hover:border-accent/50">
+                <div className="relative z-10 bg-white border border-border shadow-2xl overflow-hidden aspect-[4/3] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_20px_50px_rgba(22,78,128,0.15)] group-hover:border-steel-blue/50">
                   
                   {/* Active Carousel Image */}
                   <img
@@ -223,22 +197,22 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   <button 
                     onClick={handlePrevHero} 
                     aria-label="Previous structure photo"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-accent hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button 
                     onClick={handleNextHero} 
                     aria-label="Next structure photo"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-accent hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
                   >
                     <ChevronRight size={20} />
                   </button>
 
                   {/* Technical Badge Overlay */}
-                  <div className="absolute bottom-4 left-4 z-20 bg-charcoal/90 backdrop-blur-md px-4 py-2.5 border-l-3 border-accent text-white shadow-xl flex items-center gap-3">
+                  <div className="absolute bottom-4 left-4 z-20 bg-charcoal/95 backdrop-blur-md px-4 py-2.5 border-l-3 border-safety-yellow text-white shadow-xl flex items-center gap-3">
                     <div>
-                      <p className="text-[9px] uppercase tracking-[0.25em] text-accent font-mono font-bold">
+                      <p className="text-[9px] uppercase tracking-[0.25em] text-safety-yellow font-mono font-bold">
                         {content.hero.softwareBadgeTitle || 'Tekla Structures 2025'}
                       </p>
                       <p className="text-xs font-semibold text-white tracking-wide">
@@ -248,21 +222,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   </div>
 
                   {/* Slide Counter & Indicators */}
-                  <div className="absolute top-4 right-4 z-20 bg-charcoal/90 text-white text-[10px] uppercase font-mono px-3 py-1 font-bold border border-white/10 flex items-center gap-2">
-                    <span className="text-accent">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
+                  <div className="absolute top-4 right-4 z-20 bg-charcoal/95 text-white text-[10px] uppercase font-mono px-3 py-1 font-bold border border-white/10 flex items-center gap-2">
+                    <span className="text-safety-yellow">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
                     <span className="text-white/40">/</span>
                     <span>{String(heroImages.length).padStart(2, '0')}</span>
                   </div>
 
                   {/* Thumbnail Dots */}
-                  <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-charcoal/70 px-2 py-1.5 backdrop-blur-xs">
+                  <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-charcoal/80 px-2 py-1.5 backdrop-blur-xs">
                     {heroImages.map((_, idx) => (
                       <button
                         key={idx}
                         onClick={() => changeHeroImage(idx)}
                         aria-label={`Jump to image ${idx + 1}`}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          currentHeroIndex === idx ? 'w-5 bg-accent' : 'w-1.5 bg-white/40 hover:bg-white'
+                        className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                          currentHeroIndex === idx ? 'w-5 bg-safety-yellow' : 'w-1.5 bg-white/40 hover:bg-white'
                         }`}
                       />
                     ))}
@@ -277,8 +251,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
-          <span className="text-[9px] uppercase tracking-[0.3em] text-steel font-mono">Explore</span>
-          <div className="w-[1px] h-6 bg-accent animate-pulse" />
+          <span className="text-[9px] uppercase tracking-[0.3em] text-steel-blue font-mono font-bold">Explore</span>
+          <div className="w-[1px] h-6 bg-safety-yellow animate-pulse" />
         </div>
       </section>
 
@@ -293,11 +267,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { value: '2025', label: 'Tekla Version',      desc: 'Latest Standards' },
             ].map((item, i) => (
               <div key={i} className="text-center group transition-transform duration-300 hover:scale-105">
-                <p className="text-3xl md:text-4xl font-extrabold text-accent mb-1 font-mono tracking-tight group-hover:drop-shadow-[0_0_12px_rgba(232,177,0,0.5)] transition-all">
+                <p className="text-3xl md:text-4xl font-extrabold text-safety-yellow mb-1 font-mono tracking-tight group-hover:drop-shadow-[0_0_12px_rgba(245,196,0,0.5)] transition-all">
                   {item.value}
                 </p>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-white font-semibold">{item.label}</p>
-                <p className="text-[10px] text-steel-lighter/60 font-mono mt-0.5">{item.desc}</p>
+                <p className="text-[10px] text-[#F3F4F6]/70 font-mono mt-0.5">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -313,13 +287,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {/* Left: Video Overview & Highlights (5 Cols) */}
             <div className="lg:col-span-5 space-y-6">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/30 text-accent text-[10px] uppercase font-mono font-bold tracking-widest mb-3">
-                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" /> Video Presentation
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-safety-yellow border border-safety-yellow/30 text-[10px] uppercase font-mono font-bold tracking-widest mb-3 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-clash-red animate-pulse" /> Video Presentation
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                   Meet Julkar Naeem
                 </h2>
-                <p className="text-sm text-steel-light mt-3 leading-relaxed">
+                <p className="text-sm text-[#F3F4F6]/90 mt-3 leading-relaxed">
                   Watch a 1-minute video introduction to my structural steel detailing background, Tekla Structures 3D modeling workflow, and fabrication drawing deliverables.
                 </p>
               </div>
@@ -340,31 +314,31 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     desc: 'Standardized connection detailing for fabricators and structural engineers.',
                   },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-3 bg-white/5 border border-white/10 rounded-xs hover:border-accent/40 transition-colors">
-                    <CheckCircle className="text-accent w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <div key={idx} className="flex items-start gap-3 p-3 bg-white/5 border border-white/10 rounded-xs hover:border-steel-blue/60 transition-colors">
+                    <CheckCircle className="text-safety-yellow w-4 h-4 flex-shrink-0 mt-0.5" />
                     <div>
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">{item.title}</h4>
-                      <p className="text-[11px] text-steel-lighter mt-0.5 leading-normal">{item.desc}</p>
+                      <p className="text-[11px] text-[#F3F4F6]/80 mt-0.5 leading-normal">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: Primary WhatsApp CTA & Secondary Projects Link */}
               <div className="pt-2 flex items-center gap-4 flex-wrap">
                 <a
                   href={WA_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent text-charcoal text-xs uppercase tracking-widest font-bold btn-tactile hover:bg-white transition-all shadow-lg"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-safety-yellow text-charcoal text-xs uppercase tracking-widest font-bold btn-tactile hover:bg-steel-blue hover:text-white transition-all shadow-lg cursor-pointer"
                 >
                   <WhatsAppIcon size={16} /> Discuss on WhatsApp
                 </a>
                 <button
                   onClick={() => handleNav('projects')}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-mono text-steel-lighter hover:text-accent transition-colors"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-wider font-mono text-[#F3F4F6]/80 hover:text-safety-yellow transition-colors cursor-pointer"
                 >
-                  Inspect 3D Projects <ArrowRight size={13} />
+                  View Projects <ArrowRight size={13} />
                 </button>
               </div>
             </div>
@@ -396,19 +370,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-6 h-[2px] bg-accent" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Portfolio & Drawings</span>
+                <span className="w-6 h-[2px] bg-safety-yellow" />
+                <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">Portfolio & Drawings</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-charcoal tracking-tight">
                 Featured Steel Projects
               </h2>
-              <p className="text-steel text-sm sm:text-base mt-2 max-w-xl">
-                Real Tekla Structures BIM models, shop drawings, and erected structural steelwork. Click any project to inspect the full gallery and drawing details.
+              <p className="text-charcoal/80 text-sm sm:text-base mt-2 max-w-xl">
+                Real Tekla Structures BIM models, shop drawings, and erected structural steelwork. Click any project to view the full gallery and drawing details.
               </p>
             </div>
             <button
               onClick={() => handleNav('projects')}
-              className="group inline-flex items-center gap-2 px-6 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-semibold btn-tactile-dark hover:bg-accent hover:text-charcoal transition-all self-start md:self-auto shadow-md"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-semibold btn-tactile-dark hover:bg-steel-blue hover:text-white transition-all self-start md:self-auto shadow-md cursor-pointer"
             >
               View All {content.projects.length} Projects
               <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -420,7 +394,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {content.projects.map((project, i) => (
               <div
                 key={project.id || i}
-                className="group cursor-pointer bg-white border border-border hover:border-accent hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cad-corner-box hover:-translate-y-1"
+                className="group cursor-pointer bg-white border border-border hover:border-steel-blue hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cad-corner-box hover:-translate-y-1"
                 onClick={() => setSelectedProject(project as ProjectItem)}
               >
                 <div>
@@ -436,8 +410,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     
                     {/* Hover Overlay with Inspect Icon */}
                     <div className="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                      <span className="px-4 py-2 bg-accent text-charcoal font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <Maximize2 size={13} /> Inspect Drawings
+                      <span className="px-4 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <Maximize2 size={13} /> View Drawings
                       </span>
                     </div>
 
@@ -450,7 +424,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
                     {/* Gallery Count Badge */}
                     {project.gallery && project.gallery.length > 1 && (
-                      <div className="absolute bottom-3 right-3 bg-accent text-charcoal text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shadow-md flex items-center gap-1">
+                      <div className="absolute bottom-3 right-3 bg-safety-yellow text-charcoal text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shadow-md flex items-center gap-1">
                         <span>📷 {project.gallery.length} Images</span>
                       </div>
                     )}
@@ -459,19 +433,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   {/* Body Content */}
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-steel-blue font-bold">
                         {project.category}
                       </span>
                       {project.software && (
-                        <span className="text-[9px] uppercase tracking-wider text-steel bg-surface border border-border px-2 py-0.5 font-mono">
+                        <span className="text-[9px] uppercase tracking-wider text-steel-blue bg-surface border border-border px-2 py-0.5 font-mono font-semibold">
                           {typeof project.software === 'string' ? project.software.split(' ')[0] : 'Tekla'}
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-charcoal mb-2 group-hover:text-accent transition-colors line-clamp-1">
+                    <h3 className="text-lg font-bold text-charcoal mb-2 group-hover:text-steel-blue transition-colors line-clamp-1">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-steel leading-relaxed line-clamp-2 mb-4">
+                    <p className="text-sm text-charcoal/75 leading-relaxed line-clamp-2 mb-4">
                       {project.desc}
                     </p>
 
@@ -481,7 +455,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                         {project.deliverables.slice(0, 3).map((deliv, dIdx) => (
                           <span
                             key={dIdx}
-                            className="text-[10px] uppercase tracking-wider text-charcoal/70 bg-surface px-2 py-0.5 border border-border"
+                            className="text-[10px] uppercase tracking-wider text-charcoal/80 bg-surface px-2 py-0.5 border border-border font-medium"
                           >
                             {deliv}
                           </span>
@@ -493,10 +467,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
                 {/* Footer Action */}
                 <div className="px-6 pb-6 pt-2 flex items-center justify-between border-t border-border/40">
-                  <span className="text-[11px] uppercase tracking-[0.15em] text-charcoal font-bold group-hover:text-accent transition-colors flex items-center gap-1.5">
-                    Inspect Drawings <ArrowRight size={12} className="group-hover:translate-x-1.5 transition-transform" />
+                  <span className="text-[11px] uppercase tracking-[0.15em] text-charcoal font-bold group-hover:text-steel-blue transition-colors flex items-center gap-1.5">
+                    View Drawings <ArrowRight size={12} className="group-hover:translate-x-1.5 transition-transform" />
                   </span>
-                  <span className="text-xs text-steel/50 font-mono">#0{i + 1}</span>
+                  <span className="text-xs text-steel-blue/60 font-mono font-semibold">#0{i + 1}</span>
                 </div>
               </div>
             ))}
@@ -508,7 +482,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <section className="bg-charcoal text-white py-20 lg:py-28 relative overflow-hidden cad-grid-dark border-y border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Workflow</span>
+            <span className="inline-block px-3 py-1 bg-white/10 text-safety-yellow border border-safety-yellow/30 text-[11px] uppercase tracking-[0.25em] font-bold mb-2">Workflow</span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 tracking-tight">
               Precision Detailing Process
             </h2>
@@ -523,21 +497,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { step: '05', title: 'Support', desc: 'Revise and clarify for seamless shop floor erection' },
             ].map((item, i) => (
               <div key={i} className="text-center group hover:scale-105 transition-transform duration-300">
-                <div className="text-3xl font-extrabold text-accent/40 font-mono mb-3 group-hover:text-accent transition-colors duration-300">
+                <div className="text-3xl font-extrabold text-safety-yellow font-mono mb-3 group-hover:drop-shadow-[0_0_10px_rgba(245,196,0,0.5)] transition-all">
                   {item.step}
                 </div>
-                <div className="w-full h-[1px] bg-white/10 mb-4 relative">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-accent rounded-full shadow-[0_0_8px_rgba(232,177,0,0.8)]" />
+                <div className="w-full h-[1px] bg-steel-blue/40 mb-4 relative">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-safety-yellow rounded-full shadow-[0_0_8px_rgba(245,196,0,0.8)]" />
                 </div>
                 <h3 className="text-white font-bold text-base mb-2">{item.title}</h3>
-                <p className="text-steel-light text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-[#F3F4F6]/80 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-
 
       {/* ─── SERVICES & PROJECT CATALOG SNAPSHOT ─── */}
       <section className="bg-white py-24 lg:py-32">
@@ -545,17 +517,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Service Catalog & Packages</span>
+              <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">Service Catalog & Packages</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-charcoal mt-2 tracking-tight">
                 Project Catalog & Tiered Offerings
               </h2>
-              <p className="text-steel text-sm sm:text-base mt-2 max-w-xl">
-                Structured like an Upwork Project Catalog — choose from Starter, Standard, or Advanced structural detailing tiers with clear turnaround times.
+              <p className="text-charcoal/80 text-sm sm:text-base mt-2 max-w-xl">
+                Choose from Starter, Standard, or Advanced structural detailing tiers with clear turnaround times.
               </p>
             </div>
             <button
               onClick={() => handleNav('services')}
-              className="group inline-flex items-center gap-2 px-6 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile-dark hover:bg-accent hover:text-charcoal transition-all self-start md:self-auto shadow-md cursor-pointer"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 bg-charcoal text-white text-[11px] uppercase tracking-[0.18em] font-bold btn-tactile-dark hover:bg-steel-blue hover:text-white transition-all self-start md:self-auto shadow-md cursor-pointer"
             >
               Explore Full Catalog & Tiers
               <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -563,19 +535,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </div>
 
           {/* Upwork Style 3-Tier Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             {[
               {
                 tier: 'Starter Scope',
                 badge: 'Quick Turnaround',
-                delivery: '2 Days Delivery',
+                delivery: 'Typical timeline: 2 days',
                 scope: 'Stairs, Small Platforms & Single Parts (Up to 5 Tons)',
                 desc: '1–4 Shop drawings, single-part fitting details, and basic material summary.',
               },
               {
                 tier: 'Standard Scope',
                 badge: 'Most Popular',
-                delivery: '4 Days Delivery',
+                delivery: 'Typical timeline: 4 days',
                 scope: 'PEB Sheds & Industrial Frames (Up to 25 Tons)',
                 desc: 'Complete LOD 400 Tekla model, GA erection plans, assembly shop drawings, NC/DSTV files, and BOM.',
                 featured: true,
@@ -583,7 +555,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {
                 tier: 'Advanced Scope',
                 badge: 'Full Detailing Suite',
-                delivery: '7–10 Days Delivery',
+                delivery: 'Typical timeline: 7–10 days',
                 scope: 'Multi-Storey, Heavy Plants & Infrastructure (Up to 100+ Tons)',
                 desc: 'End-to-end BIM coordination, full drawing package, clash detection, anchor bolt plans, and bolt schedules.',
               },
@@ -592,26 +564,26 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 key={pIdx}
                 className={`p-7 border transition-all duration-300 flex flex-col justify-between cad-corner-box ${
                   pkg.featured
-                    ? 'bg-charcoal text-white border-accent shadow-2xl scale-102 hover:shadow-[0_15px_40px_rgba(232,177,0,0.2)]'
-                    : 'bg-surface text-charcoal border-border hover:border-accent hover:shadow-xl hover:-translate-y-1'
+                    ? 'bg-charcoal text-white border-safety-yellow shadow-2xl scale-102 hover:shadow-[0_15px_40px_rgba(245,196,0,0.2)]'
+                    : 'bg-surface text-charcoal border-border hover:border-steel-blue hover:shadow-xl hover:-translate-y-1'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span className={`text-[9px] uppercase font-mono font-bold px-2 py-0.5 ${
-                      pkg.featured ? 'bg-accent text-charcoal' : 'bg-white text-accent border border-border'
+                      pkg.featured ? 'bg-safety-yellow text-charcoal' : 'bg-white text-steel-blue border border-border'
                     }`}>
                       {pkg.badge}
                     </span>
-                    <span className={`text-xs font-mono font-semibold ${pkg.featured ? 'text-accent' : 'text-steel'}`}>
+                    <span className={`text-xs font-mono font-semibold ${pkg.featured ? 'text-safety-yellow' : 'text-steel-blue'}`}>
                       {pkg.delivery}
                     </span>
                   </div>
                   <h3 className="text-xl font-bold mb-1">{pkg.tier}</h3>
-                  <p className={`text-xs font-mono font-semibold mb-4 ${pkg.featured ? 'text-steel-lighter' : 'text-steel'}`}>
+                  <p className={`text-xs font-mono font-semibold mb-4 ${pkg.featured ? 'text-[#F3F4F6]/80' : 'text-steel-blue'}`}>
                     {pkg.scope}
                   </p>
-                  <p className={`text-sm leading-relaxed mb-6 ${pkg.featured ? 'text-steel-light' : 'text-steel'}`}>
+                  <p className={`text-sm leading-relaxed mb-6 ${pkg.featured ? 'text-[#F3F4F6]/90' : 'text-charcoal/80'}`}>
                     {pkg.desc}
                   </p>
                 </div>
@@ -620,14 +592,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   onClick={() => handleNav('services')}
                   className={`w-full py-3 text-[11px] uppercase tracking-[0.16em] font-bold transition-all text-center cursor-pointer ${
                     pkg.featured
-                      ? 'bg-accent text-charcoal hover:bg-white hover:text-charcoal'
-                      : 'bg-white border border-border text-charcoal hover:bg-charcoal hover:text-white'
+                      ? 'bg-safety-yellow text-charcoal hover:bg-steel-blue hover:text-white'
+                      : 'bg-steel-blue text-white hover:bg-charcoal'
                   }`}
                 >
                   View Package Details →
                 </button>
               </div>
             ))}
+          </div>
+
+          {/* Timeline Scope Note */}
+          <div className="mb-12 text-center">
+            <p className="text-xs text-charcoal/70 font-mono italic">
+              * Final timeline confirmed after scope review.
+            </p>
           </div>
 
           {/* Quick Services Grid */}
@@ -642,14 +621,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             ].map((svc, i) => (
               <div
                 key={i}
-                className="p-6 border border-border hover:border-accent hover:shadow-lg bg-surface group cursor-pointer transition-all duration-300 hover:-translate-y-1"
+                className="p-6 border border-border hover:border-steel-blue hover:shadow-lg bg-surface group cursor-pointer transition-all duration-300 hover:-translate-y-1"
                 onClick={() => handleNav('services')}
               >
-                <div className="text-steel group-hover:text-accent transition-colors duration-300 mb-3">
+                <div className="text-steel-blue group-hover:text-safety-yellow transition-colors duration-300 mb-3">
                   {svc.icon}
                 </div>
-                <h3 className="text-base font-bold text-charcoal mb-1.5 group-hover:text-accent transition-colors">{svc.title}</h3>
-                <p className="text-xs text-steel leading-relaxed">{svc.desc}</p>
+                <h3 className="text-base font-bold text-charcoal mb-1.5 group-hover:text-steel-blue transition-colors">{svc.title}</h3>
+                <p className="text-xs text-charcoal/75 leading-relaxed">{svc.desc}</p>
               </div>
             ))}
           </div>
@@ -657,22 +636,20 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-
-
       {/* ─── FINAL CALL TO ACTION ─── */}
       <section className="bg-charcoal py-24 lg:py-32 text-white relative overflow-hidden cad-grid-dark border-t border-white/10">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center relative z-10">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Let's Work Together</span>
+          <span className="inline-block text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-bold bg-white/10 border border-safety-yellow/30 px-3 py-1 mb-2">Let's Work Together</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-6 tracking-tight">
             Need Fabrication-Ready Steel Drawings?
           </h2>
-          <p className="text-base sm:text-lg text-steel-light leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-[#F3F4F6]/90 leading-relaxed mb-10 max-w-xl mx-auto">
             Let's turn your structural concept into an accurate Tekla model and clear shop drawing package — delivered remotely from Dhaka, Bangladesh.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => handleNav('contact')}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-white hover:text-charcoal transition-all duration-300"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
             >
               Start a Project
               <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform" />
@@ -681,7 +658,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               href={WA_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#25D366] text-white text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-[#1ebe5d] transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-steel-blue text-white text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-charcoal border border-steel-blue transition-all duration-300 cursor-pointer"
             >
               <WhatsAppIcon size={16} />
               WhatsApp Me
@@ -704,13 +681,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           onClick={() => setIsVideoOpen(false)}
         >
           <div 
-            className="relative w-full max-w-4xl bg-charcoal border-2 border-accent p-2 sm:p-3 shadow-2xl cad-corner-box"
+            className="relative w-full max-w-4xl bg-charcoal border-2 border-steel-blue p-2 sm:p-3 shadow-2xl cad-corner-box"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setIsVideoOpen(false)}
-              className="absolute -top-10 right-0 text-white/80 hover:text-white flex items-center gap-1 text-xs font-mono uppercase tracking-widest cursor-pointer"
+              className="absolute -top-10 right-0 text-white/80 hover:text-safety-yellow flex items-center gap-1 text-xs font-mono uppercase tracking-widest cursor-pointer transition-colors"
             >
               Close <X size={18} />
             </button>

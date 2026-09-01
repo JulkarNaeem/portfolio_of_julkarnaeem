@@ -5,6 +5,7 @@ import { useCms } from '../context/CmsContext';
 
 const categories = [
   'All',
+  'Industrial / PEB',
   'Industrial Platform',
   'PEB',
   'Structural Steel',
@@ -32,11 +33,11 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
       {/* Page Header */}
       <section className="bg-charcoal pt-32 pb-16 lg:pt-36 lg:pb-20 text-white relative overflow-hidden cad-grid-dark border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-accent font-semibold">Portfolio & Models</span>
+          <span className="text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-bold font-mono">Portfolio & Models</span>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mt-2 tracking-tight">
             Steel Projects
           </h1>
-          <p className="text-base sm:text-lg text-steel-light mt-4 max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg text-[#F3F4F6]/90 mt-4 max-w-2xl leading-relaxed">
             A comprehensive showcase of fabrication-ready Tekla BIM models, GA drawings, and shop drawing packages delivered for steel fabricators worldwide.
           </p>
         </div>
@@ -54,8 +55,8 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
                 onClick={() => setActive(cat)}
                 className={`px-4 py-2 text-[11px] uppercase tracking-[0.16em] font-semibold transition-all duration-200 cursor-pointer ${
                   active === cat
-                    ? 'bg-charcoal text-white shadow-md border-b-2 border-accent'
-                    : 'bg-surface text-steel hover:text-charcoal hover:bg-surface-alt border border-border'
+                    ? 'bg-charcoal text-white shadow-md border-b-2 border-safety-yellow'
+                    : 'bg-surface text-charcoal/80 hover:text-charcoal hover:bg-surface-alt border border-border'
                 }`}
               >
                 {cat}
@@ -68,7 +69,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
             {filtered.map((project, i) => (
               <div 
                 key={i} 
-                className="group cursor-pointer bg-white border border-border hover:border-accent hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cad-corner-box hover:-translate-y-1"
+                className="group cursor-pointer bg-white border border-border hover:border-steel-blue hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cad-corner-box hover:-translate-y-1"
                 onClick={() => setSelectedProject(project)}
               >
                 <div>
@@ -84,8 +85,8 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
 
                     {/* Hover Overlay with Inspect Icon */}
                     <div className="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                      <span className="px-4 py-2 bg-accent text-charcoal font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <Maximize2 size={13} /> Inspect Drawings
+                      <span className="px-4 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-widest flex items-center gap-2 shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <Maximize2 size={13} /> View Drawings
                       </span>
                     </div>
 
@@ -98,7 +99,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
 
                     {/* Gallery Count */}
                     {project.gallery && project.gallery.length > 1 && (
-                      <div className="absolute bottom-3 right-3 bg-accent text-charcoal text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shadow-md flex items-center gap-1">
+                      <div className="absolute bottom-3 right-3 bg-safety-yellow text-charcoal text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shadow-md flex items-center gap-1">
                         <span>📷 {project.gallery.length} Images</span>
                       </div>
                     )}
@@ -107,19 +108,19 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
                   {/* Body Content */}
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-steel-blue font-bold">
                         {project.category}
                       </span>
                       {project.software && (
-                        <span className="text-[9px] uppercase tracking-wider text-steel bg-surface border border-border px-2 py-0.5 font-mono">
+                        <span className="text-[9px] uppercase tracking-wider text-steel-blue bg-surface border border-border px-2 py-0.5 font-mono font-semibold">
                           {typeof project.software === 'string' ? project.software.split(' ')[0] : 'Tekla'}
                         </span>
                       )}
                     </div>
-                    <h3 className="text-lg font-bold text-charcoal mb-2 group-hover:text-accent transition-colors line-clamp-1">
+                    <h3 className="text-lg font-bold text-charcoal mb-2 group-hover:text-steel-blue transition-colors line-clamp-1">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-steel leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-sm text-charcoal/75 leading-relaxed mb-4 line-clamp-2">
                       {project.desc}
                     </p>
 
@@ -129,7 +130,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
                         {project.deliverables.slice(0, 3).map((deliv, dIdx) => (
                           <span
                             key={dIdx}
-                            className="text-[10px] uppercase tracking-wider text-charcoal/70 bg-surface px-2 py-0.5 border border-border font-medium"
+                            className="text-[10px] uppercase tracking-wider text-charcoal/80 bg-surface px-2 py-0.5 border border-border font-medium"
                           >
                             {deliv}
                           </span>
@@ -141,10 +142,10 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
 
                 {/* Footer Action */}
                 <div className="px-6 pb-6 pt-2 flex items-center justify-between border-t border-border/40">
-                  <span className="text-[11px] uppercase tracking-[0.15em] text-charcoal font-bold group-hover:text-accent transition-colors flex items-center gap-1.5">
-                    Inspect Drawings <ArrowRight size={12} className="group-hover:translate-x-1.5 transition-transform" />
+                  <span className="text-[11px] uppercase tracking-[0.15em] text-charcoal font-bold group-hover:text-steel-blue transition-colors flex items-center gap-1.5">
+                    View Drawings <ArrowRight size={12} className="group-hover:translate-x-1.5 transition-transform" />
                   </span>
-                  <span className="text-xs text-steel/50 font-mono">#0{i + 1}</span>
+                  <span className="text-xs text-steel-blue/60 font-mono font-semibold">#0{i + 1}</span>
                 </div>
               </div>
             ))}
@@ -158,7 +159,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
           <h2 className="text-2xl md:text-3xl font-extrabold text-charcoal mb-4 tracking-tight">
             Have a Steel Project That Needs Detailing?
           </h2>
-          <p className="text-steel mb-8 text-base">
+          <p className="text-charcoal/80 mb-8 text-base">
             I'm ready to help you create accurate Tekla models and fabrication-ready drawings for your upcoming fabrication work.
           </p>
           <button
@@ -166,7 +167,7 @@ export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
               onNavigate('contact');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-accent text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-charcoal hover:text-white transition-all duration-300 cursor-pointer"
+            className="group inline-flex items-center gap-2 px-8 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
           >
             Start a Project
             <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform" />
