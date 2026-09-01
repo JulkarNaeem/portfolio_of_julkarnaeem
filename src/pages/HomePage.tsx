@@ -119,68 +119,25 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 {content.hero.subtitle}
               </p>
 
-              {/* ─── HERO CALL-TO-ACTION BUTTONS ─── */}
-              <div className="space-y-4">
-                {/* Main Action Buttons Grid */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 flex-wrap">
-                  {/* Primary CTA: Get a Free Quote */}
-                  <button
-                    onClick={() => handleNav('contact')}
-                    className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
-                  >
-                    <span>Get a Free Quote</span>
-                    <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
-                  </button>
+              {/* CTA Action Buttons: Primary Safety Yellow / Secondary Steel Blue */}
+              <div className="flex flex-col sm:flex-row gap-3.5 flex-wrap">
+                <button
+                  onClick={() => handleNav('projects')}
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
+                >
+                  View Projects
+                  <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
+                </button>
 
-                  {/* Secondary CTA: Explore Projects */}
-                  <button
-                    onClick={() => handleNav('projects')}
-                    className="group inline-flex items-center justify-center gap-2 px-6 py-4 bg-charcoal text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:bg-steel-blue transition-all duration-300 cursor-pointer border border-charcoal hover:border-steel-blue"
-                  >
-                    <Box size={14} className="text-safety-yellow group-hover:rotate-12 transition-transform duration-300" />
-                    <span>View Projects</span>
-                  </button>
-
-                  {/* Instant Direct Action: WhatsApp Chat */}
-                  <a
-                    href={WA_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center gap-2 px-5 py-4 bg-white border border-[#22c55e]/50 hover:border-[#22c55e] text-charcoal hover:text-[#22c55e] text-[12px] uppercase tracking-[0.16em] font-semibold shadow-xs hover:bg-[#22c55e]/5 transition-all duration-300 cursor-pointer font-mono"
-                  >
-                    <WhatsAppIcon size={16} className="text-[#25D366]" />
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-
-                {/* Sub-Action Row: Service Pricing & Video Lightbox */}
-                <div className="flex items-center gap-5 pt-1 flex-wrap text-xs font-mono">
-                  <button
-                    onClick={() => handleNav('services')}
-                    className="text-steel-blue hover:text-charcoal font-bold flex items-center gap-1.5 transition-colors underline-offset-4 hover:underline cursor-pointer"
-                  >
-                    <DollarSign size={14} className="text-safety-yellow" />
-                    <span>View Packages &amp; Rates (From $150) →</span>
-                  </button>
-
-                  <span className="text-charcoal/20 hidden sm:inline">|</span>
-
-                  <button
-                    onClick={() => setIsVideoOpen(true)}
-                    className="group flex items-center gap-2 text-charcoal/80 hover:text-steel-blue font-semibold transition-colors cursor-pointer"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-steel-blue/10 flex items-center justify-center group-hover:bg-safety-yellow transition-colors flex-shrink-0">
-                      <Play size={8} className="fill-steel-blue text-steel-blue group-hover:fill-charcoal group-hover:text-charcoal ml-0.5" />
-                    </span>
-                    <span>Watch Video Intro (1 min)</span>
-                  </button>
-                </div>
-
-                {/* Micro Response Guarantee */}
-                <div className="flex items-center gap-2 text-[11px] text-charcoal/70 font-mono pt-1">
-                  <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
-                  <span>Available for contracts · Average response under 1 hour</span>
-                </div>
+                <button
+                  onClick={() => setIsVideoOpen(true)}
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-steel-blue text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:bg-charcoal transition-all duration-300 cursor-pointer"
+                >
+                  <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-safety-yellow group-hover:scale-110 transition-all">
+                    <Play size={10} className="fill-white text-white group-hover:fill-charcoal group-hover:text-charcoal ml-0.5" />
+                  </span>
+                  Watch Video Intro
+                </button>
               </div>
 
               {/* Certifications mini badges */}
