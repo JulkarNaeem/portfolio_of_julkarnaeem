@@ -17,6 +17,11 @@ import {
   Maximize2,
   Play,
   X,
+  Star,
+  Quote,
+  ShieldCheck,
+  CheckCircle2,
+  DollarSign,
 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/SocialIcons';
 import ProjectModal, { ProjectItem } from '../components/ProjectModal';
@@ -534,12 +539,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </button>
           </div>
 
-          {/* Upwork Style 3-Tier Summary Cards */}
+          {/* Upwork Style 3-Tier Summary Cards with Transparent Pricing */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             {[
               {
                 tier: 'Starter Scope',
                 badge: 'Quick Turnaround',
+                price: 'Starting from $150',
                 delivery: 'Typical timeline: 2 days',
                 scope: 'Stairs, Small Platforms & Single Parts (Up to 5 Tons)',
                 desc: '1–4 Shop drawings, single-part fitting details, and basic material summary.',
@@ -547,6 +553,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {
                 tier: 'Standard Scope',
                 badge: 'Most Popular',
+                price: 'Starting from $450',
                 delivery: 'Typical timeline: 4 days',
                 scope: 'PEB Sheds & Industrial Frames (Up to 25 Tons)',
                 desc: 'Complete LOD 400 Tekla model, GA erection plans, assembly shop drawings, NC/DSTV files, and BOM.',
@@ -555,6 +562,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {
                 tier: 'Advanced Scope',
                 badge: 'Full Detailing Suite',
+                price: 'Custom Quote (from $950)',
                 delivery: 'Typical timeline: 7–10 days',
                 scope: 'Multi-Storey, Heavy Plants & Infrastructure (Up to 100+ Tons)',
                 desc: 'End-to-end BIM coordination, full drawing package, clash detection, anchor bolt plans, and bolt schedules.',
@@ -580,6 +588,14 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     </span>
                   </div>
                   <h3 className="text-xl font-bold mb-1">{pkg.tier}</h3>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className={`text-lg font-mono font-extrabold ${pkg.featured ? 'text-safety-yellow' : 'text-steel-blue'}`}>
+                      {pkg.price}
+                    </span>
+                    <span className={`text-[10px] uppercase font-mono ${pkg.featured ? 'text-white/60' : 'text-charcoal/60'}`}>
+                      / fixed project
+                    </span>
+                  </div>
                   <p className={`text-xs font-mono font-semibold mb-4 ${pkg.featured ? 'text-[#F3F4F6]/80' : 'text-steel-blue'}`}>
                     {pkg.scope}
                   </p>
@@ -602,11 +618,22 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             ))}
           </div>
 
-          {/* Timeline Scope Note */}
-          <div className="mb-12 text-center">
-            <p className="text-xs text-charcoal/70 font-mono italic">
-              * Final timeline confirmed after scope review.
-            </p>
+          {/* Pricing Guarantee & Estimation Note */}
+          <div className="mb-12 p-4 bg-surface border border-border/80 rounded-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-steel-blue/10 flex items-center justify-center text-steel-blue flex-shrink-0">
+                <DollarSign size={18} />
+              </div>
+              <p className="text-xs text-charcoal/80 font-mono">
+                <strong className="text-charcoal">Transparent Pricing:</strong> Fixed lump-sum rates or hourly contracts (<span className="text-steel-blue font-bold">$25 – $45/hr</span>). Free scope evaluation &amp; quote within 24 hours.
+              </p>
+            </div>
+            <button
+              onClick={() => handleNav('contact')}
+              className="text-xs font-mono uppercase tracking-wider font-bold text-steel-blue hover:text-charcoal underline flex-shrink-0 cursor-pointer"
+            >
+              Request Free Estimate →
+            </button>
           </div>
 
           {/* Quick Services Grid */}
@@ -631,6 +658,135 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <p className="text-xs text-charcoal/75 leading-relaxed">{svc.desc}</p>
               </div>
             ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── SOCIAL PROOF & CLIENT REVIEWS SECTION ─── */}
+      <section className="bg-[#1A1E24] text-white py-24 lg:py-32 relative overflow-hidden cad-grid-dark border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-6 h-[2px] bg-safety-yellow" />
+                <span className="text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-bold font-mono">
+                  Verified Social Proof &amp; Client Feedback
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                Trusted by Fabricators &amp; Engineers Worldwide
+              </h2>
+              <p className="text-[#F3F4F6]/80 text-sm sm:text-base mt-2 max-w-xl">
+                150+ successful projects delivered with zero fit-up clashes and 100% on-time milestone records.
+              </p>
+            </div>
+
+            {/* Overall Rating Pill */}
+            <div className="p-4 bg-white/5 border border-white/10 flex items-center gap-4 self-start md:self-auto">
+              <div className="text-center">
+                <div className="text-2xl font-mono font-extrabold text-safety-yellow leading-none">5.0</div>
+                <div className="flex items-center gap-0.5 text-safety-yellow mt-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} fill="currentColor" />
+                  ))}
+                </div>
+              </div>
+              <div className="h-8 w-[1px] bg-white/15" />
+              <div className="text-xs font-mono text-[#F3F4F6]/80">
+                <p className="font-bold text-white">150+ Projects</p>
+                <p className="text-[11px] text-[#F3F4F6]/60">100% Satisfaction</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonial Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {[
+              {
+                quote: 'Julkar is an absolute master in Tekla Structures. The drawings for our 85-ton curved industrial shed were delivered ahead of schedule with zero fit-up errors on the shop floor.',
+                author: 'David M.',
+                role: 'Steel Fabricator & Project Contractor',
+                location: 'Houston, Texas, USA',
+                tag: 'PEB Industrial Shed (85 Tons)',
+              },
+              {
+                quote: 'Complete LOD 400 models with CNC DSTV files made our plasma cutter beam line run flawlessly. Highly communicative and immediately addressed all connection markups.',
+                author: 'Alastair R.',
+                role: 'Operations & Engineering Manager',
+                location: 'Birmingham, United Kingdom',
+                tag: 'Multi-Storey Steel Frame (280 Tons)',
+              },
+              {
+                quote: 'Delivered intricate spiral staircase and curved tank platform drawings with extreme accuracy. Fast responses on revisions and clear BOM schedules.',
+                author: 'Mark T.',
+                role: 'Structural Detailing Lead',
+                location: 'Calgary, Canada',
+                tag: 'Curved Stair & Platforms (40 Tons)',
+              },
+            ].map((review, rIdx) => (
+              <div
+                key={rIdx}
+                className="p-7 bg-[#20252B] border border-white/10 hover:border-safety-yellow/60 transition-all duration-300 flex flex-col justify-between cad-corner-box group hover:-translate-y-1 shadow-lg"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-1 text-safety-yellow">
+                      {[...Array(5)].map((_, s) => (
+                        <Star key={s} size={14} fill="currentColor" />
+                      ))}
+                    </div>
+                    <Quote size={20} className="text-white/20 group-hover:text-safety-yellow/40 transition-colors" />
+                  </div>
+                  <p className="text-sm text-[#F3F4F6]/90 leading-relaxed italic mb-6">
+                    "{review.quote}"
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-white/10">
+                  <span className="inline-block text-[9px] uppercase font-mono text-safety-yellow font-bold mb-1.5">
+                    {review.tag}
+                  </span>
+                  <p className="font-bold text-white text-sm">{review.author}</p>
+                  <p className="text-xs text-[#F3F4F6]/70 font-mono">{review.role}</p>
+                  <p className="text-[11px] text-[#F3F4F6]/50 font-mono mt-0.5">{review.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Trust Guarantees Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-white/5 border border-white/10 rounded-sm">
+            <div className="flex items-center gap-3">
+              <ShieldCheck size={24} className="text-safety-yellow flex-shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white font-mono">Trimble Tekla 2025</p>
+                <p className="text-[10px] text-[#F3F4F6]/60 font-mono">LOD 400 Certified</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 size={24} className="text-[#22c55e] flex-shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white font-mono">AISC &amp; BS Standards</p>
+                <p className="text-[10px] text-[#F3F4F6]/60 font-mono">100% Code Compliant</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 size={24} className="text-[#22c55e] flex-shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white font-mono">Zero Clash Guarantee</p>
+                <p className="text-[10px] text-[#F3F4F6]/60 font-mono">BIM Model Coordinated</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <ShieldCheck size={24} className="text-safety-yellow flex-shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white font-mono">Strict NDA Protected</p>
+                <p className="text-[10px] text-[#F3F4F6]/60 font-mono">Confidential Project Data</p>
+              </div>
+            </div>
           </div>
 
         </div>

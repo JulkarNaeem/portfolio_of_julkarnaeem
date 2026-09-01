@@ -61,12 +61,13 @@ const CATALOG_GALLERY = [
   },
 ];
 
-// Tier Definitions (Without exposed fixed prices, focused on scope & deliverables)
+// Tier Definitions with transparent scope & starting pricing
 const TIERS = [
   {
     id: 'starter',
     name: 'Starter Tier',
     badge: 'Quick Scope',
+    price: 'From $150',
     scope: 'Single Component / Stair / Small Platform (Up to 5 Tons)',
     delivery: '2 Days',
     revisions: '1 Revision',
@@ -88,6 +89,7 @@ const TIERS = [
     id: 'standard',
     name: 'Standard Tier',
     badge: 'Most Popular',
+    price: 'From $450',
     scope: 'PEB Shed / Medium Industrial Platform (Up to 25 Tons)',
     delivery: '4 Days',
     revisions: '2 Revisions',
@@ -108,6 +110,7 @@ const TIERS = [
     id: 'advanced',
     name: 'Advanced Tier',
     badge: 'Enterprise Scope',
+    price: 'From $950',
     scope: 'Multi-Storey / Large Industrial Plant (Up to 100+ Tons)',
     delivery: '7–10 Days',
     revisions: '3 Revisions / Priority Support',
@@ -335,9 +338,9 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                       <p className="text-xs text-steel-blue font-mono font-bold mt-0.5">{activeTier.scope}</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] uppercase font-mono text-charcoal/70 block">Pricing</span>
-                      <span className="text-sm font-bold text-charcoal bg-surface px-2.5 py-1 border border-border inline-block">
-                        Custom Quote
+                      <span className="text-[10px] uppercase font-mono text-charcoal/70 block">Starting At</span>
+                      <span className="text-base font-bold font-mono text-steel-blue bg-surface px-3 py-1 border border-border inline-block shadow-xs">
+                        {activeTier.price}
                       </span>
                     </div>
                   </div>
@@ -447,6 +450,7 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
               </thead>
               <tbody className="divide-y divide-border">
                 {[
+                  { feature: 'Starting Price Estimate', starter: 'From $150', standard: 'From $450', advanced: 'From $950 (Custom)' },
                   { feature: 'Typical Steel Tonnage', starter: 'Up to 5 Tons', standard: 'Up to 25 Tons', advanced: 'Up to 100+ Tons' },
                   { feature: 'Estimated Delivery Time', starter: '2 Days', standard: '4 Days', advanced: '7–10 Days' },
                   { feature: 'Revisions Included', starter: '1 Revision', standard: '2 Revisions', advanced: '3 Revisions / Priority' },

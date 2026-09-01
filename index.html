@@ -13,19 +13,22 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="theme-color" content="#20252B" />
 
+    <!-- Canonical URL Tag -->
+    <link rel="canonical" href="https://www.julkarnaeem.com/" />
+
     <!-- Open Graph / Facebook / LinkedIn Previews -->
-    <meta property="og:type" content="profile" />
-    <meta property="og:url" content="https://julkarnaeem.github.io/portfolio_of_julkarnaeem/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.julkarnaeem.com/" />
     <meta property="og:title" content="Julkar Naeem — Top Rated Steel Structure Detailer | Tekla BIM" />
     <meta property="og:description" content="Top-rated Steel Structure Detailer with 9+ years experience delivering 150+ projects worldwide. High-precision Tekla Structures BIM models & shop drawings." />
-    <meta property="og:image" content="/images/logo.png" />
+    <meta property="og:image" content="https://www.julkarnaeem.com/images/logo.png" />
     <meta property="og:site_name" content="Julkar Naeem Portfolio" />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Julkar Naeem — Steel Structure Detailer & Tekla Specialist" />
     <meta name="twitter:description" content="Fabrication-ready Tekla BIM models, GA drawings, and connection detailing for steel fabricators worldwide." />
-    <meta name="twitter:image" content="/images/logo.png" />
+    <meta name="twitter:image" content="https://www.julkarnaeem.com/images/logo.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/logo.png" />
@@ -50,16 +53,17 @@
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#person",
+          "@id": "https://www.julkarnaeem.com/#person",
           "name": "Julkar Naeem",
           "jobTitle": "Steel Structure Detailer & Tekla BIM Specialist",
           "description": "Senior Steel Structure Detailer with 9+ years experience specializing in Tekla Structures 2025, PEB modeling, and fabrication shop drawings.",
-          "image": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/images/logo.png",
-          "url": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/",
+          "image": "https://www.julkarnaeem.com/images/logo.png",
+          "url": "https://www.julkarnaeem.com/",
           "sameAs": [
             "https://github.com/JulkarNaeem",
-            "https://www.linkedin.com/",
-            "https://wa.me/8801739411586"
+            "https://www.linkedin.com/in/julkarnaeem/",
+            "https://wa.me/8801739411586",
+            "https://www.upwork.com/freelancers/julkarnaeem"
           ],
           "knowsAbout": [
             "Tekla Structures 2025",
@@ -77,10 +81,10 @@
         },
         {
           "@type": "ProfessionalService",
-          "@id": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/#service",
+          "@id": "https://www.julkarnaeem.com/#service",
           "name": "Julkar Naeem — Steel Structure Detailing Services",
-          "url": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/",
-          "image": "https://julkarnaeem.github.io/portfolio_of_julkarnaeem/images/logo.png",
+          "url": "https://www.julkarnaeem.com/",
+          "image": "https://www.julkarnaeem.com/images/logo.png",
           "telephone": "+8801739411586",
           "email": "hello@julkarnaeem.com",
           "priceRange": "$$",
@@ -173,7 +177,7 @@
               "name": "How to contact and hire Julkar Naeem for steel detailing projects?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Julkar Naeem is available for remote steel detailing contracts worldwide. You can contact him directly via WhatsApp at +8801739411586, by email at hello@julkarnaeem.com, or through his portfolio at https://julkarnaeem.github.io/portfolio_of_julkarnaeem/."
+                "text": "Julkar Naeem is available for remote steel detailing contracts worldwide. You can contact him directly via WhatsApp at +8801739411586, by email at hello@julkarnaeem.com, or through his portfolio at https://www.julkarnaeem.com/."
               }
             }
           ]
@@ -182,8 +186,23 @@
     }
     </script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="background-color: #20252B; color: #FFFFFF;" class="bg-[#20252B] text-white">
+    <div id="root">
+      <!-- Static semantic fallback for search engines & web audit crawlers before client-side hydration -->
+      <header style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <nav aria-label="Main Navigation" style="display: flex; gap: 15px; margin-bottom: 15px;">
+          <a href="#home" style="color: #F5C400; text-decoration: none; font-weight: bold;">Home</a>
+          <a href="#projects" style="color: #FFFFFF; text-decoration: none;">Projects</a>
+          <a href="#services" style="color: #FFFFFF; text-decoration: none;">Services & Catalog</a>
+          <a href="#about" style="color: #FFFFFF; text-decoration: none;">About</a>
+          <a href="#contact" style="color: #FFFFFF; text-decoration: none;">Contact</a>
+        </nav>
+        <h1 style="font-size: 24px; margin: 10px 0; color: #FFFFFF;">Julkar Naeem — Top Rated Steel Structure Detailer | Tekla Structures 2025 BIM & Fabrication Drawings</h1>
+        <p style="color: #A0AEC0; font-size: 14px; line-height: 1.6;">
+          Professional Senior Steel Structure Detailer with 9+ years of experience delivering 150+ fabrication-ready projects worldwide. Specializing in Tekla Structures 2025, LOD 400 BIM modeling, PEB industrial sheds, shop drawings, GA plans, connection design, and BOM reports according to AISC &amp; BS standards.
+        </p>
+      </header>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
