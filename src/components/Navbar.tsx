@@ -30,12 +30,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#20252B]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
-          : 'bg-[#20252B]/85 backdrop-blur-sm border-b border-white/5'
+          ? 'bg-[#12161D]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
+          : 'bg-[#12161D]/80 backdrop-blur-sm border-b border-white/5'
       }`}
     >
-      {/* Top micro steel blue / yellow line */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#164E80] to-transparent opacity-80" />
+      {/* Top micro steel blue / safety yellow accent gradient */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#F5C400] to-transparent opacity-75" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
