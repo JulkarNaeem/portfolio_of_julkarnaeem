@@ -257,14 +257,134 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ─── TRUST STATS BAR ─── */}
+      {/* ─── INTERNATIONAL CODES, DUAL UNITS & TIMEZONE TRUST STRIP ─── */}
       <section className="bg-charcoal text-white border-y border-white/10 relative overflow-hidden cad-grid-dark">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
+          
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-safety-yellow font-bold font-mono">
+              Global Compliance &amp; Delivery Standards
+            </span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 tracking-tight">
+              Detailed for Fabricators in USA, Canada, Australia &amp; Bangladesh
+            </h2>
+          </div>
+
+          {/* 4-Country Regional Standards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            
+            {/* USA */}
+            <div className="p-5 bg-white/5 border border-white/10 hover:border-safety-yellow/60 transition-all duration-300 cad-corner-box group">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-xl">🇺🇸</span>
+                <span className="px-2 py-0.5 bg-safety-yellow/15 border border-safety-yellow/40 text-safety-yellow text-[9px] uppercase font-mono font-bold">
+                  United States
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-white group-hover:text-safety-yellow transition-colors mb-1">
+                AISC 303 &amp; 360 Standards
+              </h3>
+              <p className="text-xs text-[#F3F4F6]/80 leading-relaxed font-sans mb-3">
+                Imperial (ft-in) dimensions, AWS D1.1 structural welding, and OSHA compliant erection plans.
+              </p>
+              <div className="flex flex-wrap gap-1 text-[9px] font-mono text-steel-blue-light">
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">AISC DTS</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">Imperial ft-in</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">DSTV/NC1</span>
+              </div>
+            </div>
+
+            {/* Canada */}
+            <div className="p-5 bg-white/5 border border-white/10 hover:border-safety-yellow/60 transition-all duration-300 cad-corner-box group">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-xl">🇨🇦</span>
+                <span className="px-2 py-0.5 bg-white/10 border border-white/20 text-white text-[9px] uppercase font-mono font-bold">
+                  Canada
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-white group-hover:text-safety-yellow transition-colors mb-1">
+                CISC &amp; CSA S16 Practice
+              </h3>
+              <p className="text-xs text-[#F3F4F6]/80 leading-relaxed font-sans mb-3">
+                Dual Imperial &amp; Metric drawings, cold-climate PEB framing, and heavy snow/wind load details.
+              </p>
+              <div className="flex flex-wrap gap-1 text-[9px] font-mono text-steel-blue-light">
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">CISC Practice</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">Dual Units</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">CSA S16</span>
+              </div>
+            </div>
+
+            {/* Australia */}
+            <div className="p-5 bg-white/5 border border-white/10 hover:border-safety-yellow/60 transition-all duration-300 cad-corner-box group">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-xl">🇦🇺</span>
+                <span className="px-2 py-0.5 bg-safety-yellow/15 border border-safety-yellow/40 text-safety-yellow text-[9px] uppercase font-mono font-bold">
+                  Australia &amp; NZ
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-white group-hover:text-safety-yellow transition-colors mb-1">
+                AS 4100 &amp; AS/NZS 5131
+              </h3>
+              <p className="text-xs text-[#F3F4F6]/80 leading-relaxed font-sans mb-3">
+                AS/NZS 1554 welding symbols, ASI guidelines, and real-time 2–4 hr daily timezone overlap.
+              </p>
+              <div className="flex flex-wrap gap-1 text-[9px] font-mono text-steel-blue-light">
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">AS 4100</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">AS/NZS 5131</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">AEST/AWST</span>
+              </div>
+            </div>
+
+            {/* Bangladesh */}
+            <div className="p-5 bg-white/5 border border-white/10 hover:border-safety-yellow/60 transition-all duration-300 cad-corner-box group">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-xl">🇧🇩</span>
+                <span className="px-2 py-0.5 bg-white/10 border border-white/20 text-[#22c55e] text-[9px] uppercase font-mono font-bold">
+                  Bangladesh
+                </span>
+              </div>
+              <h3 className="text-sm font-bold text-white group-hover:text-safety-yellow transition-colors mb-1">
+                BNBC &amp; PEB Detailing
+              </h3>
+              <p className="text-xs text-[#F3F4F6]/80 leading-relaxed font-sans mb-3">
+                Pre-engineered sheds, multi-storey framing, curved rafters, and direct in-person coordination.
+              </p>
+              <div className="flex flex-wrap gap-1 text-[9px] font-mono text-steel-blue-light">
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">BNBC Code</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">PEB Sheds</span>
+                <span className="bg-white/5 px-1.5 py-0.5 border border-white/10">Local Delivery</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Machine-Ready Deliverables Bar */}
+          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#F3F4F6]/80">
+            <span className="flex items-center gap-2 text-white font-bold">
+              <span className="w-2 h-2 rounded-full bg-safety-yellow" />
+              Machine-Ready Deliverables:
+            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="px-2.5 py-1 bg-white/5 border border-white/15">Tekla 3D (.db1 / .ifc)</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/15">AutoCAD (.dwg)</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/15">DSTV / NC1 (CNC)</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/15">BOM &amp; KISS Reports</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/15">3D PDF Visuals</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── TRUST STATS BAR ─── */}
+      <section className="bg-[#1b2026] text-white border-b border-white/10 relative overflow-hidden cad-grid-dark">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-9">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { value: '150+', label: 'Projects Delivered', desc: 'BIM & Shop Drawings' },
               { value: '9+',   label: 'Years Experience',   desc: 'Tekla Detailing' },
-              { value: 'Global', label: 'Clients Worldwide', desc: 'Working Remotely' },
+              { value: 'Global', label: 'Clients Worldwide', desc: 'USA · CA · AU · BD' },
               { value: '2025', label: 'Tekla Version',      desc: 'Latest Standards' },
             ].map((item, i) => (
               <div key={i} className="text-center group transition-transform duration-300 hover:scale-105">
@@ -279,67 +399,149 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* ─── ABOUT & DETAILING PRACTICE (B1 & B2) ─── */}
+      {/* ─── ABOUT & DETAILING PRACTICE WITH 4-STEP RFI / QA WORKFLOW ─── */}
       <section className="bg-white py-20 lg:py-28 border-b border-border">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-16">
             
-            {/* Left: Direct Professional Voice (B1) */}
+            {/* Left: Direct Professional Voice */}
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface border border-border text-steel-blue text-[10px] uppercase font-mono font-bold tracking-widest shadow-xs">
-                About My Practice
+                About My Detailing Practice
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-charcoal tracking-tight leading-tight">
-                I detail steel so the shop can build it without questions.
+                I detail steel so the shop can build it without confusion or site fit-up delays.
               </h2>
               <div className="space-y-4 text-base text-charcoal/85 leading-relaxed font-sans">
                 <p>
-                  I'm a Steel Structure Detailer with 9+ years in steel and construction and 150+ projects delivered. I work in Tekla Structures 2025, turning structural drawings into a coordinated 3D model, practical connections, and shop drawings a fabricator can cut, weld, and bolt.
+                  I'm a Senior Steel Structure Detailer with 9+ years in structural steel and construction, with over 150 projects successfully fabricated. Using Tekla Structures 2025 and AutoCAD, I transform structural design drawings into coordinated 3D BIM models, clean connection details, and fabrication-ready shop drawing packages.
                 </p>
                 <p>
-                  I work on PEB and portal-framed buildings, industrial steel structures, multi-storey buildings, platforms, walkways, stairs, and handrails — detailed to AISC and CISC practice.
+                  My experience spans PEB and portal-frame sheds, multi-storey commercial frames, industrial process platforms, circular tank walkways, heavy staircases, handrails, and flyover structures — all detailed strictly according to AISC, CISC, AS 4100, or BNBC requirements.
                 </p>
               </div>
 
-              {/* Standards & Compliance Block (B2) */}
-              <div className="p-5 bg-surface border-l-4 border-safety-yellow border-t border-r border-b border-border">
-                <p className="text-xs uppercase font-mono tracking-wider font-bold text-steel-blue mb-1">
-                  Standards &amp; Compliance
+              {/* Standards & Units Callout */}
+              <div className="p-5 bg-surface border-l-4 border-safety-yellow border-t border-r border-b border-border space-y-2">
+                <p className="text-xs uppercase font-mono tracking-wider font-bold text-steel-blue">
+                  Code &amp; Measurement Compliance
                 </p>
-                <p className="text-sm font-semibold text-charcoal">
-                  I detail to AISC and CISC practice, following your engineer's design and the project specification.
+                <p className="text-sm font-semibold text-charcoal leading-relaxed">
+                  I work natively in both <strong>Imperial (ft-in / fractions)</strong> and <strong>Metric (mm)</strong> units, strictly following your consulting engineer's design, connection schedules, and client specifications.
                 </p>
               </div>
             </div>
 
-            {/* Right: Quality Checks & RFI Policy (B1) */}
-            <div className="lg:col-span-5 bg-charcoal text-white p-7 lg:p-8 cad-corner-box shadow-xl border border-white/10">
-              <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-safety-yellow font-bold block mb-3">
-                Quality &amp; Fabrication Readiness
+            {/* Right: Quality Checks & RFI Policy */}
+            <div className="lg:col-span-5 bg-charcoal text-white p-7 lg:p-8 cad-corner-box shadow-xl border border-white/10 space-y-5">
+              <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-safety-yellow font-bold block">
+                Shop Floor Quality Checklist
               </span>
-              <h3 className="text-lg font-bold text-white mb-4">
-                How I check my work before it leaves my desk:
+              <h3 className="text-lg font-bold text-white leading-snug">
+                Every drawing is verified against critical fabrication checks:
               </h3>
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3">
                 {[
-                  'Can it be fabricated?',
-                  'Can it be welded?',
-                  'Is there tool clearance?',
-                  'Are there clashes?',
-                  'Can the member be erected?',
+                  'Can it be cut & fitted accurately in the shop?',
+                  'Is there full weld torch and bolt wrench clearance?',
+                  'Are part marks and assembly numbers automated & clean?',
+                  'Are 3D interference and clash tests 100% resolved?',
+                  'Can the members be safely transported and erected on site?',
                 ].map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-sm text-[#F3F4F6]">
-                    <CheckCircle2 size={16} className="text-safety-yellow flex-shrink-0" />
+                  <li key={idx} className="flex items-start gap-3 text-sm text-[#F3F4F6]">
+                    <CheckCircle2 size={16} className="text-safety-yellow flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
+              
               <div className="pt-4 border-t border-white/10 text-xs text-[#F3F4F6]/80 leading-relaxed font-mono">
-                If information is missing or conflicting, I raise an RFI. I do not guess, and I do not make structural assumptions outside my responsibility.
+                <strong className="text-safety-yellow">RFI Protocol:</strong> If information is ambiguous or conflicting, I issue clear, marked-up RFIs immediately. No guessing on structural dimensions.
               </div>
             </div>
 
           </div>
+
+          {/* 4-Step Engineering RFI & Quality Workflow */}
+          <div className="border border-border bg-surface p-8 sm:p-10 cad-corner-box shadow-sm">
+            <div className="max-w-2xl mb-8">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-steel-blue font-bold font-mono">
+                Systematic Remote Workflow
+              </span>
+              <h3 className="text-2xl font-extrabold text-charcoal mt-1 tracking-tight">
+                From Contract Drawings to Shop Floor Fabrication
+              </h3>
+              <p className="text-sm text-charcoal/70 mt-1">
+                A structured 4-step detailing workflow designed for international contractors and fabricators.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  step: '01',
+                  title: 'Design Review & Grid Setup',
+                  desc: 'Review architectural and structural drawings, verify design loads, set up 3D Tekla grids, and apply regional standard parameters.',
+                },
+                {
+                  step: '02',
+                  title: 'RFI & Connection Detailing',
+                  desc: 'Coordinate moment, shear, and bracing connections. Log and submit early RFIs with clear sketch markups to resolve clashes.',
+                },
+                {
+                  step: '03',
+                  title: 'Model QA & Clash Check',
+                  desc: 'Perform multi-layer collision audits, check bolt wrench clearances, verify part numbering, and extract GA erection plans.',
+                },
+                {
+                  step: '04',
+                  title: 'Fabrication Drawing Package',
+                  desc: 'Generate complete assembly shop drawings, single part details, DSTV (.nc1) files, DXFs, and automated BOM reports.',
+                },
+              ].map((w, idx) => (
+                <div key={idx} className="p-5 bg-white border border-border hover:border-steel-blue transition-all relative group">
+                  <span className="text-2xl font-extrabold text-steel-blue/30 font-mono group-hover:text-steel-blue transition-colors">
+                    {w.step}
+                  </span>
+                  <h4 className="text-sm font-bold text-charcoal mt-2 mb-2 group-hover:text-steel-blue transition-colors">
+                    {w.title}
+                  </h4>
+                  <p className="text-xs text-charcoal/70 leading-relaxed font-sans">
+                    {w.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* NDA & IP Protection Guarantee Callout */}
+            <div className="mt-8 p-5 bg-charcoal text-white border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-safety-yellow/10 border border-safety-yellow/30 flex items-center justify-center flex-shrink-0">
+                  <ShieldCheck size={20} className="text-safety-yellow" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                    <span>100% Client Intellectual Property &amp; Confidentiality Guarantee</span>
+                  </h4>
+                  <p className="text-xs text-[#F3F4F6]/75 mt-0.5">
+                    Ready to execute standard mutual Non-Disclosure Agreements (NDAs) before reviewing your proprietary CAD files or structural calculations.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={`${WA_LINK}&text=Hi%20Julkar!%20I%20have%20a%20project%20and%20would%20like%20to%20request%20an%20NDA%20before%20sending%20drawings.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 bg-safety-yellow text-charcoal hover:bg-steel-blue hover:text-white text-[11px] uppercase tracking-wider font-bold transition-all whitespace-nowrap shadow-md"
+              >
+                Request NDA / Inquire
+              </a>
+            </div>
+
+          </div>
+
         </div>
       </section>
 

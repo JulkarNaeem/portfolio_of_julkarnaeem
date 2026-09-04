@@ -274,16 +274,16 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
                   Catalog Deliverables Summary
                 </h3>
                 <p className="text-sm text-charcoal/80 leading-relaxed">
-                  Every steel project is modeled precisely in <strong>Tekla Structures 2025</strong> according to AISC and regional engineering guidelines. Deliverables are checked for zero fabrication clashes and labeled with standard part and assembly marks.
+                  Every steel structure project is modeled to <strong>LOD 400 BIM</strong> in <strong>Tekla Structures 2025</strong> adhering to <strong>AISC (USA)</strong>, <strong>CISC (Canada)</strong>, <strong>AS 4100 / AS/NZS 5131 (Australia)</strong>, or <strong>BNBC (Bangladesh)</strong> standards. All deliverables are checked for zero shop floor clashes and packaged with machine-ready CNC data.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                   {[
-                    { label: 'Model LOD', val: 'LOD 400 BIM' },
-                    { label: 'Drawing Units', val: 'Metric & Imperial' },
-                    { label: 'Code Standard', val: 'AISC / NSCP / BS' },
-                    { label: 'CNC Support', val: 'DSTV, NC, DXF' },
-                    { label: 'Revisions', val: 'Included with Tier' },
-                    { label: 'Direct Escrow', val: 'Upwork / WhatsApp' },
+                    { label: 'Model LOD', val: 'LOD 400 BIM (Tekla 2025)' },
+                    { label: 'Drawing Units', val: 'Imperial (ft-in) & Metric (mm)' },
+                    { label: 'Codes & Practice', val: 'AISC · CISC · AS 4100 · BNBC' },
+                    { label: 'CNC Support', val: 'DSTV (.nc1), DXF, IFC' },
+                    { label: 'Timezones', val: 'USA · CA · AU · BD Overlap' },
+                    { label: 'Confidentiality', val: '100% Mutual NDA Guaranteed' },
                   ].map((spec, sIdx) => (
                     <div key={sIdx} className="p-2.5 bg-white border border-border">
                       <p className="text-[10px] text-steel-blue uppercase font-mono font-bold">{spec.label}</p>
