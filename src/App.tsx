@@ -17,7 +17,9 @@ import { portfolioData } from './data/portfolioData';
 const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact', 'database'];
 
 const getPageFromLocation = (): string => {
-  // 1. Check Query Parameters (e.g. ?p=dashboard or ?dashboard)
+  if (typeof window === 'undefined') return 'home';
+
+  // 1. Check Query Parameters (e.g. ?p=dashboard or ?dashboard or ?admin)
   const search = window.location.search.toLowerCase();
   if (
     search.includes('dashboard') ||
@@ -84,6 +86,7 @@ export default function App() {
       if (window.location.hash.replace(/^#\/?/, '').toLowerCase() !== targetHash) {
         window.location.hash = targetHash;
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -144,27 +147,40 @@ export default function App() {
     }
   };
 
+  const isDatabasePage = currentPage === 'database';
+
   return (
     <ProjectDbProvider>
-      <div className="min-h-screen bg-white text-charcoal relative">
-        <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
-        <main>{renderPage()}</main>
-        <Footer onNavigate={navigateToPage} />
+      <div className="min-h-screen bg-[#12161D] text-white relative flex flex-col">
+        {/* Public Header Navbar (Hidden on private Database Dashboard) */}
+        {!isDatabasePage && (
+          <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
+        )}
 
-        {/* WhatsApp Floating Button — always visible */}
-        <a
-          href="https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20have%20a%20project%20inquiry."
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          title="Chat on WhatsApp"
-          className="fixed bottom-6 left-6 z-40 w-12 h-12 bg-[#25D366] text-white hover:bg-[#1ebe5d] flex items-center justify-center shadow-xl rounded-full transition-all duration-300 hover:scale-110"
-        >
-          <WhatsAppIcon size={22} />
-        </a>
+        {/* Page Content */}
+        <main className="flex-1 w-full">{renderPage()}</main>
+
+        {/* Public Footer (Hidden on private Database Dashboard) */}
+        {!isDatabasePage && (
+          <Footer onNavigate={navigateToPage} />
+        )}
+
+        {/* WhatsApp Floating Button — on public pages */}
+        {!isDatabasePage && (
+          <a
+            href="https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20have%20a%20project%20inquiry."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat on WhatsApp"
+            title="Chat on WhatsApp"
+            className="fixed bottom-6 left-6 z-40 w-12 h-12 bg-[#25D366] text-white hover:bg-[#1ebe5d] flex items-center justify-center shadow-xl rounded-full transition-all duration-300 hover:scale-110"
+          >
+            <WhatsAppIcon size={22} />
+          </a>
+        )}
 
         {/* Scroll to Top Floating Button */}
-        {showScrollTop && (
+        {showScrollTop && !isDatabasePage && (
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
@@ -175,7 +191,9 @@ export default function App() {
         )}
 
         {/* Cookie & Privacy Compliance Banner */}
-        <CookieBanner onOpenPrivacy={() => setPrivacyModalOpen(true)} />
+        {!isDatabasePage && (
+          <CookieBanner onOpenPrivacy={() => setPrivacyModalOpen(true)} />
+        )}
 
         {/* Global Privacy & Terms Modal */}
         <PrivacyModal
