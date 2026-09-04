@@ -68,14 +68,96 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       {/* ══════════════════════════════════════════════════════
-          1. HERO SECTION (FULL-WIDTH STACKED PANORAMIC LAYOUT)
+          1. HERO SECTION (FULL-WIDTH BANNER ON TOP)
           ══════════════════════════════════════════════════════ */}
-      <section className="relative bg-white overflow-hidden cad-grid-light pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
+      <section className="relative bg-white overflow-hidden cad-grid-light pt-24 sm:pt-28 lg:pt-32 pb-16 lg:pb-24">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-steel-blue/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
           
-          {/* Top Text & CTA Block (Centered & High-Impact) */}
+          {/* ══════════════════════════════════════════════════════
+              A. FULL-WIDTH PANORAMIC TEKLA 3D MODEL & DRAWING BANNER (ON TOP)
+              ══════════════════════════════════════════════════════ */}
+          <div className="w-full mb-12 sm:mb-16 animate-fade-in-up">
+            <div className="relative group">
+              
+              {/* CAD Crosses on corners */}
+              <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+
+              {/* Offset Blueprint Frame */}
+              <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+
+              {/* Main Widescreen Panoramic Image Container */}
+              <div className="relative z-10 bg-[#f8fafc] border-2 border-border shadow-2xl overflow-hidden h-[340px] sm:h-[480px] lg:h-[580px] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_25px_60px_rgba(22,78,128,0.18)] group-hover:border-steel-blue/60">
+                
+                {/* Active Panoramic Image */}
+                <img
+                  src={heroImages[currentHeroIndex]}
+                  alt="Tekla 3D Steel Structure Model by Julkar Naeem"
+                  loading="eager"
+                  decoding="async"
+                  className={`w-full h-full object-contain p-4 sm:p-6 transition-all duration-500 ${
+                    isFading ? 'opacity-0 scale-98' : 'opacity-100 scale-100'
+                  }`}
+                />
+
+                {/* Left & Right Large Navigation Arrows */}
+                <button 
+                  onClick={handlePrevHero} 
+                  aria-label="Previous structure photo"
+                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={handleNextHero} 
+                  aria-label="Next structure photo"
+                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
+                >
+                  <ChevronRight size={24} />
+                </button>
+
+                {/* Technical Software Badge Overlay */}
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20 bg-charcoal/95 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 border-l-4 border-safety-yellow text-white shadow-2xl">
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-mono font-bold">
+                    {content.hero.softwareBadgeTitle || 'Tekla Structures 2025'}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
+                    {content.hero.softwareBadgeSub || 'Fabrication-Ready BIM'}
+                  </p>
+                </div>
+
+                {/* Slide Counter */}
+                <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20 bg-charcoal/95 text-white text-[11px] uppercase font-mono px-3.5 py-1.5 font-bold border border-white/15 flex items-center gap-2 shadow-xl">
+                  <span className="text-safety-yellow">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
+                  <span className="text-white/40">/</span>
+                  <span>{String(heroImages.length).padStart(2, '0')}</span>
+                </div>
+
+                {/* Thumbnail Dots */}
+                <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 flex items-center gap-2 bg-charcoal/85 px-3 py-2 backdrop-blur-sm border border-white/10">
+                  {heroImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => changeHeroImage(idx)}
+                      aria-label={`Jump to image ${idx + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        currentHeroIndex === idx ? 'w-6 bg-safety-yellow' : 'w-2 bg-white/40 hover:bg-white'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          {/* ══════════════════════════════════════════════════════
+              B. HEADLINE, POSITIONING & CTA BLOCK
+              ══════════════════════════════════════════════════════ */}
           <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             
             {/* Location badge */}
@@ -158,86 +240,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </div>
             </div>
 
-          </div>
-
-          {/* ══════════════════════════════════════════════════════
-              FULL-WIDTH PANORAMIC TEKLA 3D MODEL & DRAWING SHOWCASE
-              ══════════════════════════════════════════════════════ */}
-          <div className="mt-12 sm:mt-16 w-full animate-fade-in-up">
-            <div className="relative group">
-              
-              {/* CAD Crosses on corners */}
-              <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-
-              {/* Offset Blueprint Frame */}
-              <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-
-              {/* Main Widescreen Panoramic Image Container */}
-              <div className="relative z-10 bg-[#f8fafc] border-2 border-border shadow-2xl overflow-hidden h-[340px] sm:h-[460px] lg:h-[560px] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_25px_60px_rgba(22,78,128,0.18)] group-hover:border-steel-blue/60">
-                
-                {/* Active Panoramic Image */}
-                <img
-                  src={heroImages[currentHeroIndex]}
-                  alt="Tekla 3D Steel Structure Model by Julkar Naeem"
-                  loading="eager"
-                  decoding="async"
-                  className={`w-full h-full object-contain p-4 sm:p-6 transition-all duration-500 ${
-                    isFading ? 'opacity-0 scale-98' : 'opacity-100 scale-100'
-                  }`}
-                />
-
-                {/* Left & Right Large Navigation Arrows */}
-                <button 
-                  onClick={handlePrevHero} 
-                  aria-label="Previous structure photo"
-                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button 
-                  onClick={handleNextHero} 
-                  aria-label="Next structure photo"
-                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
-                >
-                  <ChevronRight size={24} />
-                </button>
-
-                {/* Technical Software Badge Overlay */}
-                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20 bg-charcoal/95 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 border-l-4 border-safety-yellow text-white shadow-2xl">
-                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-mono font-bold">
-                    {content.hero.softwareBadgeTitle || 'Tekla Structures 2025'}
-                  </p>
-                  <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
-                    {content.hero.softwareBadgeSub || 'Fabrication-Ready BIM'}
-                  </p>
-                </div>
-
-                {/* Slide Counter */}
-                <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20 bg-charcoal/95 text-white text-[11px] uppercase font-mono px-3.5 py-1.5 font-bold border border-white/15 flex items-center gap-2 shadow-xl">
-                  <span className="text-safety-yellow">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
-                  <span className="text-white/40">/</span>
-                  <span>{String(heroImages.length).padStart(2, '0')}</span>
-                </div>
-
-                {/* Thumbnail Dots */}
-                <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 flex items-center gap-2 bg-charcoal/85 px-3 py-2 backdrop-blur-sm border border-white/10">
-                  {heroImages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => changeHeroImage(idx)}
-                      aria-label={`Jump to image ${idx + 1}`}
-                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                        currentHeroIndex === idx ? 'w-6 bg-safety-yellow' : 'w-2 bg-white/40 hover:bg-white'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-              </div>
-            </div>
           </div>
 
         </div>
