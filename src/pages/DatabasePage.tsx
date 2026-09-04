@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Database,
   Download,
@@ -7,7 +7,6 @@ import {
   KeyRound,
   LogOut,
   Globe,
-  CheckCircle2,
   AlertTriangle,
   X,
   Lock,
@@ -34,7 +33,11 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
   } = useProjectDb();
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return sessionStorage.getItem('julkarnaeem_db_session') === 'true';
+    try {
+      return sessionStorage.getItem('julkarnaeem_db_session') === 'true';
+    } catch {
+      return false;
+    }
   });
 
   const [view, setView] = useState<DbView>('list');
@@ -53,7 +56,11 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
 
   // Handle Logout
   const handleLogout = () => {
-    sessionStorage.removeItem('julkarnaeem_db_session');
+    try {
+      sessionStorage.removeItem('julkarnaeem_db_session');
+    } catch (e) {
+      console.error('Session storage logout error:', e);
+    }
     setIsAuthenticated(false);
   };
 
@@ -99,7 +106,6 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
       }
     };
     reader.readAsText(file);
-    // Reset file input value
     e.target.value = '';
   };
 
@@ -114,7 +120,7 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-charcoal text-white pt-24 pb-20 cad-grid-dark relative">
+    <div className="min-h-screen bg-[#F8FAFC] text-charcoal pt-8 sm:pt-12 pb-20 cad-grid-light relative">
       {/* Hidden File Input for Import */}
       <input
         ref={fileInputRef}
@@ -127,26 +133,26 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ══════════════════════════════════════════════════════
-            CONTROL CENTER ADMIN HEADER BAR
+            CONTROL CENTER ADMIN HEADER BAR (LIGHT GRAY THEME)
             ══════════════════════════════════════════════════════ */}
-        <div className="bg-[#181E27] border border-white/10 p-5 sm:p-6 mb-8 shadow-2xl relative cad-corner-box">
+        <div className="bg-white border-2 border-border p-5 sm:p-6 mb-8 shadow-md relative cad-corner-box">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             
             {/* Title & Badge */}
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-safety-yellow/10 border border-safety-yellow/30 text-safety-yellow flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 bg-surface border border-border text-steel-blue flex items-center justify-center shrink-0 shadow-sm">
                 <Database size={24} />
               </div>
               <div>
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-safety-yellow font-bold bg-safety-yellow/10 px-2 py-0.5 border border-safety-yellow/20">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-steel-blue font-bold bg-steel-blue/10 px-2 py-0.5 border border-steel-blue/20">
                     Internal System
                   </span>
-                  <span className="text-xs font-mono text-[#F3F4F6]/50">
-                    LOD 400 Repository
+                  <span className="text-xs font-mono text-slate-500">
+                    LOD 400 Tekla Repository
                   </span>
                 </div>
-                <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mt-1 font-sans">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-charcoal tracking-tight mt-1 font-sans">
                   Project Database &amp; Tracker
                 </h1>
               </div>
@@ -157,60 +163,60 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
               {/* Back to Public Site */}
               <button
                 onClick={() => onNavigate('home')}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider border border-white/10 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface hover:bg-steel-blue hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all duration-200 cursor-pointer shadow-xs"
                 title="Return to public portfolio homepage"
               >
-                <Globe size={13} className="text-safety-yellow" />
+                <Globe size={14} className="text-steel-blue group-hover:text-white" />
                 Site
               </button>
 
               {/* Change Passcode */}
               <button
                 onClick={() => setShowPasscodeModal(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider border border-white/10 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface hover:bg-steel-blue hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all duration-200 cursor-pointer shadow-xs"
                 title="Change admin passcode"
               >
-                <KeyRound size={13} className="text-safety-yellow" />
+                <KeyRound size={14} className="text-steel-blue" />
                 Passcode
               </button>
 
               {/* Export JSON */}
               <button
                 onClick={exportJson}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider border border-white/10 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface hover:bg-emerald-600 hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all duration-200 cursor-pointer shadow-xs"
                 title="Download backup JSON copy of database"
               >
-                <Download size={13} className="text-emerald-400" />
+                <Download size={14} className="text-emerald-600" />
                 Export
               </button>
 
               {/* Import JSON */}
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider border border-white/10 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface hover:bg-sky-600 hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all duration-200 cursor-pointer shadow-xs"
                 title="Restore database from JSON file"
               >
-                <Upload size={13} className="text-sky-400" />
+                <Upload size={14} className="text-sky-600" />
                 Import
               </button>
 
               {/* Reset to Seed */}
               <button
                 onClick={() => setShowResetModal(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 text-white text-xs font-mono uppercase tracking-wider border border-white/10 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface hover:bg-orange-600 hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all duration-200 cursor-pointer shadow-xs"
                 title="Restore original 10 project records"
               >
-                <RefreshCw size={13} className="text-orange-400" />
+                <RefreshCw size={14} className="text-orange-600" />
                 Reset
               </button>
 
               {/* Logout */}
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-300 text-xs font-mono uppercase tracking-wider border border-red-500/30 transition-colors cursor-pointer ml-1"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-red-50 hover:bg-red-600 hover:text-white text-red-700 text-xs font-mono uppercase tracking-wider border border-red-200 transition-all duration-200 cursor-pointer ml-1 shadow-xs"
                 title="Lock database and logout"
               >
-                <LogOut size={13} />
+                <LogOut size={14} />
                 Logout
               </button>
             </div>
@@ -221,14 +227,14 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
             <div
               className={`mt-4 p-3 text-xs font-mono flex items-center justify-between border ${
                 importStatusMsg.error
-                  ? 'bg-red-500/10 border-red-500/30 text-red-300'
-                  : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                  ? 'bg-red-50 border-red-200 text-red-700'
+                  : 'bg-emerald-50 border-emerald-200 text-emerald-800'
               } animate-fade-in`}
             >
               <span>{importStatusMsg.text}</span>
               <button
                 onClick={() => setImportStatusMsg(null)}
-                className="text-white/60 hover:text-white cursor-pointer"
+                className="text-slate-500 hover:text-charcoal cursor-pointer"
               >
                 ✕
               </button>
@@ -280,15 +286,15 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          CHANGE PASSCODE MODAL
+          CHANGE PASSCODE MODAL (LIGHT GRAY THEME)
           ══════════════════════════════════════════════════════ */}
       {showPasscodeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#181E27] border border-white/15 p-6 sm:p-8 max-w-md w-full shadow-2xl relative cad-corner-box">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white border-2 border-border p-6 sm:p-8 max-w-md w-full shadow-2xl relative cad-corner-box">
+            <div className="flex items-center justify-between pb-3 border-b border-border mb-5">
               <div className="flex items-center gap-2">
-                <Lock size={16} className="text-safety-yellow" />
-                <h3 className="text-base font-bold text-white font-sans">
+                <Lock size={16} className="text-steel-blue" />
+                <h3 className="text-base font-bold text-charcoal font-sans">
                   Change Admin Passcode
                 </h3>
               </div>
@@ -297,7 +303,7 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
                   setShowPasscodeModal(false);
                   setPasscodeMsg(null);
                 }}
-                className="text-white/50 hover:text-white cursor-pointer"
+                className="text-slate-400 hover:text-charcoal cursor-pointer"
               >
                 <X size={18} />
               </button>
@@ -307,8 +313,8 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
               <div
                 className={`mb-4 p-3 text-xs font-mono border ${
                   passcodeMsg.error
-                    ? 'bg-red-500/10 border-red-500/30 text-red-300'
-                    : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                    ? 'bg-red-50 border-red-200 text-red-700'
+                    : 'bg-emerald-50 border-emerald-200 text-emerald-800'
                 }`}
               >
                 {passcodeMsg.text}
@@ -317,7 +323,7 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
 
             <form onSubmit={handleChangePasscode} className="space-y-4 font-mono text-xs">
               <div>
-                <label className="block text-[11px] text-[#F3F4F6]/70 uppercase mb-1.5">
+                <label className="block text-[11px] text-slate-600 uppercase mb-1.5 font-semibold">
                   Current Passcode
                 </label>
                 <input
@@ -326,12 +332,12 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
                   onChange={(e) => setCurrentPassInput(e.target.value)}
                   required
                   placeholder="Enter current passcode"
-                  className="w-full bg-[#12161D] border border-white/15 px-3 py-2 text-white focus:outline-none focus:border-safety-yellow"
+                  className="w-full bg-[#F8FAFC] border border-border px-3 py-2 text-charcoal focus:outline-none focus:border-steel-blue focus:bg-white"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#F3F4F6]/70 uppercase mb-1.5">
+                <label className="block text-[11px] text-slate-600 uppercase mb-1.5 font-semibold">
                   New Passcode
                 </label>
                 <input
@@ -340,7 +346,7 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
                   onChange={(e) => setNewPassInput(e.target.value)}
                   required
                   placeholder="Enter new passcode (min 4 chars)"
-                  className="w-full bg-[#12161D] border border-white/15 px-3 py-2 text-white focus:outline-none focus:border-safety-yellow"
+                  className="w-full bg-[#F8FAFC] border border-border px-3 py-2 text-charcoal focus:outline-none focus:border-steel-blue focus:bg-white"
                 />
               </div>
 
@@ -351,13 +357,13 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
                     setShowPasscodeModal(false);
                     setPasscodeMsg(null);
                   }}
-                  className="px-4 py-2 text-white/60 hover:text-white cursor-pointer"
+                  className="px-4 py-2 text-slate-600 hover:text-charcoal cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider btn-tactile cursor-pointer"
+                  className="px-5 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider btn-tactile hover:bg-steel-blue hover:text-white cursor-pointer shadow-sm"
                 >
                   Save Passcode
                 </button>
@@ -368,29 +374,29 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
       )}
 
       {/* ══════════════════════════════════════════════════════
-          RESET CONFIRMATION MODAL
+          RESET CONFIRMATION MODAL (LIGHT GRAY THEME)
           ══════════════════════════════════════════════════════ */}
       {showResetModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#181E27] border border-red-500/30 p-6 sm:p-8 max-w-md w-full shadow-2xl relative cad-corner-box">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white border-2 border-red-200 p-6 sm:p-8 max-w-md w-full shadow-2xl relative cad-corner-box">
             <div className="flex items-start gap-3 mb-4">
-              <div className="p-2 bg-red-500/10 text-red-400 border border-red-500/30 shrink-0">
+              <div className="p-2 bg-red-50 text-red-600 border border-red-200 shrink-0">
                 <AlertTriangle size={20} />
               </div>
               <div>
-                <h3 className="text-base font-bold text-white font-sans">
+                <h3 className="text-base font-bold text-charcoal font-sans">
                   Reset Database to Seed?
                 </h3>
-                <p className="text-xs text-[#F3F4F6]/70 font-mono mt-1 leading-relaxed">
+                <p className="text-xs text-slate-600 font-mono mt-1 leading-relaxed">
                   This will erase custom changes in local storage and restore the original 10 project records.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 flex justify-end gap-2.5 border-t border-white/10 font-mono text-xs">
+            <div className="pt-4 flex justify-end gap-2.5 border-t border-border font-mono text-xs">
               <button
                 onClick={() => setShowResetModal(false)}
-                className="px-4 py-2 text-white/60 hover:text-white cursor-pointer"
+                className="px-4 py-2 text-slate-600 hover:text-charcoal cursor-pointer"
               >
                 Cancel
               </button>
@@ -400,7 +406,7 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
                   setShowResetModal(false);
                   setView('list');
                 }}
-                className="px-5 py-2 bg-red-600 text-white font-bold uppercase tracking-wider hover:bg-red-700 cursor-pointer"
+                className="px-5 py-2 bg-red-600 text-white font-bold uppercase tracking-wider hover:bg-red-700 cursor-pointer shadow-sm"
               >
                 Yes, Restore Seed
               </button>

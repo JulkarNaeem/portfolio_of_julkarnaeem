@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Save, Image as ImageIcon, Check } from 'lucide-react';
 import { useProjectDb } from '../../context/ProjectDbContext';
 import {
-  DbProject,
   PROJECT_STATUSES,
   PROJECT_TYPES,
   DESIGN_STANDARDS,
@@ -147,34 +146,34 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in text-charcoal">
       {/* Header Bar */}
       <div className="flex items-center justify-between">
         <button
           onClick={onCancel}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#F3F4F6]/70 hover:text-safety-yellow transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-600 hover:text-steel-blue transition-colors cursor-pointer font-semibold"
         >
           <ArrowLeft size={14} />
           Back to Projects
         </button>
-        <span className="text-xs font-mono text-[#F3F4F6]/50">
+        <span className="text-xs font-mono text-slate-500">
           {isEditing ? `Editing: ${projectId}` : 'Create New Project Record'}
         </span>
       </div>
 
       {/* Form Card */}
-      <div className="bg-[#181E27] border border-white/10 p-6 sm:p-8 shadow-2xl relative cad-corner-box">
-        <div className="border-b border-white/10 pb-4 mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight font-sans">
+      <div className="bg-white border-2 border-border p-6 sm:p-8 shadow-md relative cad-corner-box">
+        <div className="border-b border-border pb-4 mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-charcoal tracking-tight font-sans">
             {isEditing ? `Edit Project: ${formData.title || projectId}` : 'Add New Project to Database'}
           </h2>
-          <p className="text-xs text-[#F3F4F6]/60 font-mono mt-1">
+          <p className="text-xs text-slate-500 font-mono mt-1">
             Fill in Tekla detailing project metadata, geometry calculations, and deliverables.
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-3.5 bg-red-500/10 border border-red-500/30 text-red-300 text-xs font-mono animate-fade-in">
+          <div className="mb-6 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs font-mono animate-fade-in">
             {error}
           </div>
         )}
@@ -183,8 +182,8 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 1: ID, Project Number, Status */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
-                Project ID <span className="text-safety-yellow">*</span>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+                Project ID <span className="text-amber-600">*</span>
               </label>
               <input
                 type="text"
@@ -193,12 +192,12 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 placeholder="e.g. JN-011"
                 disabled={isEditing}
                 required
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
                 Project Number
               </label>
               <input
@@ -206,18 +205,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.projectNumber}
                 onChange={(e) => setFormData({ ...formData, projectNumber: e.target.value })}
                 placeholder="e.g. PRJ-2025-011"
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
-                Status <span className="text-safety-yellow">*</span>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+                Status <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as ProjectStatus })}
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono focus:outline-none focus:border-safety-yellow cursor-pointer"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {PROJECT_STATUSES.map((st) => (
                   <option key={st} value={st}>
@@ -231,8 +230,8 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 2: Title & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
-                Project Title <span className="text-safety-yellow">*</span>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+                Project Title <span className="text-amber-600">*</span>
               </label>
               <input
                 type="text"
@@ -240,18 +239,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="e.g. 5-Storey Commercial Steel Frame"
                 required
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-sans placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors font-medium"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
-                Project Type <span className="text-safety-yellow">*</span>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+                Project Type <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono focus:outline-none focus:border-safety-yellow cursor-pointer"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {PROJECT_TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -264,7 +263,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
 
           {/* Row 3: Description */}
           <div>
-            <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
+            <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
               Scope &amp; Description
             </label>
             <textarea
@@ -272,14 +271,14 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Detail the fabrication scope, connection types, GA packages, and Tekla BIM LOD standard..."
-              className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-sans placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors leading-relaxed"
+              className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors leading-relaxed"
             />
           </div>
 
           {/* Row 4: Weight, Area m², Area sqft (Two-Way Auto-Converter) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 bg-[#12161D]/60 p-4 border border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 bg-[#F8FAFC] p-4 border border-border">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
                 Weight (Tons)
               </label>
               <input
@@ -289,16 +288,16 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.weight_tons === 0 ? '' : formData.weight_tons}
                 onChange={(e) => setFormData({ ...formData, weight_tons: parseFloat(e.target.value) || 0 })}
                 placeholder="0"
-                className="w-full bg-[#181E27] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
                   Area (m²)
                 </label>
-                <span className="text-[10px] text-safety-yellow font-mono">⇄ Auto</span>
+                <span className="text-[10px] text-steel-blue font-mono font-bold">⇄ Auto</span>
               </div>
               <input
                 type="number"
@@ -307,16 +306,16 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.area_sqm === 0 ? '' : formData.area_sqm}
                 onChange={(e) => handleAreaSqmChange(e.target.value)}
                 placeholder="e.g. 2400"
-                className="w-full bg-[#181E27] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
                   Area (Sq Ft)
                 </label>
-                <span className="text-[10px] text-safety-yellow font-mono">⇄ Auto</span>
+                <span className="text-[10px] text-steel-blue font-mono font-bold">⇄ Auto</span>
               </div>
               <input
                 type="number"
@@ -325,7 +324,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.area_sqft === 0 ? '' : formData.area_sqft}
                 onChange={(e) => handleAreaSqftChange(e.target.value)}
                 placeholder="e.g. 25833"
-                className="w-full bg-[#181E27] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
           </div>
@@ -333,7 +332,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 5: Location & Design Standard */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
                 Project Location
               </label>
               <input
@@ -341,18 +340,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 placeholder="e.g. Dhaka, Bangladesh or Calgary, Canada"
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-sans placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80 mb-2">
-                Design Standard <span className="text-safety-yellow">*</span>
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+                Design Standard <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.designStandard}
                 onChange={(e) => setFormData({ ...formData, designStandard: e.target.value })}
-                className="w-full bg-[#12161D] border border-white/15 px-3.5 py-2.5 text-white text-xs font-mono focus:outline-none focus:border-safety-yellow cursor-pointer"
+                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {DESIGN_STANDARDS.map((s) => (
                   <option key={s} value={s}>
@@ -366,15 +365,15 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 6: Cover Image Picker from Preset Gallery */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#F3F4F6]/80">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
                 Project Cover Image
               </label>
-              <span className="text-[10px] text-[#F3F4F6]/50 font-mono">
+              <span className="text-[10px] text-slate-500 font-mono">
                 Select from Tekla project gallery
               </span>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-[#12161D] border border-white/15">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-[#F8FAFC] border border-border">
               {PRESET_PROJECT_IMAGES.map((imgUrl) => {
                 const isSelected = formData.image === imgUrl;
                 const fileName = imgUrl.split('/').pop()?.replace('.png', '').replace('.jpg', '') || '';
@@ -384,10 +383,10 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                     key={imgUrl}
                     type="button"
                     onClick={() => setFormData({ ...formData, image: imgUrl })}
-                    className={`relative aspect-[4/3] bg-black/40 border-2 overflow-hidden transition-all group cursor-pointer ${
+                    className={`relative aspect-[4/3] bg-white border-2 overflow-hidden transition-all group cursor-pointer shadow-xs ${
                       isSelected
-                        ? 'border-safety-yellow shadow-[0_0_12px_rgba(245,196,0,0.5)] ring-2 ring-safety-yellow/30'
-                        : 'border-white/10 hover:border-white/40'
+                        ? 'border-steel-blue shadow-md ring-2 ring-steel-blue/30'
+                        : 'border-border hover:border-slate-400'
                     }`}
                     title={fileName}
                   >
@@ -397,11 +396,11 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                     {isSelected && (
-                      <div className="absolute top-1 right-1 bg-safety-yellow text-charcoal p-0.5 rounded-xs shadow">
+                      <div className="absolute top-1 right-1 bg-steel-blue text-white p-0.5 rounded-xs shadow">
                         <Check size={12} strokeWidth={3} />
                       </div>
                     )}
-                    <span className="absolute bottom-0 inset-x-0 bg-black/75 text-white text-[8px] font-mono px-1 py-0.5 truncate text-left">
+                    <span className="absolute bottom-0 inset-x-0 bg-charcoal/80 text-white text-[8px] font-mono px-1 py-0.5 truncate text-left">
                       {fileName}
                     </span>
                   </button>
@@ -411,29 +410,29 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
 
             {/* Custom URL Input */}
             <div className="flex items-center gap-2 pt-1">
-              <ImageIcon size={14} className="text-[#F3F4F6]/40 shrink-0" />
+              <ImageIcon size={14} className="text-slate-400 shrink-0" />
               <input
                 type="text"
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                 placeholder="Or enter custom image path (e.g. /images/Project Photos/...)"
-                className="w-full bg-[#12161D] border border-white/15 px-3 py-1.5 text-white text-[11px] font-mono placeholder:text-white/30 focus:outline-none focus:border-safety-yellow transition-colors"
+                className="w-full bg-[#F8FAFC] border border-border px-3 py-1.5 text-charcoal text-[11px] font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
           </div>
 
           {/* Form Actions */}
-          <div className="pt-6 border-t border-white/10 flex items-center justify-end gap-3">
+          <div className="pt-6 border-t border-border flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onCancel}
-              className="px-5 py-2.5 text-xs font-mono uppercase tracking-wider text-[#F3F4F6]/70 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+              className="px-5 py-2.5 text-xs font-mono uppercase tracking-wider text-slate-600 hover:text-charcoal hover:bg-slate-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-safety-yellow text-charcoal text-xs uppercase tracking-[0.16em] font-bold btn-tactile hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-safety-yellow text-charcoal text-xs uppercase tracking-[0.16em] font-bold btn-tactile hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-sm"
             >
               <Save size={15} />
               {isEditing ? 'Update Project' : 'Save Project'}
