@@ -457,7 +457,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                     {/* Deliverables Tags */}
                     {project.deliverables && project.deliverables.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60">
-                        {project.deliverables.slice(0, 3).map((deliv, dIdx) => (
+                        {project.deliverables.slice(0, 3).map((deliv) => (
                           <span
                             key={deliv}
                             className="text-[10px] uppercase tracking-wider text-charcoal/80 bg-surface px-2 py-0.5 border border-border font-medium"

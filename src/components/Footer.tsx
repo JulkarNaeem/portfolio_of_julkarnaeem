@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { LinkedInIcon, UpworkIcon, YouTubeIcon, InstagramIcon, WhatsAppIcon } from './SocialIcons';
 import { portfolioData } from '../data/portfolioData';
 import PrivacyModal from './PrivacyModal';
-import { ShieldCheck, Globe } from 'lucide-react';
+import { ShieldCheck, Globe, Lock } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (page: string) => void;

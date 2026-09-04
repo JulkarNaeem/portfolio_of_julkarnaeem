@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle2, Phone, Clock } from 'lucide-react';
+import { Mail, MapPin, CheckCircle2 } from 'lucide-react';
 import { LinkedInIcon, UpworkIcon, YouTubeIcon, InstagramIcon, WhatsAppIcon } from '../components/SocialIcons';
 import { portfolioData } from '../data/portfolioData';
 
