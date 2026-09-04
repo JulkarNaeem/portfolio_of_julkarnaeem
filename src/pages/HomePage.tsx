@@ -68,173 +68,178 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       {/* ══════════════════════════════════════════════════════
-          1. HERO SECTION
+          1. HERO SECTION (FULL-WIDTH STACKED PANORAMIC LAYOUT)
           ══════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[90vh] flex items-center bg-white overflow-hidden cad-grid-light pt-28 sm:pt-32 lg:pt-36 pb-14 lg:pb-20">
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-steel-blue/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative bg-white overflow-hidden cad-grid-light pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-steel-blue/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Top Text & CTA Block (Centered & High-Impact) */}
+          <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             
-            {/* Left Column: Headline, Bio & Action Buttons */}
-            <div className="order-2 lg:order-1 animate-fade-in-up">
-              
-              {/* Location badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-surface border border-border rounded-full mb-5 shadow-xs">
-                <MapPin size={13} className="text-steel-blue flex-shrink-0" />
-                <span className="text-[11px] uppercase tracking-[0.2em] text-charcoal/80 font-medium font-mono">
-                  Dhaka, Bangladesh · Remote Worldwide
-                </span>
-                <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-ping ml-1" />
-              </div>
-
-              {/* Subtitle Badge */}
-              <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[2px] bg-safety-yellow" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">
-                  {content.hero.badge}
-                </span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-3xl sm:text-4xl lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold text-charcoal leading-[1.12] tracking-tight mb-6">
-                {content.hero.headlineLine1}
-                <br />
-                <span className="text-steel-blue font-extrabold">
-                  {content.hero.headlineLine2}
-                </span>
-                <br />
-                <span className="text-charcoal bg-gradient-to-r from-charcoal via-charcoal to-steel-blue/90 bg-clip-text">
-                  {content.hero.headlineLine3}
-                </span>
-              </h1>
-
-              {/* Subtitle paragraph */}
-              <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed max-w-lg mb-8">
-                {content.hero.subtitle}
-              </p>
-
-              {/* CTA Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3.5 flex-wrap">
-                <button
-                  onClick={() => handleNav('projects')}
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
-                >
-                  View Steel Projects
-                  <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
-                </button>
-
-                <button
-                  onClick={() => setIsVideoOpen(true)}
-                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-steel-blue text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:bg-charcoal transition-all duration-300 cursor-pointer"
-                >
-                  <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-safety-yellow group-hover:scale-110 transition-all">
-                    <Play size={10} className="fill-white text-white group-hover:fill-charcoal group-hover:text-charcoal ml-0.5" />
-                  </span>
-                  Watch Video Intro
-                </button>
-              </div>
-
-              {/* Certifications & Toolkit strip */}
-              <div className="mt-8 pt-5 border-t border-border/70 flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Certified:</span>
-                  <span className="px-2.5 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-wider font-bold shadow-xs">
-                    Trimble Tekla 2025
-                  </span>
-                  <span className="px-2.5 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-wider font-bold shadow-xs">
-                    AISC Detailer Series
-                  </span>
-                </div>
-                
-                <div className="h-4 w-[1px] bg-border hidden sm:block" />
-
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Tools:</span>
-                  <div className="w-7 h-7 bg-white border border-border p-1 flex items-center justify-center shadow-xs rounded-xs" title="Tekla Structures 2025">
-                    <img src="/images/icons/tekla.jpg" alt="Tekla" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="w-7 h-7 bg-white border border-border p-1 flex items-center justify-center shadow-xs rounded-xs" title="AutoCAD 2D">
-                    <img src="/images/icons/autocad.jpg" alt="AutoCAD" className="w-full h-full object-contain" />
-                  </div>
-                </div>
-              </div>
-
+            {/* Location badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-surface border border-border rounded-full mb-6 shadow-xs">
+              <MapPin size={13} className="text-steel-blue flex-shrink-0" />
+              <span className="text-[11px] uppercase tracking-[0.2em] text-charcoal/80 font-medium font-mono">
+                Dhaka, Bangladesh · Remote Worldwide (UTC +6)
+              </span>
+              <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-ping ml-1" />
             </div>
 
-            {/* Right Column: Hero Image Carousel with CAD Technical Frame */}
-            <div className="order-1 lg:order-2">
-              <div className="relative group">
-                <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
-                <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-xs z-30 pointer-events-none select-none font-bold">+</div>
+            {/* Subtitle Badge */}
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-[2px] bg-safety-yellow" />
+              <span className="text-[11px] uppercase tracking-[0.25em] text-steel-blue font-bold">
+                {content.hero.badge}
+              </span>
+              <span className="w-8 h-[2px] bg-safety-yellow" />
+            </div>
 
-                <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            {/* Main Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.6rem] font-extrabold text-charcoal leading-[1.12] tracking-tight mb-6">
+              {content.hero.headlineLine1}{' '}
+              <span className="text-steel-blue font-extrabold">
+                {content.hero.headlineLine2}
+              </span>{' '}
+              <span className="text-charcoal bg-gradient-to-r from-charcoal via-charcoal to-steel-blue/90 bg-clip-text">
+                {content.hero.headlineLine3}
+              </span>
+            </h1>
 
-                <div className="relative z-10 bg-white border border-border shadow-2xl overflow-hidden aspect-[4/3] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_20px_50px_rgba(22,78,128,0.15)] group-hover:border-steel-blue/50">
-                  <img
-                    src={heroImages[currentHeroIndex]}
-                    alt="Tekla 3D Steel Structure Model by Julkar Naeem"
-                    loading="eager"
-                    decoding="async"
-                    className={`w-full h-full object-contain p-3 transition-all duration-300 ${
-                      isFading ? 'opacity-0 scale-98' : 'opacity-100 scale-100'
-                    }`}
-                  />
+            {/* Subtitle paragraph */}
+            <p className="text-base sm:text-lg text-charcoal/80 leading-relaxed max-w-2xl mx-auto mb-8">
+              {content.hero.subtitle}
+            </p>
 
-                  {/* Navigation Arrows */}
-                  <button 
-                    onClick={handlePrevHero} 
-                    aria-label="Previous structure photo"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button 
-                    onClick={handleNextHero} 
-                    aria-label="Next structure photo"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-xl z-30 cursor-pointer"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
+            {/* CTA Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center flex-wrap mb-8">
+              <button
+                onClick={() => handleNav('projects')}
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-lg hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
+              >
+                View Steel Projects
+                <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform duration-300" />
+              </button>
 
-                  {/* Technical Badge Overlay */}
-                  <div className="absolute bottom-4 left-4 z-20 bg-charcoal/95 backdrop-blur-md px-4 py-2 border-l-3 border-safety-yellow text-white shadow-xl">
-                    <p className="text-[9px] uppercase tracking-[0.25em] text-safety-yellow font-mono font-bold">
-                      {content.hero.softwareBadgeTitle || 'Tekla Structures 2025'}
-                    </p>
-                    <p className="text-xs font-semibold text-white tracking-wide">
-                      {content.hero.softwareBadgeSub || 'Fabrication-Ready BIM'}
-                    </p>
-                  </div>
+              <button
+                onClick={() => setIsVideoOpen(true)}
+                className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-steel-blue text-white text-[12px] uppercase tracking-[0.16em] font-semibold btn-tactile shadow-md hover:bg-charcoal transition-all duration-300 cursor-pointer"
+              >
+                <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-safety-yellow group-hover:scale-110 transition-all">
+                  <Play size={10} className="fill-white text-white group-hover:fill-charcoal group-hover:text-charcoal ml-0.5" />
+                </span>
+                Watch Video Intro
+              </button>
+            </div>
 
-                  {/* Slide Counter */}
-                  <div className="absolute top-4 right-4 z-20 bg-charcoal/95 text-white text-[10px] uppercase font-mono px-3 py-1 font-bold border border-white/10 flex items-center gap-2">
-                    <span className="text-safety-yellow">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
-                    <span className="text-white/40">/</span>
-                    <span>{String(heroImages.length).padStart(2, '0')}</span>
-                  </div>
+            {/* Certifications & Toolkit strip */}
+            <div className="pt-6 border-t border-border/70 flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap justify-center">
+                <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Certified:</span>
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-wider font-bold shadow-xs">
+                  Trimble Tekla 2025
+                </span>
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-wider font-bold shadow-xs">
+                  AISC Detailer Series
+                </span>
+              </div>
+              
+              <div className="h-4 w-[1px] bg-border hidden sm:block" />
 
-                  {/* Dots */}
-                  <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-charcoal/80 px-2 py-1.5 backdrop-blur-xs">
-                    {heroImages.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => changeHeroImage(idx)}
-                        aria-label={`Jump to image ${idx + 1}`}
-                        className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                          currentHeroIndex === idx ? 'w-5 bg-safety-yellow' : 'w-1.5 bg-white/40 hover:bg-white'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Toolkit:</span>
+                <div className="w-7 h-7 bg-white border border-border p-1 flex items-center justify-center shadow-xs rounded-xs" title="Tekla Structures 2025">
+                  <img src="/images/icons/tekla.jpg" alt="Tekla" className="w-full h-full object-contain" />
+                </div>
+                <div className="w-7 h-7 bg-white border border-border p-1 flex items-center justify-center shadow-xs rounded-xs" title="AutoCAD 2D">
+                  <img src="/images/icons/autocad.jpg" alt="AutoCAD" className="w-full h-full object-contain" />
                 </div>
               </div>
             </div>
 
           </div>
+
+          {/* ══════════════════════════════════════════════════════
+              FULL-WIDTH PANORAMIC TEKLA 3D MODEL & DRAWING SHOWCASE
+              ══════════════════════════════════════════════════════ */}
+          <div className="mt-12 sm:mt-16 w-full animate-fade-in-up">
+            <div className="relative group">
+              
+              {/* CAD Crosses on corners */}
+              <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+              <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
+
+              {/* Offset Blueprint Frame */}
+              <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+
+              {/* Main Widescreen Panoramic Image Container */}
+              <div className="relative z-10 bg-[#f8fafc] border-2 border-border shadow-2xl overflow-hidden h-[340px] sm:h-[460px] lg:h-[560px] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_25px_60px_rgba(22,78,128,0.18)] group-hover:border-steel-blue/60">
+                
+                {/* Active Panoramic Image */}
+                <img
+                  src={heroImages[currentHeroIndex]}
+                  alt="Tekla 3D Steel Structure Model by Julkar Naeem"
+                  loading="eager"
+                  decoding="async"
+                  className={`w-full h-full object-contain p-4 sm:p-6 transition-all duration-500 ${
+                    isFading ? 'opacity-0 scale-98' : 'opacity-100 scale-100'
+                  }`}
+                />
+
+                {/* Left & Right Large Navigation Arrows */}
+                <button 
+                  onClick={handlePrevHero} 
+                  aria-label="Previous structure photo"
+                  className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={handleNextHero} 
+                  aria-label="Next structure photo"
+                  className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-charcoal/90 text-white rounded-full flex items-center justify-center opacity-75 group-hover:opacity-100 hover:bg-safety-yellow hover:text-charcoal transition-all duration-200 shadow-2xl z-30 cursor-pointer"
+                >
+                  <ChevronRight size={24} />
+                </button>
+
+                {/* Technical Software Badge Overlay */}
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20 bg-charcoal/95 backdrop-blur-md px-4 sm:px-5 py-2.5 sm:py-3 border-l-4 border-safety-yellow text-white shadow-2xl">
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-safety-yellow font-mono font-bold">
+                    {content.hero.softwareBadgeTitle || 'Tekla Structures 2025'}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
+                    {content.hero.softwareBadgeSub || 'Fabrication-Ready BIM'}
+                  </p>
+                </div>
+
+                {/* Slide Counter */}
+                <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20 bg-charcoal/95 text-white text-[11px] uppercase font-mono px-3.5 py-1.5 font-bold border border-white/15 flex items-center gap-2 shadow-xl">
+                  <span className="text-safety-yellow">{String(currentHeroIndex + 1).padStart(2, '0')}</span>
+                  <span className="text-white/40">/</span>
+                  <span>{String(heroImages.length).padStart(2, '0')}</span>
+                </div>
+
+                {/* Thumbnail Dots */}
+                <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 flex items-center gap-2 bg-charcoal/85 px-3 py-2 backdrop-blur-sm border border-white/10">
+                  {heroImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => changeHeroImage(idx)}
+                      aria-label={`Jump to image ${idx + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        currentHeroIndex === idx ? 'w-6 bg-safety-yellow' : 'w-2 bg-white/40 hover:bg-white'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
