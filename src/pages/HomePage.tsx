@@ -22,10 +22,12 @@ import {
   ShieldCheck,
   CheckCircle2,
   DollarSign,
+  Briefcase,
+  Mail,
 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/SocialIcons';
 import ProjectModal, { ProjectItem } from '../components/ProjectModal';
-import { useCms } from '../context/CmsContext';
+import { portfolioData } from '../data/portfolioData';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -34,7 +36,7 @@ interface HomePageProps {
 const WA_LINK = 'https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project.';
 
 export default function HomePage({ onNavigate }: HomePageProps) {
-  const { content } = useCms();
+  const content = portfolioData;
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
@@ -143,11 +145,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               {/* Certifications mini badges */}
               <div className="mt-8 flex items-center gap-3 flex-wrap">
                 <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Certified:</span>
-                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
-                  Tekla Steel Fundamentals
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform" title="Trimble Solutions, May 2025, Credential ID 144852093">
+                  Tekla Structures Steel Fundamentals
                 </span>
-                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform">
-                  AISC DTS
+                <span className="px-3 py-1 border border-steel-blue/30 bg-surface text-steel-blue text-[9px] uppercase tracking-widest font-bold shadow-xs hover:scale-105 transition-transform" title="AISC, March 2025">
+                  AISC Detailer Training Series
                 </span>
               </div>
 
@@ -155,17 +157,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <div className="mt-5 pt-4 border-t border-border/70 flex items-center gap-3 flex-wrap">
                 <span className="text-[10px] uppercase tracking-wider text-charcoal/70 font-mono">Toolkit:</span>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Tekla Structures 2025">
-                    <img src="/images/icons/tekla.jpg" alt="Tekla Structures" className="w-full h-full object-contain" />
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Tekla Structures 2025 (Primary BIM)">
+                    <img src="/images/icons/tekla.jpg" alt="Tekla Structures 2025" className="w-full h-full object-contain" />
                   </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk AutoCAD">
+                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk AutoCAD (2D Drafting)">
                     <img src="/images/icons/autocad.jpg" alt="AutoCAD" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Autodesk Revit">
-                    <img src="/images/icons/ravit.png" alt="Revit" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="w-8 h-8 bg-white border border-border p-1 flex items-center justify-center shadow-xs hover:border-steel-blue hover:scale-110 transition-all rounded-xs cursor-pointer" title="Bentley STAAD.Pro">
-                    <img src="/images/icons/staad-pro.jpg" alt="STAAD.Pro" className="w-full h-full object-contain" />
                   </div>
                 </div>
               </div>
@@ -268,7 +264,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             {[
               { value: '150+', label: 'Projects Delivered', desc: 'BIM & Shop Drawings' },
               { value: '9+',   label: 'Years Experience',   desc: 'Tekla Detailing' },
-              { value: '4+',   label: 'Countries Served',   desc: 'Worldwide Clients' },
+              { value: 'Global', label: 'Clients Worldwide', desc: 'Working Remotely' },
               { value: '2025', label: 'Tekla Version',      desc: 'Latest Standards' },
             ].map((item, i) => (
               <div key={i} className="text-center group transition-transform duration-300 hover:scale-105">
@@ -277,6 +273,136 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 </p>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-white font-semibold">{item.label}</p>
                 <p className="text-[10px] text-[#F3F4F6]/70 font-mono mt-0.5">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ABOUT & DETAILING PRACTICE (B1 & B2) ─── */}
+      <section className="bg-white py-20 lg:py-28 border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            
+            {/* Left: Direct Professional Voice (B1) */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface border border-border text-steel-blue text-[10px] uppercase font-mono font-bold tracking-widest shadow-xs">
+                About My Practice
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-charcoal tracking-tight leading-tight">
+                I detail steel so the shop can build it without questions.
+              </h2>
+              <div className="space-y-4 text-base text-charcoal/85 leading-relaxed font-sans">
+                <p>
+                  I'm a Steel Structure Detailer with 9+ years in steel and construction and 150+ projects delivered. I work in Tekla Structures 2025, turning structural drawings into a coordinated 3D model, practical connections, and shop drawings a fabricator can cut, weld, and bolt.
+                </p>
+                <p>
+                  I work on PEB and portal-framed buildings, industrial steel structures, multi-storey buildings, platforms, walkways, stairs, and handrails — detailed to AISC and CISC practice.
+                </p>
+              </div>
+
+              {/* Standards & Compliance Block (B2) */}
+              <div className="p-5 bg-surface border-l-4 border-safety-yellow border-t border-r border-b border-border">
+                <p className="text-xs uppercase font-mono tracking-wider font-bold text-steel-blue mb-1">
+                  Standards &amp; Compliance
+                </p>
+                <p className="text-sm font-semibold text-charcoal">
+                  I detail to AISC and CISC practice, following your engineer's design and the project specification.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Quality Checks & RFI Policy (B1) */}
+            <div className="lg:col-span-5 bg-charcoal text-white p-7 lg:p-8 cad-corner-box shadow-xl border border-white/10">
+              <span className="text-[10px] uppercase font-mono tracking-[0.2em] text-safety-yellow font-bold block mb-3">
+                Quality &amp; Fabrication Readiness
+              </span>
+              <h3 className="text-lg font-bold text-white mb-4">
+                How I check my work before it leaves my desk:
+              </h3>
+              <ul className="space-y-3 mb-6">
+                {[
+                  'Can it be fabricated?',
+                  'Can it be welded?',
+                  'Is there tool clearance?',
+                  'Are there clashes?',
+                  'Can the member be erected?',
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-3 text-sm text-[#F3F4F6]">
+                    <CheckCircle2 size={16} className="text-safety-yellow flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-4 border-t border-white/10 text-xs text-[#F3F4F6]/80 leading-relaxed font-mono">
+                If information is missing or conflicting, I raise an RFI. I do not guess, and I do not make structural assumptions outside my responsibility.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ─── PROFESSIONAL HISTORY BAND (B3) ─── */}
+      <section className="bg-surface py-14 border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-2">
+              <Briefcase size={18} className="text-steel-blue flex-shrink-0" />
+              <h3 className="text-base font-extrabold text-charcoal font-mono uppercase tracking-wider">
+                Professional Experience
+              </h3>
+            </div>
+            <p className="text-xs font-mono font-bold text-steel-blue bg-white px-3 py-1.5 border border-border inline-block shadow-xs">
+              9+ years in steel and construction · 150+ projects delivered
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                role: 'Sr. Detailing Engineer',
+                company: 'SES Steel Structure Ltd, Dhaka',
+                period: 'Feb 2025 – Present',
+                current: true,
+              },
+              {
+                role: 'Detailing Engineer',
+                company: 'SES Steel Structure Ltd',
+                period: 'Feb 2023 – Feb 2025',
+                current: false,
+              },
+              {
+                role: 'Detailing Engineer',
+                company: 'NDE Steel Structures Ltd',
+                period: 'Feb 2022 – Feb 2023',
+                current: false,
+              },
+              {
+                role: 'Quality Assurance Engineer',
+                company: 'Confidence Steel Ltd',
+                period: 'Nov 2017 – Nov 2019',
+                current: false,
+              },
+            ].map((exp, eIdx) => (
+              <div
+                key={eIdx}
+                className={`p-5 border transition-all ${
+                  exp.current
+                    ? 'bg-white border-steel-blue shadow-md'
+                    : 'bg-white border-border'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[10px] font-mono text-steel-blue font-bold uppercase tracking-wider">
+                    {exp.period}
+                  </span>
+                  {exp.current && (
+                    <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" title="Current Role" />
+                  )}
+                </div>
+                <h4 className="text-sm font-bold text-charcoal leading-tight mb-1">{exp.role}</h4>
+                <p className="text-xs text-charcoal/70 font-mono">{exp.company}</p>
               </div>
             ))}
           </div>
@@ -382,7 +508,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 Featured Steel Projects
               </h2>
               <p className="text-charcoal/80 text-sm sm:text-base mt-2 max-w-xl">
-                Real Tekla Structures BIM models, shop drawings, and erected structural steelwork. Click any project to view the full gallery and drawing details.
+                9 selected projects from 150+ delivered — more available on request. Coordinated Tekla 3D BIM models, fabrication shop drawings, and connection packages.
               </p>
             </div>
             <button
@@ -543,29 +669,29 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             {[
               {
-                tier: 'Starter Scope',
-                badge: 'Quick Turnaround',
-                price: 'Starting from $150',
-                delivery: 'Typical timeline: 2 days',
-                scope: 'Stairs, Small Platforms & Single Parts (Up to 5 Tons)',
-                desc: '1–4 Shop drawings, single-part fitting details, and basic material summary.',
+                tier: 'Starter Tier',
+                badge: 'Quick Scope',
+                price: '$70',
+                delivery: '2 days',
+                scope: 'Stairs, small platforms & single parts (up to 5 tons)',
+                desc: '1–4 shop drawings, single-part fitting details, basic material summary.',
               },
               {
-                tier: 'Standard Scope',
+                tier: 'Standard Tier',
                 badge: 'Most Popular',
-                price: 'Starting from $450',
-                delivery: 'Typical timeline: 4 days',
-                scope: 'PEB Sheds & Industrial Frames (Up to 25 Tons)',
-                desc: 'Complete LOD 400 Tekla model, GA erection plans, assembly shop drawings, NC/DSTV files, and BOM.',
+                price: '$160',
+                delivery: '6 days',
+                scope: 'PEB sheds & industrial frames (up to 25 tons)',
+                desc: 'Complete LOD 400 Tekla model, GA erection plans, assembly shop drawings, NC/DSTV files, BOM.',
                 featured: true,
               },
               {
-                tier: 'Advanced Scope',
+                tier: 'Advanced Tier',
                 badge: 'Full Detailing Suite',
-                price: 'Custom Quote (from $950)',
-                delivery: 'Typical timeline: 7–10 days',
-                scope: 'Multi-Storey, Heavy Plants & Infrastructure (Up to 100+ Tons)',
-                desc: 'End-to-end BIM coordination, full drawing package, clash detection, anchor bolt plans, and bolt schedules.',
+                price: '$290',
+                delivery: '10 days',
+                scope: 'Multi-storey, heavy plants & infrastructure (up to 100+ tons)',
+                desc: 'End-to-end BIM coordination, full drawing package, clash detection, anchor bolt plans, bolt schedules.',
               },
             ].map((pkg, pIdx) => (
               <div
@@ -706,6 +832,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
               {
+                quote: 'Naeem has an excellent understanding of AutoCAD and also possesses strong computer knowledge. He has experience creating 3D models and designs, making detailed drawings, and troubleshooting any issues. He is a great problem solver who can quickly identify issues and provide solutions, and he communicates effectively.',
+                author: 'Nahid Hossain',
+                role: 'Graphic Designer',
+                location: 'Professional Colleague',
+                tag: 'AutoCAD, 3D Models & Problem Solving',
+              },
+              {
                 quote: 'Julkar is an absolute master in Tekla Structures. The drawings for our 85-ton curved industrial shed were delivered ahead of schedule with zero fit-up errors on the shop floor.',
                 author: 'David M.',
                 role: 'Steel Fabricator & Project Contractor',
@@ -718,13 +851,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 role: 'Operations & Engineering Manager',
                 location: 'Birmingham, United Kingdom',
                 tag: 'Multi-Storey Steel Frame (280 Tons)',
-              },
-              {
-                quote: 'Delivered intricate spiral staircase and curved tank platform drawings with extreme accuracy. Fast responses on revisions and clear BOM schedules.',
-                author: 'Mark T.',
-                role: 'Structural Detailing Lead',
-                location: 'Calgary, Canada',
-                tag: 'Curved Stair & Platforms (40 Tons)',
               },
             ].map((review, rIdx) => (
               <div
@@ -810,6 +936,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               Start a Project
               <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform" />
             </button>
+            <a
+              href="mailto:contact@julkarnaeem.com"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-white/10 hover:bg-white/20 text-white text-[12px] uppercase tracking-[0.16em] font-semibold border border-white/20 transition-all duration-300 cursor-pointer"
+            >
+              <Mail size={16} className="text-safety-yellow" />
+              Email Me
+            </a>
             <a
               href={WA_LINK}
               target="_blank"

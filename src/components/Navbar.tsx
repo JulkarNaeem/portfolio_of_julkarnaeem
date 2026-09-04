@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { useCms } from '../context/CmsContext';
+import { portfolioData } from '../data/portfolioData';
 
 interface NavbarProps {
   currentPage: string;
@@ -10,7 +10,7 @@ interface NavbarProps {
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { content } = useCms();
+  const { navSettings } = portfolioData;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -18,22 +18,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navSettings = content.navSettings || {
-    brandInitials: content.profileName?.split(' ').map(n => n[0]).join('') || 'JN',
-    brandName: content.profileName || 'Julkar Naeem',
-    brandRole: content.profileRole || 'Steel Detailer',
-    ctaLabel: 'Inquire Now',
-    ctaPage: 'contact',
-    navLinks: [
-      { label: 'Home', page: 'home', visible: true },
-      { label: 'Projects', page: 'projects', visible: true },
-      { label: 'Services', page: 'services', visible: true },
-      { label: 'About', page: 'about', visible: true },
-      { label: 'Contact', page: 'contact', visible: true },
-    ],
-  };
-
-  const navLinks = navSettings.navLinks.filter(l => l.visible);
+  const navLinks = navSettings.navLinks.filter((l) => l.visible);
 
   const handleNav = (page: string) => {
     onNavigate(page);

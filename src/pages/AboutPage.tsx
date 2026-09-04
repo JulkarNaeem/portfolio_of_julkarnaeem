@@ -1,6 +1,5 @@
-import { ArrowRight, Award, ExternalLink, MapPin, CheckCircle2 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/SocialIcons';
-import { useCms } from '../context/CmsContext';
+import { portfolioData } from '../data/portfolioData';
 
 interface AboutPageProps {
   onNavigate: (page: string) => void;
@@ -9,14 +8,14 @@ interface AboutPageProps {
 const CERTIFICATIONS = [
   {
     title: 'Tekla Structures Steel Fundamentals',
-    provider: 'Tekla (Trimble)',
-    issued: 'May 2025',
+    provider: 'Trimble Solutions',
+    issued: 'May 2025 · Credential ID: 144852093',
     credentialUrl: 'https://credentials.tekla.com/5f3110c9-0e39-4f2e-ae5b-74eb43e03acf#acc.Lp7oBXI4',
-    badge: 'TEKLA',
+    badge: 'TRIMBLE',
     color: '#F5C400',
   },
   {
-    title: 'Detailer Training Series (DTS)',
+    title: 'AISC Detailer Training Series',
     provider: 'AISC (American Institute of Steel Construction)',
     issued: 'March 2025',
     credentialUrl: 'https://dts.aisc.org/courses/dts/',
@@ -40,62 +39,57 @@ const SOFTWARE = [
     badge: 'Advanced',
     img: '/images/icons/autocad.jpg',
   },
-  {
-    name: 'Autodesk Revit',
-    vendor: 'Autodesk',
-    category: 'BIM Model Coordination',
-    badge: 'Coordination',
-    img: '/images/icons/ravit.png',
-  },
-  {
-    name: 'Bentley STAAD.Pro',
-    vendor: 'Bentley',
-    category: 'Structural Analysis',
-    badge: 'Structural',
-    img: '/images/icons/staad-pro.jpg',
-  },
 ];
 
 const EXPERIENCE = [
   {
-    role: 'Sr. Structural Steel Detailer',
-    company: 'SES Steel Structure Ltd.',
-    period: 'Feb 2023 — Present',
+    role: 'Sr. Detailing Engineer',
+    company: 'SES Steel Structure Ltd, Dhaka',
+    period: 'Feb 2025 – Present',
     current: true,
     responsibilities: [
-      'Led and managed the steel detailing process using Tekla Structures and AutoCAD for complex industrial & PEB projects.',
-      'Produced precise 3D models, ensuring millimeter accuracy and full adherence to AISC/NSCP project specifications.',
-      'Generated comprehensive fabrication drawings with detailed dimensions, welding symbols, and material specifications.',
-      'Developed accurate Bills of Materials (BOMs) to streamline material procurement and shop floor production.',
-      'Collaborated with engineers, fabricators, and erection teams for seamless project execution.',
+      'Lead and manage the structural steel detailing workflow using Tekla Structures 2025 for industrial & PEB projects.',
+      'Produce fabrication-ready 3D BIM models with millimeter precision adhering to AISC and CISC standards.',
+      'Deliver complete fabrication shop drawings, GA erection plans, anchor bolt layouts, and automated BOM reports.',
     ],
   },
   {
-    role: 'Structural Steel Detailer',
-    company: 'NDE Steel Structure Ltd.',
-    period: 'Feb 2022 — Feb 2023',
+    role: 'Detailing Engineer',
+    company: 'SES Steel Structure Ltd',
+    period: 'Feb 2023 – Feb 2025',
     current: false,
     responsibilities: [
-      'Created detailed 3D models of steel structures using Tekla Structures and AutoCAD.',
-      'Developed fabrication drawings and BOMs in accordance with project requirements and industry standards.',
-      'Ensured accuracy and quality of detailing outputs for efficient steel structure production.',
+      'Developed 3D models and shop drawings for industrial sheds, platforms, and steel frames.',
+      'Extracted NC and DSTV machine files for CNC cutting, drilling, and plate fabrication.',
+      'Resolved connection clashes and coordinated detailing queries with project engineering teams.',
+    ],
+  },
+  {
+    role: 'Detailing Engineer',
+    company: 'NDE Steel Structures Ltd',
+    period: 'Feb 2022 – Feb 2023',
+    current: false,
+    responsibilities: [
+      'Detailed steel structures using Tekla Structures and AutoCAD in accordance with project specifications.',
+      'Prepared single-part, assembly, and erection drawings with full welding and bolting details.',
+      'Ensured all drawing deliverables matched fabrication and site erection requirements.',
     ],
   },
   {
     role: 'Quality Assurance Engineer',
-    company: 'Confidence Steel Structure Ltd.',
-    period: 'Nov 2017 — Dec 2019',
+    company: 'Confidence Steel Ltd',
+    period: 'Nov 2017 – Nov 2019',
     current: false,
     responsibilities: [
-      'Monitored daily fabrication of steel structures to ensure strict adherence to quality standards.',
-      'Conducted inspections to identify and rectify defects in fabricated steel assemblies and weld joints.',
-      'Verified defect-free structures for dispatch and on-site erection.',
+      'Inspected daily fabrication of structural steel members to enforce quality, dimensional, and weld integrity standards.',
+      'Checked fit-up clearance, bolt holes, and weld preparations before dispatch and erection.',
+      'Coordinated shop floor quality compliance to prevent site fit-up and erection clashes.',
     ],
   },
 ];
 
 export default function AboutPage({ onNavigate }: AboutPageProps) {
-  const { content } = useCms();
+  const content = portfolioData;
 
   return (
     <>
@@ -174,6 +168,16 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                       I am Julkar Naeem, a Steel Structure Detailer based in Dhaka, Bangladesh, with 9+ years of professional experience specializing in Tekla Structures.
                     </p>
                   )}
+                </div>
+
+                {/* Standards & Compliance Block (B2) */}
+                <div className="p-4 bg-surface border-l-4 border-safety-yellow border-t border-r border-b border-border">
+                  <p className="text-xs uppercase font-mono tracking-wider font-bold text-steel-blue mb-1">
+                    Standards &amp; Compliance
+                  </p>
+                  <p className="text-sm font-semibold text-charcoal">
+                    I detail to AISC and CISC practice, following your engineer's design and the project specification.
+                  </p>
                 </div>
               </div>
 
@@ -387,7 +391,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
               <p className="text-[10px] uppercase font-mono text-charcoal/70 tracking-wider">Tekla Experience</p>
             </div>
             <div>
-              <p className="text-2xl font-extrabold text-charcoal font-mono">4+ Countries</p>
+              <p className="text-2xl font-extrabold text-charcoal font-mono">Worldwide</p>
               <p className="text-[10px] uppercase font-mono text-charcoal/70 tracking-wider">Clients Served</p>
             </div>
             <div>

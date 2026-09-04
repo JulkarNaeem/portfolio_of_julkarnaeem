@@ -24,7 +24,7 @@ import {
   Minus,
 } from 'lucide-react';
 import { WhatsAppIcon, UpworkIcon } from '../components/SocialIcons';
-import { useCms } from '../context/CmsContext';
+import { portfolioData } from '../data/portfolioData';
 
 interface ServicesPageProps {
   onNavigate: (page: string) => void;
@@ -61,22 +61,22 @@ const CATALOG_GALLERY = [
   },
 ];
 
-// Tier Definitions with transparent scope & starting pricing
+// Tier Definitions matching Upwork Project Catalog (MTO version)
 const TIERS = [
   {
     id: 'starter',
     name: 'Starter Tier',
     badge: 'Quick Scope',
-    price: 'From $150',
-    scope: 'Single Component / Stair / Small Platform (Up to 5 Tons)',
-    delivery: '2 Days',
+    price: '$70',
+    scope: 'Stairs, small platforms & single parts (up to 5 tons)',
+    delivery: '2 days',
     revisions: '1 Revision',
     description: 'Perfect for small steel accessories, single-member shop drawings, spiral stairs, or connection detail packages.',
     includes: [
+      '1–4 shop drawings',
+      'Single-part fitting details',
+      'Basic material summary',
       'Coordinated 3D Tekla Model (LOD 350)',
-      '1–4 Fabrication Shop Drawing Sheets',
-      'Single Part & Fitting Details',
-      'Basic Material Quantity List',
       '2D DWG & High-Res PDF Deliverables',
     ],
     excludes: [
@@ -89,18 +89,17 @@ const TIERS = [
     id: 'standard',
     name: 'Standard Tier',
     badge: 'Most Popular',
-    price: 'From $450',
-    scope: 'PEB Shed / Medium Industrial Platform (Up to 25 Tons)',
-    delivery: '4 Days',
+    price: '$160',
+    scope: 'PEB sheds & industrial frames (up to 25 tons)',
+    delivery: '6 days',
     revisions: '2 Revisions',
     description: 'Complete detailing package for PEB buildings, warehouses, mezzanines, walkway platforms, and industrial framing.',
     includes: [
-      'Full LOD 400 Coordinated Tekla BIM Model',
-      'General Arrangement (GA) Erection Plans',
-      'Complete Assembly & Part Shop Drawings',
-      'Anchor Bolt Layout & Base Plate Details',
-      'NC / DSTV Files for CNC Fabricators',
-      'Full Material Take-Off (BOM) Report',
+      'Complete LOD 400 Tekla model',
+      'GA erection plans',
+      'Assembly shop drawings',
+      'NC/DSTV files',
+      'BOM',
     ],
     excludes: [
       'Multi-storey Heavy Connection Engineering',
@@ -110,18 +109,18 @@ const TIERS = [
     id: 'advanced',
     name: 'Advanced Tier',
     badge: 'Enterprise Scope',
-    price: 'From $950',
-    scope: 'Multi-Storey / Large Industrial Plant (Up to 100+ Tons)',
-    delivery: '7–10 Days',
+    price: '$290',
+    scope: 'Multi-storey, heavy plants & infrastructure (up to 100+ tons)',
+    delivery: '10 days',
     revisions: '3 Revisions / Priority Support',
     description: 'End-to-end structural detailing for complex multi-storey steel buildings, heavy infrastructure, bridges, or complete factories.',
     includes: [
-      'Complete LOD 400 Tekla BIM Model Suite',
-      'Full GA Erection Plans with Section Cuts',
-      '100% Complete Shop Drawing Package',
-      'Anchor Bolt Layout & Foundation Embed Plans',
+      'End-to-end BIM coordination',
+      'Full drawing package',
+      'Clash detection',
+      'Anchor bolt plans',
+      'Bolt schedules',
       'All CNC Data (NC, DSTV, DXF, IFC Formats)',
-      'Full BOM, Bolt Schedules & Paint Area Reports',
       'Shop Floor & Erection Support for Clarity',
     ],
     excludes: [],
@@ -129,7 +128,7 @@ const TIERS = [
 ];
 
 export default function ServicesPage({ onNavigate }: ServicesPageProps) {
-  const { content } = useCms();
+  const content = portfolioData;
   const [selectedTier, setSelectedTier] = useState<string>('standard');
   const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0);
 
@@ -450,9 +449,9 @@ export default function ServicesPage({ onNavigate }: ServicesPageProps) {
               </thead>
               <tbody className="divide-y divide-border">
                 {[
-                  { feature: 'Starting Price Estimate', starter: 'From $150', standard: 'From $450', advanced: 'From $950 (Custom)' },
+                  { feature: 'Price (Upwork MTO Catalog)', starter: '$70', standard: '$160', advanced: '$290' },
                   { feature: 'Typical Steel Tonnage', starter: 'Up to 5 Tons', standard: 'Up to 25 Tons', advanced: 'Up to 100+ Tons' },
-                  { feature: 'Estimated Delivery Time', starter: '2 Days', standard: '4 Days', advanced: '7–10 Days' },
+                  { feature: 'Estimated Delivery Time', starter: '2 days', standard: '6 days', advanced: '10 days' },
                   { feature: 'Revisions Included', starter: '1 Revision', standard: '2 Revisions', advanced: '3 Revisions / Priority' },
                   { feature: 'Tekla Structures 3D Model', starter: true, standard: true, advanced: true },
                   { feature: 'Fabrication Shop Drawings', starter: '1–4 Sheets', standard: 'Complete Package', advanced: 'Full Drawing Suite' },

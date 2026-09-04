@@ -74,8 +74,7 @@ export interface NavSettings {
 export interface SiteContent {
   profileName: string;
   profileRole: string;
-  adminPasscode?: string;
-  navSettings?: NavSettings;
+  navSettings: NavSettings;
   hero: HeroContent;
   projects: ProjectItem[];
   services: ServiceItem[];

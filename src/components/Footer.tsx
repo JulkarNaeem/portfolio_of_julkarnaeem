@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { LinkedInIcon, UpworkIcon, BehanceIcon, PinterestIcon, WhatsAppIcon } from './SocialIcons';
-import { useCms } from '../context/CmsContext';
+import { LinkedInIcon, UpworkIcon, YouTubeIcon, InstagramIcon, WhatsAppIcon } from './SocialIcons';
+import { portfolioData } from '../data/portfolioData';
 import PrivacyModal from './PrivacyModal';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, Globe } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (page: string) => void;
 }
 
 export default function Footer({ onNavigate }: FooterProps) {
-  const { content } = useCms();
+  const content = portfolioData;
   const [modalTab, setModalTab] = useState<'privacy' | 'terms' | null>(null);
 
   const socialLinks = [
-    { Icon: LinkedInIcon,  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/julkarnaeem/' },
+    { Icon: LinkedInIcon,  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/julkarnaeem' },
+    { Icon: YouTubeIcon,   label: 'YouTube',   href: 'https://www.youtube.com/@julkarnaeem' },
     { Icon: UpworkIcon,    label: 'Upwork',    href: 'https://www.upwork.com/freelancers/julkarnaeem' },
-    { Icon: BehanceIcon,   label: 'Behance',   href: 'https://www.behance.net/julkarnaeem' },
-    { Icon: PinterestIcon, label: 'Pinterest', href: 'https://www.pinterest.com/julkar_naeem' },
+    { Icon: InstagramIcon, label: 'Instagram', href: 'https://www.instagram.com/julkarnaeem.me' },
     { Icon: WhatsAppIcon,  label: 'WhatsApp',  href: 'https://wa.me/8801739411586' },
+    { Icon: Globe,         label: 'Website',   href: 'https://julkarnaeem.com' },
   ];
 
   return (
@@ -86,8 +87,8 @@ export default function Footer({ onNavigate }: FooterProps) {
                 Terms of Service &amp; Scope
               </button>
               <span className="text-white/20">|</span>
-              <a href="mailto:hello@julkarnaeem.com" className="text-[#F3F4F6]/70 hover:text-safety-yellow transition-colors">
-                hello@julkarnaeem.com
+              <a href="mailto:contact@julkarnaeem.com" className="text-[#F3F4F6]/70 hover:text-safety-yellow transition-colors">
+                contact@julkarnaeem.com
               </a>
             </div>
           </div>

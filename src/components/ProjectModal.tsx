@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, ArrowRight, CheckCircle2, Layers, Cpu, Weight, FileCode, Play, Image as ImageIcon } from 'lucide-react';
-import { ProjectItem } from '../types/cms';
+import { ProjectItem } from '../types/portfolio';
 
 export type { ProjectItem };
 

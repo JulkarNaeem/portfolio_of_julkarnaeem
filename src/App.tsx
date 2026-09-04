@@ -10,33 +10,12 @@ import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import AdminPage from './pages/AdminPage';
-import { CmsProvider, useCms } from './context/CmsContext';
+import { portfolioData } from './data/portfolioData';
 
-function MainLayout() {
+export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
-  const { content } = useCms();
-
-  useEffect(() => {
-    const handleUrlChange = () => {
-      if (window.location.hash === '#admin' || window.location.pathname === '/admin') {
-        setCurrentPage('admin');
-      }
-    };
-
-    if (window.location.hash === '#admin' || window.location.pathname === '/admin') {
-      setCurrentPage('admin');
-    }
-
-    window.addEventListener('hashchange', handleUrlChange);
-    window.addEventListener('popstate', handleUrlChange);
-    return () => {
-      window.removeEventListener('hashchange', handleUrlChange);
-      window.removeEventListener('popstate', handleUrlChange);
-    };
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,23 +27,18 @@ function MainLayout() {
 
   useEffect(() => {
     const titles: Record<string, string> = {
-      home: `${content.profileName} — ${content.profileRole} | Tekla BIM & Fabrication Drawings`,
-      projects: `Projects — ${content.profileName} | Tekla BIM Models & Steel Detailing`,
-      services: `Services — ${content.profileName} | Steel Structure Detailing & Shop Drawings`,
-      about: `About — ${content.profileName} | Tekla Structures Specialist`,
-      contact: `Contact — ${content.profileName} | Steel Detailing Inquiries`,
-      admin: `Admin Control Center — ${content.profileName} Portfolio CMS`,
+      home: `${portfolioData.profileName} — ${portfolioData.profileRole} | Tekla BIM & Fabrication Drawings`,
+      projects: `Projects — ${portfolioData.profileName} | Tekla BIM Models & Steel Detailing`,
+      services: `Services — ${portfolioData.profileName} | Steel Structure Detailing & Shop Drawings`,
+      about: `About — ${portfolioData.profileName} | Tekla Structures Specialist`,
+      contact: `Contact — ${portfolioData.profileName} | Steel Detailing Inquiries`,
     };
     document.title = titles[currentPage] || titles.home;
-  }, [currentPage, content.profileName, content.profileRole]);
+  }, [currentPage]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  if (currentPage === 'admin') {
-    return <AdminPage onNavigate={setCurrentPage} />;
-  }
 
   const renderPage = () => {
     switch (currentPage) {
@@ -122,13 +96,5 @@ function MainLayout() {
         defaultTab="privacy"
       />
     </div>
-  );
-}
-
-export default function App() {
-  return (
-    <CmsProvider>
-      <MainLayout />
-    </CmsProvider>
   );
 }

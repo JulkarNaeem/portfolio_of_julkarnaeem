@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Maximize2 } from 'lucide-react';
 import ProjectModal, { ProjectItem } from '../components/ProjectModal';
-import { useCms } from '../context/CmsContext';
+import { portfolioData } from '../data/portfolioData';
 
 const categories = [
   'All',
@@ -18,11 +18,10 @@ interface ProjectsPageProps {
 }
 
 export default function ProjectsPage({ onNavigate }: ProjectsPageProps) {
-  const { content } = useCms();
   const [active, setActive] = useState('All');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
-  const projects = content.projects;
+  const projects = portfolioData.projects;
 
   const filtered = active === 'All'
     ? projects

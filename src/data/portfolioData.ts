@@ -1,12 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { SiteContent, ProjectItem, ServiceItem } from '../types/cms';
+import { SiteContent } from '../types/portfolio';
 
-const STORAGE_KEY = 'julkarnaeem_portfolio_cms_v4';
-
-export const defaultSiteContent: SiteContent = {
+export const portfolioData: SiteContent = {
   profileName: 'Julkar Naeem',
   profileRole: 'Steel Detailer',
-  adminPasscode: 'admin123',
   navSettings: {
     brandInitials: 'JN',
     brandName: 'Julkar Naeem',
@@ -25,7 +21,7 @@ export const defaultSiteContent: SiteContent = {
     badge: 'Steel Structure Detailer',
     headlineLine1: 'Steel Structures,',
     headlineLine2: 'Detailed for',
-    headlineLine3: 'Fabrication',
+    headlineLine3: 'Fabrication.',
     subtitle: 'I create accurate Tekla BIM models and fabrication-ready shop drawings for PEB, industrial steel, platforms, stairs, and structural steel projects.',
     projectsCountText: '150+ Steel Projects Delivered',
     heroImage: '/images/Project Photos/Metrorail Station Structure with stair.png',
@@ -247,7 +243,7 @@ export const defaultSiteContent: SiteContent = {
     statsBim: 'BIM',
     bioParagraphs: [
       "I am Julkar Naeem, a Steel Structure Detailer based in Dhaka, Bangladesh, with 9+ years of professional experience specializing in Tekla Structures. I focus on clean, organized, fabrication-oriented steel models and drawings that help fabricators and contractors execute with clarity.",
-      "With over 150 successfully completed steel structure projects across 4+ countries, I've worked across a wide range of structural typologies — from PEB buildings and industrial sheds to multi-storey steel buildings, platforms, walkways, stairs, handrails, grating, bridges, and complex steel accessories.",
+      "With over 150 successfully completed steel structure projects working remotely with clients worldwide, I've worked across a wide range of structural typologies — from PEB buildings and industrial sheds to multi-storey steel buildings, platforms, walkways, stairs, handrails, grating, bridges, and complex steel accessories.",
       "My core offer is simple: fabrication-ready BIM models combined with clear shop drawings, GA drawings, and connection details. Every model I build is organized for easy fabrication extraction, and every drawing I produce is designed to minimize questions on the shop floor.",
       "I work directly with steel fabricators, contractors, structural engineers, PEB companies, and industrial clients worldwide who need accurate steel detailing they can rely on — delivered remotely with full precision."
     ],
@@ -282,7 +278,7 @@ export const defaultSiteContent: SiteContent = {
     badge: 'Get in Touch',
     title: 'Contact',
     subtitle: "Have a steel project that needs detailing? Let's discuss your requirements and how I can deliver accurate, fabrication-ready deliverables — remotely from Dhaka, Bangladesh.",
-    email: 'hello@julkarnaeem.com',
+    email: 'contact@julkarnaeem.com',
     location: 'Dhaka, Bangladesh',
     remoteNotice: 'Remote delivery worldwide • UTC+6',
     linkedinUrl: 'https://www.linkedin.com/in/julkarnaeem/',
@@ -294,173 +290,4 @@ export const defaultSiteContent: SiteContent = {
       'Timeline expectations',
     ],
   },
-};
-
-interface CmsContextType {
-  content: SiteContent;
-  isAdminOpen: boolean;
-  setIsAdminOpen: (val: boolean) => void;
-  updateContent: (newContent: SiteContent) => void;
-  updateField: (path: string, value: any) => void;
-  addProject: (project: Omit<ProjectItem, 'id'>) => void;
-  updateProject: (id: string, updated: Partial<ProjectItem>) => void;
-  deleteProject: (id: string) => void;
-  addService: (service: Omit<ServiceItem, 'id'>) => void;
-  updateService: (id: string, updated: Partial<ServiceItem>) => void;
-  deleteService: (id: string) => void;
-  resetToDefaults: () => void;
-  exportJson: () => void;
-  importJson: (jsonString: string) => boolean;
-}
-
-const CmsContext = createContext<CmsContextType | undefined>(undefined);
-
-export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [content, setContent] = useState<SiteContent>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : defaultSiteContent;
-    } catch (e) {
-      return defaultSiteContent;
-    }
-  });
-
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-    } catch (e) {
-      console.error('Failed to save CMS state to localStorage', e);
-    }
-  }, [content]);
-
-  const updateContent = (newContent: SiteContent) => {
-    setContent(newContent);
-  };
-
-  const updateField = (path: string, value: any) => {
-    const keys = path.split('.');
-    setContent((prev) => {
-      const copy = JSON.parse(JSON.stringify(prev));
-      let current = copy;
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) current[keys[i]] = {};
-        current = current[keys[i]];
-      }
-      current[keys[keys.length - 1]] = value;
-      return copy;
-    });
-  };
-
-  const addProject = (projectData: Omit<ProjectItem, 'id'>) => {
-    const newProj: ProjectItem = {
-      ...projectData,
-      id: `proj-${Date.now()}`,
-    };
-    setContent((prev) => ({
-      ...prev,
-      projects: [newProj, ...prev.projects],
-    }));
-  };
-
-  const updateProject = (id: string, updated: Partial<ProjectItem>) => {
-    setContent((prev) => ({
-      ...prev,
-      projects: prev.projects.map((p) => (p.id === id ? { ...p, ...updated } : p)),
-    }));
-  };
-
-  const deleteProject = (id: string) => {
-    setContent((prev) => ({
-      ...prev,
-      projects: prev.projects.filter((p) => p.id !== id),
-    }));
-  };
-
-  const addService = (serviceData: Omit<ServiceItem, 'id'>) => {
-    const newSvc: ServiceItem = {
-      ...serviceData,
-      id: `svc-${Date.now()}`,
-    };
-    setContent((prev) => ({
-      ...prev,
-      services: [...prev.services, newSvc],
-    }));
-  };
-
-  const updateService = (id: string, updated: Partial<ServiceItem>) => {
-    setContent((prev) => ({
-      ...prev,
-      services: prev.services.map((s) => (s.id === id ? { ...s, ...updated } : s)),
-    }));
-  };
-
-  const deleteService = (id: string) => {
-    setContent((prev) => ({
-      ...prev,
-      services: prev.services.filter((s) => s.id !== id),
-    }));
-  };
-
-  const resetToDefaults = () => {
-    setContent(defaultSiteContent);
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {}
-  };
-
-  const exportJson = () => {
-    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(content, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `julkar_naeem_portfolio_cms_${Date.now()}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  };
-
-  const importJson = (jsonString: string): boolean => {
-    try {
-      const parsed = JSON.parse(jsonString);
-      if (parsed && parsed.hero && Array.isArray(parsed.projects)) {
-        setContent(parsed);
-        return true;
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  return (
-    <CmsContext.Provider
-      value={{
-        content,
-        isAdminOpen,
-        setIsAdminOpen,
-        updateContent,
-        updateField,
-        addProject,
-        updateProject,
-        deleteProject,
-        addService,
-        updateService,
-        deleteService,
-        resetToDefaults,
-        exportJson,
-        importJson,
-      }}
-    >
-      {children}
-    </CmsContext.Provider>
-  );
-};
-
-export const useCms = () => {
-  const ctx = useContext(CmsContext);
-  if (!ctx) {
-    throw new Error('useCms must be used within a CmsProvider');
-  }
-  return ctx;
 };

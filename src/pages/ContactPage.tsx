@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle2, Phone, Clock } from 'lucide-react';
-import { LinkedInIcon, UpworkIcon, BehanceIcon, PinterestIcon, WhatsAppIcon } from '../components/SocialIcons';
-import { useCms } from '../context/CmsContext';
+import { LinkedInIcon, UpworkIcon, YouTubeIcon, InstagramIcon, WhatsAppIcon } from '../components/SocialIcons';
+import { portfolioData } from '../data/portfolioData';
 
 interface ContactPageProps {
   onNavigate: (page: string) => void;
@@ -11,7 +11,7 @@ const WA_NUMBER = '8801739411586';
 const WA_BASE = `https://wa.me/${WA_NUMBER}`;
 
 export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProps) {
-  const { content } = useCms();
+  const content = portfolioData;
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -35,6 +35,20 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
     setSubmitted(true);
   };
 
+  const handleEmailSubmit = () => {
+    const subject = encodeURIComponent(`Steel Detailing Project Inquiry — ${formData.name || 'Client'}`);
+    const body = encodeURIComponent(
+      `Hi Julkar,\n\nI would like to inquire about steel detailing services.\n\n` +
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Company: ${formData.company || '—'}\n` +
+      `Project Type: ${formData.projectType || '—'}\n\n` +
+      `Scope & Requirements:\n${formData.message}\n`
+    );
+    window.location.href = `mailto:contact@julkarnaeem.com?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+  };
+
   const handleReset = () => {
     setFormData({ name: '', email: '', company: '', projectType: '', message: '' });
     setSubmitted(false);
@@ -45,10 +59,10 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
   };
 
   const socialLinks = [
-    { Icon: LinkedInIcon,  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/julkarnaeem/', color: '#0A66C2' },
+    { Icon: LinkedInIcon,  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/julkarnaeem', color: '#0A66C2' },
+    { Icon: YouTubeIcon,   label: 'YouTube',   href: 'https://www.youtube.com/@julkarnaeem',    color: '#FF0000' },
     { Icon: UpworkIcon,    label: 'Upwork',    href: 'https://www.upwork.com/freelancers/julkarnaeem', color: '#6FDA44' },
-    { Icon: BehanceIcon,   label: 'Behance',   href: 'https://www.behance.net/julkarnaeem', color: '#1769FF' },
-    { Icon: PinterestIcon, label: 'Pinterest', href: 'https://www.pinterest.com/julkar_naeem', color: '#E60023' },
+    { Icon: InstagramIcon, label: 'Instagram', href: 'https://www.instagram.com/julkarnaeem.me', color: '#E4405F' },
   ];
 
   return (
@@ -101,8 +115,8 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-wider text-steel-blue font-mono font-bold">Direct Email</p>
-                      <a href="mailto:hello@julkarnaeem.com" className="text-sm font-bold text-charcoal hover:text-steel-blue transition-colors">
-                        hello@julkarnaeem.com
+                      <a href="mailto:contact@julkarnaeem.com" className="text-sm font-bold text-charcoal hover:text-steel-blue transition-colors">
+                        contact@julkarnaeem.com
                       </a>
                     </div>
                   </div>
@@ -262,13 +276,23 @@ export default function ContactPage({ onNavigate: _onNavigate }: ContactPageProp
                       />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-safety-yellow text-charcoal text-[12px] uppercase tracking-[0.18em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
-                    >
-                      <Send size={15} />
-                      Send Inquiry via WhatsApp
-                    </button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                      <button
+                        type="submit"
+                        className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 bg-safety-yellow text-charcoal text-[11px] uppercase tracking-[0.16em] font-bold btn-tactile shadow-xl hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer"
+                      >
+                        <WhatsAppIcon size={16} />
+                        Send via WhatsApp
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleEmailSubmit}
+                        className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 bg-charcoal text-white text-[11px] uppercase tracking-[0.16em] font-bold btn-tactile-dark shadow-xl hover:bg-steel-blue transition-all duration-300 cursor-pointer"
+                      >
+                        <Mail size={15} className="text-safety-yellow" />
+                        Send via Email
+                      </button>
+                    </div>
                   </form>
                 )}
               </div>
