@@ -41,14 +41,14 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
 
   if (!project) {
     return (
-      <div className="text-center py-20 bg-white border-2 border-border p-8 text-charcoal">
+      <div className="text-center py-20 bg-white border border-slate-200 rounded-2xl p-8 text-charcoal">
         <h2 className="text-xl font-bold text-charcoal mb-3">Project Record Not Found</h2>
         <p className="text-sm text-slate-500 mb-6 font-mono">
           The project ID "{projectId}" does not exist in local storage.
         </p>
         <button
           onClick={onBack}
-          className="px-5 py-2.5 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider btn-tactile cursor-pointer shadow-sm"
+          className="px-5 py-2.5 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider rounded-lg btn-tactile cursor-pointer shadow-xs"
         >
           Return to Dashboard
         </button>
@@ -83,107 +83,107 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
     setRfiAnswerText('');
   };
 
-  const getStatusBadge = (status: ProjectStatus) => {
+  const getStatusIndicator = (status: ProjectStatus) => {
     switch (status) {
       case 'Completed':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-300">
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-emerald-700">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             Completed
           </span>
         );
       case 'In progress':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold bg-amber-50 text-amber-800 border border-amber-300">
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-amber-700">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             In Progress
           </span>
         );
       case 'On hold':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold bg-orange-50 text-orange-800 border border-orange-300">
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-orange-700">
             <span className="w-2 h-2 rounded-full bg-orange-500" />
             On Hold
           </span>
         );
       case 'Quotation':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold bg-sky-50 text-sky-800 border border-sky-300">
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-sky-700">
             <span className="w-2 h-2 rounded-full bg-sky-500" />
             Quotation
           </span>
         );
       case 'Cancelled':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold bg-red-50 text-red-700 border border-red-300">
-            <span className="w-2 h-2 rounded-full bg-red-500" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-rose-700">
+            <span className="w-2 h-2 rounded-full bg-rose-500" />
             Cancelled
           </span>
         );
     }
   };
 
-  const getRfiStatusBadge = (status: RfiStatus) => {
+  const getRfiStatusIndicator = (status: RfiStatus) => {
     switch (status) {
       case 'Open':
         return (
-          <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-300">
-            OPEN
+          <span className="text-[11px] font-mono font-semibold text-amber-600">
+            ● Open
           </span>
         );
       case 'Answered':
         return (
-          <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-sky-50 text-sky-800 border border-sky-300">
-            ANSWERED
+          <span className="text-[11px] font-mono font-semibold text-sky-600">
+            ● Answered
           </span>
         );
       case 'Closed':
         return (
-          <span className="px-2 py-0.5 text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-300">
-            CLOSED
+          <span className="text-[11px] font-mono font-semibold text-emerald-600">
+            ● Closed
           </span>
         );
     }
   };
 
   return (
-    <div className="space-y-8 animate-fade-in max-w-6xl mx-auto text-charcoal">
+    <div className="space-y-6 animate-fade-in max-w-6xl mx-auto text-charcoal">
       {/* ══════════════════════════════════════════════════════
           TOP NAVIGATION & ACTIONS
           ══════════════════════════════════════════════════════ */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-600 hover:text-steel-blue transition-colors cursor-pointer font-semibold"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-500 hover:text-steel-blue transition-colors cursor-pointer font-medium"
         >
           <ArrowLeft size={14} />
           Back to Database
         </button>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={() => onEdit(project.id)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-surface hover:bg-steel-blue hover:text-white text-charcoal text-xs font-mono uppercase tracking-wider border border-border transition-all cursor-pointer shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 text-xs font-mono uppercase tracking-wider border border-slate-200 rounded-lg transition-all cursor-pointer shadow-xs font-medium"
           >
             <Edit size={14} />
             Edit Project
           </button>
 
           {deleteConfirm ? (
-            <div className="flex items-center gap-1.5 bg-red-50 p-1 border border-red-200">
-              <span className="text-[11px] font-mono text-red-700 px-2 font-semibold">Confirm delete?</span>
+            <div className="flex items-center gap-1.5 bg-red-50 p-1 rounded-lg border border-red-200">
+              <span className="text-[11px] font-mono text-red-700 px-2 font-medium">Confirm delete?</span>
               <button
                 onClick={() => {
                   deleteProject(project.id);
                   onBack();
                 }}
-                className="px-2.5 py-1 bg-red-600 text-white text-xs font-mono font-bold hover:bg-red-700 cursor-pointer shadow-xs"
+                className="px-2.5 py-1 bg-red-600 text-white text-xs font-mono font-bold rounded hover:bg-red-700 cursor-pointer shadow-xs"
               >
                 Yes, Delete
               </button>
               <button
                 onClick={() => setDeleteConfirm(false)}
-                className="px-2 py-1 text-slate-600 hover:text-charcoal text-xs font-mono cursor-pointer"
+                className="px-2 py-1 text-slate-500 hover:text-charcoal text-xs font-mono cursor-pointer"
               >
                 Cancel
               </button>
@@ -191,7 +191,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
           ) : (
             <button
               onClick={() => setDeleteConfirm(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-red-700 hover:bg-red-600 hover:text-white text-xs font-mono uppercase tracking-wider border border-red-200 transition-all cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-red-600 hover:bg-red-50 text-xs font-mono uppercase tracking-wider border border-red-200 rounded-lg transition-all cursor-pointer shadow-xs font-medium"
             >
               <Trash2 size={14} />
               Delete
@@ -201,24 +201,24 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          PROJECT HERO / COVER BANNER (LIGHT GRAY THEME)
+          PROJECT HERO / COVER BANNER
           ══════════════════════════════════════════════════════ */}
-      <div className="bg-white border-2 border-border shadow-md relative overflow-hidden cad-corner-box">
+      <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xs relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12">
           {/* Image preview */}
-          <div className="lg:col-span-5 bg-surface relative min-h-[260px] flex items-center justify-center border-b lg:border-b-0 lg:border-r border-border p-4">
+          <div className="lg:col-span-5 bg-slate-50 relative min-h-[260px] flex items-center justify-center border-b lg:border-b-0 lg:border-r border-slate-100 p-4">
             {project.image ? (
               <img
                 src={project.image}
                 alt={project.title}
-                className="max-h-[280px] w-full object-contain"
+                className="max-h-[280px] w-full object-contain rounded-xl"
               />
             ) : (
               <div className="text-center text-slate-400 font-mono text-xs">
                 No Preview Image
               </div>
             )}
-            <div className="absolute top-3 left-3 bg-charcoal text-safety-yellow font-mono text-xs font-bold px-2.5 py-1 shadow-sm">
+            <div className="absolute top-3 left-3 bg-charcoal text-safety-yellow font-mono text-xs font-semibold px-2.5 py-1 rounded-md shadow-xs">
               {project.id}
             </div>
           </div>
@@ -227,10 +227,10 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
           <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold">
+                <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-medium">
                   {project.type}
                 </span>
-                {getStatusBadge(project.status)}
+                {getStatusIndicator(project.status)}
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal tracking-tight font-sans">
@@ -238,7 +238,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
               </h1>
 
               {project.projectNumber && (
-                <span className="inline-block text-xs font-mono text-slate-500 mt-1">
+                <span className="inline-block text-xs font-mono text-slate-400 mt-1">
                   Project No: {project.projectNumber}
                 </span>
               )}
@@ -249,27 +249,27 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
             </div>
 
             {/* Quick stats ribbon */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-border">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-slate-100">
               <div>
-                <span className="text-[10px] font-mono text-slate-500 uppercase block font-semibold">Weight</span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase block font-medium">Weight</span>
                 <span className="text-base font-bold text-charcoal font-mono">
                   {project.weight_tons > 0 ? `${project.weight_tons} t` : '—'}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] font-mono text-slate-500 uppercase block font-semibold">Area</span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase block font-medium">Area</span>
                 <span className="text-base font-bold text-charcoal font-mono">
                   {project.area_sqm > 0 ? `${project.area_sqm} m²` : '—'}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] font-mono text-slate-500 uppercase block font-semibold">Standard</span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase block font-medium">Standard</span>
                 <span className="text-base font-bold text-steel-blue font-mono">
                   {project.designStandard}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] font-mono text-slate-500 uppercase block font-semibold">Location</span>
+                <span className="text-[10px] font-mono text-slate-400 uppercase block font-medium">Location</span>
                 <span className="text-xs font-bold text-charcoal font-mono truncate block" title={project.location}>
                   {project.location}
                 </span>
@@ -280,21 +280,21 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
       </div>
 
       {/* ══════════════════════════════════════════════════════
-          2-COLUMN WORKFLOW: TASKS & RFIs (LIGHT GRAY THEME)
+          2-COLUMN WORKFLOW: TASKS & RFIs
           ══════════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* ──────────────────────────────────────────────────────
             COLUMN A: TASKS CHECKLIST
             ────────────────────────────────────────────────────── */}
-        <div className="bg-white border-2 border-border p-6 shadow-md relative cad-corner-box">
-          <div className="flex items-center justify-between pb-4 mb-5 border-b border-border">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-100">
             <div className="flex items-center gap-2.5">
               <CheckSquare size={18} className="text-steel-blue" />
               <h2 className="text-base font-bold text-charcoal tracking-tight font-sans">
                 Project Deliverable Tasks
               </h2>
             </div>
-            <span className="text-xs font-mono px-2.5 py-0.5 bg-surface border border-border text-slate-700 font-semibold">
+            <span className="text-xs font-mono text-slate-500 font-medium">
               {completedTasks}/{tasks.length} Done
             </span>
           </div>
@@ -306,19 +306,19 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
               value={newTaskText}
               onChange={(e) => setNewTaskText(e.target.value)}
               placeholder="Add detailing milestone or drawing task..."
-              className="flex-1 bg-[#F8FAFC] border border-border px-3.5 py-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
             />
             <button
               type="submit"
               disabled={!newTaskText.trim()}
-              className="px-4 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider btn-tactile disabled:opacity-40 disabled:cursor-not-allowed hover:bg-steel-blue hover:text-white transition-all cursor-pointer shrink-0 shadow-xs"
+              className="px-4 py-2 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-wider rounded-lg btn-tactile disabled:opacity-40 disabled:cursor-not-allowed hover:bg-steel-blue hover:text-white transition-all cursor-pointer shrink-0 shadow-xs"
             >
               <Plus size={15} />
             </button>
           </form>
 
           {/* Tasks list */}
-          <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+          <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
             {tasks.length === 0 ? (
               <p className="text-xs font-mono text-slate-400 text-center py-8">
                 No tasks logged yet. Add tasks above to track Tekla detailing deliverables.
@@ -327,10 +327,10 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
               tasks.map((task) => (
                 <div
                   key={task.id}
-                  className={`flex items-start justify-between gap-3 p-3 border transition-all ${
+                  className={`flex items-start justify-between gap-3 p-3 rounded-xl border transition-all ${
                     task.done
-                      ? 'bg-emerald-50/50 border-emerald-200 text-slate-400'
-                      : 'bg-[#F8FAFC] border-border text-charcoal hover:border-slate-300'
+                      ? 'bg-slate-50/70 border-slate-100 text-slate-400'
+                      : 'bg-white border-slate-200 text-charcoal hover:border-slate-300'
                   }`}
                 >
                   <button
@@ -342,7 +342,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                       {task.done ? (
                         <CheckCircle2 size={16} className="text-emerald-600" />
                       ) : (
-                        <Circle size={16} className="text-slate-400 group-hover:text-steel-blue" />
+                        <Circle size={16} className="text-slate-300 group-hover:text-steel-blue" />
                       )}
                     </span>
                     <span
@@ -357,7 +357,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                   <button
                     type="button"
                     onClick={() => deleteTask(project.id, task.id)}
-                    className="text-slate-400 hover:text-red-600 p-1 transition-colors cursor-pointer shrink-0"
+                    className="text-slate-300 hover:text-red-600 p-1 transition-colors cursor-pointer shrink-0"
                     title="Delete Task"
                   >
                     <Trash2 size={13} />
@@ -369,17 +369,17 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
         </div>
 
         {/* ──────────────────────────────────────────────────────
-            COLUMN B: RFI (REQUEST FOR INFORMATION) TRACKER
+            COLUMN B: RFI TRACKER
             ────────────────────────────────────────────────────── */}
-        <div className="bg-white border-2 border-border p-6 shadow-md relative cad-corner-box">
-          <div className="flex items-center justify-between pb-4 mb-5 border-b border-border">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs">
+          <div className="flex items-center justify-between pb-4 mb-5 border-b border-slate-100">
             <div className="flex items-center gap-2.5">
               <HelpCircle size={18} className="text-sky-600" />
               <h2 className="text-base font-bold text-charcoal tracking-tight font-sans">
-                RFIs &amp; Engineering Clarifications
+                RFIs &amp; Clarifications
               </h2>
             </div>
-            <span className="text-xs font-mono px-2.5 py-0.5 bg-surface border border-border text-slate-700 font-semibold">
+            <span className="text-xs font-mono text-slate-500 font-medium">
               {rfis.length} Total ({rfis.filter((r) => r.status === 'Open').length} Open)
             </span>
           </div>
@@ -392,12 +392,12 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                 value={newRfiQuestion}
                 onChange={(e) => setNewRfiQuestion(e.target.value)}
                 placeholder="Log engineering query / connection question..."
-                className="flex-1 bg-[#F8FAFC] border border-border px-3.5 py-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+                className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
               <button
                 type="submit"
                 disabled={!newRfiQuestion.trim()}
-                className="px-4 py-2 bg-sky-600 text-white font-bold text-xs uppercase tracking-wider btn-tactile disabled:opacity-40 disabled:cursor-not-allowed hover:bg-steel-blue transition-all cursor-pointer shrink-0 shadow-xs"
+                className="px-4 py-2 bg-sky-600 text-white font-bold text-xs uppercase tracking-wider rounded-lg btn-tactile disabled:opacity-40 disabled:cursor-not-allowed hover:bg-steel-blue transition-all cursor-pointer shrink-0 shadow-xs"
               >
                 Log RFI
               </button>
@@ -405,21 +405,21 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
           </form>
 
           {/* RFI list */}
-          <div className="space-y-3.5 max-h-[380px] overflow-y-auto pr-1">
+          <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1">
             {rfis.length === 0 ? (
               <p className="text-xs font-mono text-slate-400 text-center py-8">
-                No RFIs logged for this project. Use this panel to track structural queries &amp; fabricator approvals.
+                No RFIs logged for this project.
               </p>
             ) : (
               rfis.map((rfi) => (
                 <div
                   key={rfi.id}
-                  className="bg-[#F8FAFC] border border-border p-3.5 space-y-2.5 shadow-xs"
+                  className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2.5"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="space-y-1 flex-1">
                       <div className="flex items-center gap-2">
-                        {getRfiStatusBadge(rfi.status)}
+                        {getRfiStatusIndicator(rfi.status)}
                         <span className="text-[10px] font-mono text-slate-400">
                           {new Date(rfi.createdAt).toLocaleDateString()}
                         </span>
@@ -438,7 +438,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                             status: e.target.value as RfiStatus,
                           })
                         }
-                        className="bg-white border border-border px-2 py-1 text-[10px] font-mono text-charcoal focus:outline-none focus:border-steel-blue cursor-pointer"
+                        className="bg-white border border-slate-200 rounded px-2 py-1 text-[10px] font-mono text-charcoal focus:outline-none focus:border-steel-blue cursor-pointer"
                       >
                         <option value="Open">Open</option>
                         <option value="Answered">Answered</option>
@@ -448,7 +448,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                       <button
                         type="button"
                         onClick={() => deleteRfi(project.id, rfi.id)}
-                        className="text-slate-400 hover:text-red-600 p-1 transition-colors cursor-pointer"
+                        className="text-slate-300 hover:text-red-600 p-1 transition-colors cursor-pointer"
                         title="Delete RFI"
                       >
                         <Trash2 size={13} />
@@ -458,34 +458,34 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
 
                   {/* Answer section */}
                   {answeringRfiId === rfi.id ? (
-                    <div className="pt-2 border-t border-border space-y-2 animate-fade-in">
+                    <div className="pt-2 border-t border-slate-200 space-y-2 animate-fade-in">
                       <textarea
                         rows={2}
                         value={rfiAnswerText}
                         onChange={(e) => setRfiAnswerText(e.target.value)}
                         placeholder="Type response / engineering approval..."
-                        className="w-full bg-white border border-border p-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue"
+                        className="w-full bg-white border border-slate-200 rounded-lg p-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue"
                         autoFocus
                       />
                       <div className="flex justify-end gap-2">
                         <button
                           type="button"
                           onClick={() => setAnsweringRfiId(null)}
-                          className="px-2.5 py-1 text-[10px] font-mono text-slate-600 hover:text-charcoal cursor-pointer"
+                          className="px-2.5 py-1 text-[10px] font-mono text-slate-500 hover:text-charcoal cursor-pointer"
                         >
                           Cancel
                         </button>
                         <button
-                          type="button"
+                          type="submit"
                           onClick={() => handleSaveAnswer(rfi.id)}
-                          className="px-3 py-1 bg-sky-600 text-white font-bold text-[10px] font-mono uppercase tracking-wider cursor-pointer shadow-xs hover:bg-steel-blue"
+                          className="px-3 py-1 bg-sky-600 text-white font-bold text-[10px] font-mono uppercase tracking-wider rounded cursor-pointer shadow-xs hover:bg-steel-blue"
                         >
                           Save Answer
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div className="pt-2 border-t border-border/60 flex items-start justify-between gap-2">
+                    <div className="pt-2 border-t border-slate-200/60 flex items-start justify-between gap-2">
                       <div className="text-xs font-mono text-slate-700 flex-1">
                         {rfi.answer ? (
                           <span className="text-emerald-800">
@@ -501,7 +501,7 @@ export default function DbProjectDetail({ projectId, onBack, onEdit }: DbProject
                           setAnsweringRfiId(rfi.id);
                           setRfiAnswerText(rfi.answer || '');
                         }}
-                        className="text-[10px] font-mono text-steel-blue hover:underline cursor-pointer shrink-0 font-semibold"
+                        className="text-[10px] font-mono text-steel-blue hover:underline cursor-pointer shrink-0 font-medium"
                       >
                         {rfi.answer ? 'Edit Answer' : '+ Provide Answer'}
                       </button>

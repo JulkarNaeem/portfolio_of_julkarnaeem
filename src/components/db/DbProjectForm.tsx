@@ -151,21 +151,21 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
       <div className="flex items-center justify-between">
         <button
           onClick={onCancel}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-600 hover:text-steel-blue transition-colors cursor-pointer font-semibold"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-500 hover:text-steel-blue transition-colors cursor-pointer font-medium"
         >
           <ArrowLeft size={14} />
           Back to Projects
         </button>
-        <span className="text-xs font-mono text-slate-500">
-          {isEditing ? `Editing: ${projectId}` : 'Create New Project Record'}
+        <span className="text-xs font-mono text-slate-400">
+          {isEditing ? `Editing: ${projectId}` : 'Create Project Record'}
         </span>
       </div>
 
       {/* Form Card */}
-      <div className="bg-white border-2 border-border p-6 sm:p-8 shadow-md relative cad-corner-box">
-        <div className="border-b border-border pb-4 mb-6">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-xs">
+        <div className="border-b border-slate-100 pb-4 mb-6">
           <h2 className="text-xl sm:text-2xl font-bold text-charcoal tracking-tight font-sans">
-            {isEditing ? `Edit Project: ${formData.title || projectId}` : 'Add New Project to Database'}
+            {isEditing ? `Edit Project: ${formData.title || projectId}` : 'Add New Project'}
           </h2>
           <p className="text-xs text-slate-500 font-mono mt-1">
             Fill in Tekla detailing project metadata, geometry calculations, and deliverables.
@@ -173,7 +173,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
         </div>
 
         {error && (
-          <div className="mb-6 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs font-mono animate-fade-in">
+          <div className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs font-mono animate-fade-in">
             {error}
           </div>
         )}
@@ -182,7 +182,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 1: ID, Project Number, Status */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Project ID <span className="text-amber-600">*</span>
               </label>
               <input
@@ -192,12 +192,12 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 placeholder="e.g. JN-011"
                 disabled={isEditing}
                 required
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Project Number
               </label>
               <input
@@ -205,18 +205,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.projectNumber}
                 onChange={(e) => setFormData({ ...formData, projectNumber: e.target.value })}
                 placeholder="e.g. PRJ-2025-011"
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Status <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as ProjectStatus })}
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {PROJECT_STATUSES.map((st) => (
                   <option key={st} value={st}>
@@ -230,7 +230,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 2: Title & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Project Title <span className="text-amber-600">*</span>
               </label>
               <input
@@ -239,18 +239,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="e.g. 5-Storey Commercial Steel Frame"
                 required
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors font-medium"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Project Type <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {PROJECT_TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -263,7 +263,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
 
           {/* Row 3: Description */}
           <div>
-            <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+            <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
               Scope &amp; Description
             </label>
             <textarea
@@ -271,14 +271,14 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Detail the fabrication scope, connection types, GA packages, and Tekla BIM LOD standard..."
-              className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors leading-relaxed"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors leading-relaxed"
             />
           </div>
 
           {/* Row 4: Weight, Area m², Area sqft (Two-Way Auto-Converter) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 bg-[#F8FAFC] p-4 border border-border">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 bg-slate-50 p-4 rounded-xl border border-slate-200">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Weight (Tons)
               </label>
               <input
@@ -288,13 +288,13 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.weight_tons === 0 ? '' : formData.weight_tons}
                 onChange={(e) => setFormData({ ...formData, weight_tons: parseFloat(e.target.value) || 0 })}
                 placeholder="0"
-                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
+                <label className="text-xs font-mono uppercase tracking-wider text-slate-700 font-medium">
                   Area (m²)
                 </label>
                 <span className="text-[10px] text-steel-blue font-mono font-bold">⇄ Auto</span>
@@ -306,13 +306,13 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.area_sqm === 0 ? '' : formData.area_sqm}
                 onChange={(e) => handleAreaSqmChange(e.target.value)}
                 placeholder="e.g. 2400"
-                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
+                <label className="text-xs font-mono uppercase tracking-wider text-slate-700 font-medium">
                   Area (Sq Ft)
                 </label>
                 <span className="text-[10px] text-steel-blue font-mono font-bold">⇄ Auto</span>
@@ -324,7 +324,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.area_sqft === 0 ? '' : formData.area_sqft}
                 onChange={(e) => handleAreaSqftChange(e.target.value)}
                 placeholder="e.g. 25833"
-                className="w-full bg-white border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
+                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue transition-colors"
               />
             </div>
           </div>
@@ -332,7 +332,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 5: Location & Design Standard */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Project Location
               </label>
               <input
@@ -340,18 +340,18 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 placeholder="e.g. Dhaka, Bangladesh or Calgary, Canada"
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-sans placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Design Standard <span className="text-amber-600">*</span>
               </label>
               <select
                 value={formData.designStandard}
                 onChange={(e) => setFormData({ ...formData, designStandard: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-border px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3.5 py-2.5 text-charcoal text-xs font-mono focus:outline-none focus:border-steel-blue cursor-pointer"
               >
                 {DESIGN_STANDARDS.map((s) => (
                   <option key={s} value={s}>
@@ -365,15 +365,15 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
           {/* Row 6: Cover Image Picker from Preset Gallery */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-700 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 font-medium">
                 Project Cover Image
               </label>
-              <span className="text-[10px] text-slate-500 font-mono">
+              <span className="text-[11px] text-slate-400 font-mono">
                 Select from Tekla project gallery
               </span>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-[#F8FAFC] border border-border">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 max-h-56 overflow-y-auto p-2 bg-slate-50 rounded-xl border border-slate-200">
               {PRESET_PROJECT_IMAGES.map((imgUrl) => {
                 const isSelected = formData.image === imgUrl;
                 const fileName = imgUrl.split('/').pop()?.replace('.png', '').replace('.jpg', '') || '';
@@ -383,10 +383,10 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                     key={imgUrl}
                     type="button"
                     onClick={() => setFormData({ ...formData, image: imgUrl })}
-                    className={`relative aspect-[4/3] bg-white border-2 overflow-hidden transition-all group cursor-pointer shadow-xs ${
+                    className={`relative aspect-[4/3] bg-white rounded-lg border overflow-hidden transition-all group cursor-pointer shadow-xs ${
                       isSelected
-                        ? 'border-steel-blue shadow-md ring-2 ring-steel-blue/30'
-                        : 'border-border hover:border-slate-400'
+                        ? 'border-steel-blue ring-2 ring-steel-blue/30 shadow-sm'
+                        : 'border-slate-200 hover:border-slate-400'
                     }`}
                     title={fileName}
                   >
@@ -396,7 +396,7 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                     {isSelected && (
-                      <div className="absolute top-1 right-1 bg-steel-blue text-white p-0.5 rounded-xs shadow">
+                      <div className="absolute top-1 right-1 bg-steel-blue text-white p-0.5 rounded-sm shadow">
                         <Check size={12} strokeWidth={3} />
                       </div>
                     )}
@@ -416,23 +416,23 @@ export default function DbProjectForm({ projectId, onCancel, onSaved }: DbProjec
                 value={formData.image}
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                 placeholder="Or enter custom image path (e.g. /images/Project Photos/...)"
-                className="w-full bg-[#F8FAFC] border border-border px-3 py-1.5 text-charcoal text-[11px] font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-charcoal text-xs font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
               />
             </div>
           </div>
 
           {/* Form Actions */}
-          <div className="pt-6 border-t border-border flex items-center justify-end gap-3">
+          <div className="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onCancel}
-              className="px-5 py-2.5 text-xs font-mono uppercase tracking-wider text-slate-600 hover:text-charcoal hover:bg-slate-100 transition-colors cursor-pointer"
+              className="px-5 py-2.5 text-xs font-mono uppercase tracking-wider text-slate-600 hover:text-charcoal hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-safety-yellow text-charcoal text-xs uppercase tracking-[0.16em] font-bold btn-tactile hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-safety-yellow text-charcoal text-xs uppercase tracking-[0.16em] font-bold rounded-lg btn-tactile hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-xs"
             >
               <Save size={15} />
               {isEditing ? 'Update Project' : 'Save Project'}

@@ -81,17 +81,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           <div className="w-full mb-12 sm:mb-16 animate-fade-in-up">
             <div className="relative group">
               
-              {/* CAD Crosses on corners */}
-              <div className="absolute -top-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -top-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -bottom-3 -left-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-              <div className="absolute -bottom-3 -right-3 text-steel-blue font-mono text-sm z-30 pointer-events-none select-none font-bold">+</div>
-
-              {/* Offset Blueprint Frame */}
-              <div className="absolute -top-3 -right-3 w-full h-full border border-steel-blue/30 pointer-events-none transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-
               {/* Main Widescreen Panoramic Image Container */}
-              <div className="relative z-10 bg-[#f8fafc] border-2 border-border shadow-2xl overflow-hidden h-[340px] sm:h-[480px] lg:h-[580px] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-[0_25px_60px_rgba(22,78,128,0.18)] group-hover:border-steel-blue/60">
+              <div className="relative z-10 bg-[#f8fafc] border border-border rounded-2xl shadow-xl overflow-hidden h-[340px] sm:h-[480px] lg:h-[580px] flex items-center justify-center transition-all duration-500 ease-out group-hover:shadow-2xl group-hover:border-steel-blue/40">
                 
                 {/* Active Panoramic Image */}
                 <img

@@ -37,41 +37,34 @@ export default function DbLogin({ onLogin, onBackToSite }: DbLoginProps) {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-charcoal flex items-center justify-center p-6 cad-grid-light relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-steel-blue/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 right-10 w-96 h-96 bg-safety-yellow/10 rounded-full blur-3xl pointer-events-none" />
-
       <div className="relative z-10 w-full max-w-md animate-fade-in-up">
         {/* Back Link */}
         <button
           onClick={onBackToSite}
-          className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-600 hover:text-steel-blue transition-colors cursor-pointer"
+          className="mb-6 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-500 hover:text-steel-blue transition-colors cursor-pointer"
         >
           <ArrowLeft size={14} />
           Return to Public Site
         </button>
 
-        {/* Login Box */}
-        <div className="bg-white border-2 border-border p-8 sm:p-10 shadow-2xl relative cad-corner-box">
+        {/* Clean Modern Login Box */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-xl">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-surface border border-border text-steel-blue mb-4 shadow-sm">
-              <Lock size={26} />
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-slate-50 rounded-2xl border border-slate-200 text-steel-blue mb-4 shadow-xs">
+              <Lock size={24} />
             </div>
-            <span className="block text-[10px] font-mono font-bold tracking-[0.25em] text-steel-blue uppercase">
-              Restricted Area
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal mt-1 tracking-tight font-sans">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-charcoal tracking-tight font-sans">
               Project Database
             </h1>
-            <p className="text-xs text-slate-500 mt-2 font-mono">
-              Internal Tekla BIM &amp; Project Management System
+            <p className="text-xs text-slate-500 mt-1.5 font-mono">
+              Internal Tekla BIM &amp; Project Management
             </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs font-mono flex items-start gap-2.5 animate-fade-in">
+            <div className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs font-mono flex items-start gap-2.5 animate-fade-in">
               <ShieldAlert size={16} className="text-red-500 shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -80,7 +73,7 @@ export default function DbLogin({ onLogin, onBackToSite }: DbLoginProps) {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-semibold">
+              <label className="block text-xs font-mono uppercase tracking-wider text-slate-700 mb-2 font-medium">
                 Admin Passcode
               </label>
               <div className="relative">
@@ -97,7 +90,7 @@ export default function DbLogin({ onLogin, onBackToSite }: DbLoginProps) {
                   placeholder="Enter passcode"
                   autoFocus
                   required
-                  className="w-full bg-[#F8FAFC] border border-border pl-10 pr-11 py-3 text-charcoal text-sm font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-11 py-3 text-charcoal text-sm font-mono placeholder:text-slate-400 focus:outline-none focus:border-steel-blue focus:bg-white transition-colors"
                 />
                 <button
                   type="button"
@@ -113,13 +106,13 @@ export default function DbLogin({ onLogin, onBackToSite }: DbLoginProps) {
             <button
               type="submit"
               disabled={isSubmitting || !passcode}
-              className="w-full py-3.5 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-[0.2em] btn-tactile disabled:opacity-50 disabled:cursor-not-allowed hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-md mt-2"
+              className="w-full py-3.5 bg-safety-yellow text-charcoal font-bold text-xs uppercase tracking-[0.2em] rounded-lg btn-tactile disabled:opacity-50 disabled:cursor-not-allowed hover:bg-steel-blue hover:text-white transition-all duration-300 cursor-pointer shadow-sm mt-2"
             >
               {isSubmitting ? 'Authenticating...' : 'Unlock Dashboard'}
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-border text-center">
+          <div className="mt-8 pt-6 border-t border-slate-100 text-center">
             <span className="text-[11px] text-slate-400 font-mono">
               Protected by Client-Side Passcode Encryption
             </span>

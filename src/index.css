@@ -159,37 +159,9 @@ section {
   background-size: 36px 36px;
 }
 
-/* Technical blueprint corner accents */
+/* Modern Clean Enterprise Cards */
 .cad-corner-box {
   position: relative;
-}
-.cad-corner-box::before,
-.cad-corner-box::after {
-  content: '';
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border-color: rgba(22, 78, 128, 0.5);
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.cad-corner-box::before {
-  top: -2px;
-  left: -2px;
-  border-top: 2px solid;
-  border-left: 2px solid;
-}
-.cad-corner-box::after {
-  bottom: -2px;
-  right: -2px;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
-}
-.cad-corner-box:hover::before,
-.cad-corner-box:hover::after {
-  width: 14px;
-  height: 14px;
-  border-color: var(--color-safety-yellow);
 }
 
 /* Standard Button Classes */
