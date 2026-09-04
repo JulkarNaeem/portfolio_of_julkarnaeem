@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { ArrowUp, Loader2 } from 'lucide-react';
 import { WhatsAppIcon } from './components/SocialIcons';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
 import PrivacyModal from './components/PrivacyModal';
+import ErrorBoundary from './components/ErrorBoundary';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import DatabasePage from './pages/DatabasePage';
-import { ProjectDbProvider } from './context/ProjectDbContext';
 import { portfolioData } from './data/portfolioData';
+
+// Code-split / Lazy Load the private Project Database
+const DatabasePage = lazy(() => import('./pages/DatabasePage'));
 
 const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact', 'database'];
 
@@ -141,7 +143,20 @@ export default function App() {
       case 'contact':
         return <ContactPage onNavigate={navigateToPage} />;
       case 'database':
-        return <DatabasePage onNavigate={navigateToPage} />;
+        return (
+          <Suspense
+            fallback={
+              <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-8 text-charcoal">
+                <Loader2 size={32} className="text-steel-blue animate-spin mb-4" />
+                <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">
+                  Loading Project Database...
+                </p>
+              </div>
+            }
+          >
+            <DatabasePage onNavigate={navigateToPage} />
+          </Suspense>
+        );
       default:
         return <HomePage onNavigate={navigateToPage} />;
     }
@@ -150,15 +165,19 @@ export default function App() {
   const isDatabasePage = currentPage === 'database';
 
   return (
-    <ProjectDbProvider>
-      <div className="min-h-screen bg-[#12161D] text-white relative flex flex-col">
+    <ErrorBoundary>
+      <div className="min-h-screen bg-white text-charcoal relative flex flex-col">
         {/* Public Header Navbar (Hidden on private Database Dashboard) */}
         {!isDatabasePage && (
           <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
         )}
 
-        {/* Page Content */}
-        <main className="flex-1 w-full">{renderPage()}</main>
+        {/* Page Content with Error Boundary */}
+        <main className="flex-1 w-full">
+          <ErrorBoundary>
+            {renderPage()}
+          </ErrorBoundary>
+        </main>
 
         {/* Public Footer (Hidden on private Database Dashboard) */}
         {!isDatabasePage && (
@@ -202,6 +221,7 @@ export default function App() {
           defaultTab="privacy"
         />
       </div>
-    </ProjectDbProvider>
+    </ErrorBoundary>
   );
 }
+

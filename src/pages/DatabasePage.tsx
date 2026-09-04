@@ -11,7 +11,7 @@ import {
   X,
   Lock,
 } from 'lucide-react';
-import { useProjectDb } from '../context/ProjectDbContext';
+import { useProjectDb, ProjectDbProvider } from '../context/ProjectDbContext';
 import DbLogin from '../components/db/DbLogin';
 import DbDashboard from '../components/db/DbDashboard';
 import DbProjectForm from '../components/db/DbProjectForm';
@@ -23,7 +23,7 @@ interface DatabasePageProps {
 
 type DbView = 'list' | 'create' | 'edit' | 'detail';
 
-export default function DatabasePage({ onNavigate }: DatabasePageProps) {
+function DatabaseContent({ onNavigate }: DatabasePageProps) {
   const {
     exportJson,
     importJson,
@@ -412,3 +412,12 @@ export default function DatabasePage({ onNavigate }: DatabasePageProps) {
     </div>
   );
 }
+
+export default function DatabasePage({ onNavigate }: DatabasePageProps) {
+  return (
+    <ProjectDbProvider>
+      <DatabaseContent onNavigate={onNavigate} />
+    </ProjectDbProvider>
+  );
+}
+
