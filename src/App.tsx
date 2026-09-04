@@ -12,10 +12,40 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import { portfolioData } from './data/portfolioData';
 
+const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact'];
+
+const getPageFromHash = (): string => {
+  const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  return VALID_PAGES.includes(hash) ? hash : 'home';
+};
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState<string>(getPageFromHash);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+
+  const navigateToPage = (page: string) => {
+    if (VALID_PAGES.includes(page)) {
+      setCurrentPage(page);
+      if (window.location.hash.replace(/^#\/?/, '').toLowerCase() !== page) {
+        window.location.hash = page;
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const page = getPageFromHash();
+      setCurrentPage(page);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,25 +73,25 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage onNavigate={setCurrentPage} />;
+        return <HomePage onNavigate={navigateToPage} />;
       case 'projects':
-        return <ProjectsPage onNavigate={setCurrentPage} />;
+        return <ProjectsPage onNavigate={navigateToPage} />;
       case 'services':
-        return <ServicesPage onNavigate={setCurrentPage} />;
+        return <ServicesPage onNavigate={navigateToPage} />;
       case 'about':
-        return <AboutPage onNavigate={setCurrentPage} />;
+        return <AboutPage onNavigate={navigateToPage} />;
       case 'contact':
-        return <ContactPage onNavigate={setCurrentPage} />;
+        return <ContactPage onNavigate={navigateToPage} />;
       default:
-        return <HomePage onNavigate={setCurrentPage} />;
+        return <HomePage onNavigate={navigateToPage} />;
     }
   };
 
   return (
     <div className="min-h-screen bg-white text-charcoal relative">
-      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+      <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
       <main>{renderPage()}</main>
-      <Footer onNavigate={setCurrentPage} />
+      <Footer onNavigate={navigateToPage} />
 
       {/* WhatsApp Floating Button — always visible */}
       <a

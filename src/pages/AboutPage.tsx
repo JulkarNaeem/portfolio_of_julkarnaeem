@@ -1,3 +1,4 @@
+import { ArrowRight, Award, ExternalLink, MapPin, CheckCircle2 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/SocialIcons';
 import { portfolioData } from '../data/portfolioData';
 
