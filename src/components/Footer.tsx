@@ -87,6 +87,15 @@ export default function Footer({ onNavigate }: FooterProps) {
                 Terms of Service &amp; Scope
               </button>
               <span className="text-white/20">|</span>
+              <button
+                onClick={() => onNavigate?.('database')}
+                className="text-[#F3F4F6]/70 hover:text-safety-yellow transition-colors underline-offset-4 hover:underline cursor-pointer flex items-center gap-1.5"
+                title="Internal Project Database Dashboard (Admin Access Only)"
+              >
+                <Lock size={12} className="text-safety-yellow/80" />
+                Project Dashboard
+              </button>
+              <span className="text-white/20">|</span>
               <a href="mailto:contact@julkarnaeem.com" className="text-[#F3F4F6]/70 hover:text-safety-yellow transition-colors">
                 contact@julkarnaeem.com
               </a>

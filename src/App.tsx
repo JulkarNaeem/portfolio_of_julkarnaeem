@@ -10,40 +10,52 @@ import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import DatabasePage from './pages/DatabasePage';
+import { ProjectDbProvider } from './context/ProjectDbContext';
 import { portfolioData } from './data/portfolioData';
 
-const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact'];
+const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact', 'database'];
 
-const getPageFromHash = (): string => {
+const getPageFromLocation = (): string => {
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  if (path === 'dashboard' || path === 'database') {
+    return 'database';
+  }
+
   const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  if (hash === 'dashboard' || hash === 'database') {
+    return 'database';
+  }
   return VALID_PAGES.includes(hash) ? hash : 'home';
 };
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<string>(getPageFromHash);
+  const [currentPage, setCurrentPage] = useState<string>(getPageFromLocation);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   const navigateToPage = (page: string) => {
-    if (VALID_PAGES.includes(page)) {
-      setCurrentPage(page);
-      if (window.location.hash.replace(/^#\/?/, '').toLowerCase() !== page) {
-        window.location.hash = page;
+    const targetPage = page === 'dashboard' ? 'database' : page;
+    if (VALID_PAGES.includes(targetPage)) {
+      setCurrentPage(targetPage);
+      const targetHash = targetPage === 'database' ? 'dashboard' : targetPage;
+      if (window.location.hash.replace(/^#\/?/, '').toLowerCase() !== targetHash) {
+        window.location.hash = targetHash;
       }
     }
   };
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const page = getPageFromHash();
+    const handleLocationChange = () => {
+      const page = getPageFromLocation();
       setCurrentPage(page);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('popstate', handleHashChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('popstate', handleHashChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
     };
   }, []);
 
@@ -62,6 +74,7 @@ export default function App() {
       services: `Services — ${portfolioData.profileName} | Steel Structure Detailing & Shop Drawings`,
       about: `About — ${portfolioData.profileName} | Tekla Structures Specialist`,
       contact: `Contact — ${portfolioData.profileName} | Steel Detailing Inquiries`,
+      database: `Project Database | ${portfolioData.profileName}`,
     };
     document.title = titles[currentPage] || titles.home;
   }, [currentPage]);
@@ -82,49 +95,53 @@ export default function App() {
         return <AboutPage onNavigate={navigateToPage} />;
       case 'contact':
         return <ContactPage onNavigate={navigateToPage} />;
+      case 'database':
+        return <DatabasePage onNavigate={navigateToPage} />;
       default:
         return <HomePage onNavigate={navigateToPage} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-charcoal relative">
-      <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
-      <main>{renderPage()}</main>
-      <Footer onNavigate={navigateToPage} />
+    <ProjectDbProvider>
+      <div className="min-h-screen bg-white text-charcoal relative">
+        <Navbar currentPage={currentPage} onNavigate={navigateToPage} />
+        <main>{renderPage()}</main>
+        <Footer onNavigate={navigateToPage} />
 
-      {/* WhatsApp Floating Button — always visible */}
-      <a
-        href="https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20have%20a%20project%20inquiry."
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        title="Chat on WhatsApp"
-        className="fixed bottom-6 left-6 z-40 w-12 h-12 bg-[#25D366] text-white hover:bg-[#1ebe5d] flex items-center justify-center shadow-xl rounded-full transition-all duration-300 hover:scale-110"
-      >
-        <WhatsAppIcon size={22} />
-      </a>
-
-      {/* Scroll to Top Floating Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          aria-label="Scroll back to top"
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 bg-charcoal text-white hover:bg-steel-blue hover:text-white flex items-center justify-center shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+        {/* WhatsApp Floating Button — always visible */}
+        <a
+          href="https://wa.me/8801739411586?text=Hi%20Julkar!%20I%20found%20your%20portfolio%20and%20have%20a%20project%20inquiry."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          title="Chat on WhatsApp"
+          className="fixed bottom-6 left-6 z-40 w-12 h-12 bg-[#25D366] text-white hover:bg-[#1ebe5d] flex items-center justify-center shadow-xl rounded-full transition-all duration-300 hover:scale-110"
         >
-          <ArrowUp size={18} />
-        </button>
-      )}
+          <WhatsAppIcon size={22} />
+        </a>
 
-      {/* Cookie & Privacy Compliance Banner */}
-      <CookieBanner onOpenPrivacy={() => setPrivacyModalOpen(true)} />
+        {/* Scroll to Top Floating Button */}
+        {showScrollTop && (
+          <button
+            onClick={scrollToTop}
+            aria-label="Scroll back to top"
+            className="fixed bottom-6 right-6 z-40 w-11 h-11 bg-charcoal text-white hover:bg-steel-blue hover:text-white flex items-center justify-center shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+          >
+            <ArrowUp size={18} />
+          </button>
+        )}
 
-      {/* Global Privacy & Terms Modal */}
-      <PrivacyModal
-        isOpen={privacyModalOpen}
-        onClose={() => setPrivacyModalOpen(false)}
-        defaultTab="privacy"
-      />
-    </div>
+        {/* Cookie & Privacy Compliance Banner */}
+        <CookieBanner onOpenPrivacy={() => setPrivacyModalOpen(true)} />
+
+        {/* Global Privacy & Terms Modal */}
+        <PrivacyModal
+          isOpen={privacyModalOpen}
+          onClose={() => setPrivacyModalOpen(false)}
+          defaultTab="privacy"
+        />
+      </div>
+    </ProjectDbProvider>
   );
 }

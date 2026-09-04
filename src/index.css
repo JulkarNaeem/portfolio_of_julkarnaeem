@@ -192,9 +192,81 @@ section {
   border-color: var(--color-safety-yellow);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   STANDARDIZED BRAND BUTTON SYSTEM
-───────────────────────────────────────────────────────────── */
+/* Standard Button Classes */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-safety-yellow);
+  color: #12161D;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover {
+  background-color: var(--color-steel-blue);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(22, 78, 128, 0.35);
+}
+.btn-primary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-secondary {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-steel-blue);
+  color: #FFFFFF;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-secondary:hover {
+  background-color: #12161D;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(18, 22, 29, 0.4);
+}
+.btn-secondary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-dark {
+  position: relative;
+  overflow: hidden;
+  background-color: #181E27;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-dark:hover {
+  background-color: var(--color-steel-blue);
+  border-color: var(--color-steel-blue);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(22, 78, 128, 0.4);
+}
+.btn-dark:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  border: 1.5px solid var(--color-steel-blue);
+  color: var(--color-steel-blue);
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-outline:hover {
+  background-color: var(--color-steel-blue);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(22, 78, 128, 0.25);
+}
+.btn-outline:active {
+  transform: translateY(1px) scale(0.98);
+}
 
 .btn-tactile {
   position: relative;
