@@ -17,16 +17,57 @@ import { portfolioData } from './data/portfolioData';
 const VALID_PAGES = ['home', 'projects', 'services', 'about', 'contact', 'database'];
 
 const getPageFromLocation = (): string => {
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
-  if (path === 'dashboard' || path === 'database') {
+  // 1. Check Query Parameters (e.g. ?p=dashboard or ?dashboard)
+  const search = window.location.search.toLowerCase();
+  if (
+    search.includes('dashboard') ||
+    search.includes('database') ||
+    search.includes('admin')
+  ) {
     return 'database';
+  }
+  if (search.includes('projects')) return 'projects';
+  if (search.includes('services')) return 'services';
+  if (search.includes('about')) return 'about';
+  if (search.includes('contact')) return 'contact';
+
+  // 2. Check Pathname (e.g. /dashboard, /database, /admin, /projects)
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  if (
+    path === 'dashboard' ||
+    path === 'database' ||
+    path === 'admin' ||
+    path.endsWith('/dashboard') ||
+    path.endsWith('/database') ||
+    path.endsWith('/admin')
+  ) {
+    return 'database';
+  }
+  for (const p of VALID_PAGES) {
+    if (path === p || path.endsWith(`/${p}`)) {
+      return p;
+    }
   }
 
-  const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-  if (hash === 'dashboard' || hash === 'database') {
+  // 3. Check URL Hash (e.g. #dashboard, #/dashboard, #database, #admin, #projects)
+  const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase().trim();
+  if (
+    hash === 'dashboard' ||
+    hash === 'database' ||
+    hash === 'admin' ||
+    hash.startsWith('dashboard') ||
+    hash.startsWith('database') ||
+    hash.startsWith('admin')
+  ) {
     return 'database';
   }
-  return VALID_PAGES.includes(hash) ? hash : 'home';
+  for (const p of VALID_PAGES) {
+    if (hash === p || hash.startsWith(`${p}/`) || hash.startsWith(`${p}?`)) {
+      return p;
+    }
+  }
+
+  return 'home';
 };
 
 export default function App() {
@@ -35,7 +76,8 @@ export default function App() {
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   const navigateToPage = (page: string) => {
-    const targetPage = page === 'dashboard' ? 'database' : page;
+    const targetPage =
+      page === 'dashboard' || page === 'admin' ? 'database' : page;
     if (VALID_PAGES.includes(targetPage)) {
       setCurrentPage(targetPage);
       const targetHash = targetPage === 'database' ? 'dashboard' : targetPage;
